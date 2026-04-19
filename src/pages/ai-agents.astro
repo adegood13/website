@@ -1,0 +1,62 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import ClientScroller from "../components/ClientScroller.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — AI Agents" description="Explore AskBobAI Agents built for specialized roles—delivering fast, accurate answers tailored to your business needs.">
+  <Hero
+    eyebrow="Your AI Agents That Never Sleep"
+    heading="They're not just assistants."
+    subheading="They're your partners—working across your business, answering questions, analyzing data, and executing workflows in real time. Start with one agent."
+  />
+
+  <!-- Multi-Agent System -->
+  <section class="bg-white py-20 lg:py-28">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center">
+      <h2 class="text-3xl lg:text-5xl font-bold tracking-tight">More Than One AI.<br/><span class="text-brand">A System of Agents Powering Every Team</span></h2>
+      <p class="mt-6 text-ink-muted text-lg max-w-3xl mx-auto leading-relaxed">
+        Each AskBobAI agent is built for a specific role—just like your team. Some specialize in knowledge.
+        Others in data. Others in orchestration. Together, they form a workforce of AI agents that plug into
+        every part of the business.
+      </p>
+      <div class="mt-14">
+        <ClientScroller />
+      </div>
+    </div>
+  </section>
+
+  <!-- Workforce illustration -->
+  <section class="bg-white pb-20 lg:pb-28">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <div class="bg-blue-bg rounded-3xl p-10 lg:p-16 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h3 class="text-3xl font-bold tracking-tight">A workforce of AI agents that plug into every part of the business</h3>
+          <p class="mt-5 text-ink-muted leading-relaxed">
+            Deploy specialized agents across your organization — and watch them work together, reason together,
+            and deliver outcomes together.
+          </p>
+          <div class="mt-6">
+            <a href="/get-a-demo" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white font-semibold hover:bg-brand-light transition-colors">
+              Get to Know
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl aspect-[4/3] overflow-hidden">
+          <img src="/images/banking-workstation.png" alt="AI agents at work" class="w-full h-full object-cover" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Stats />
+
+  <CTABanner
+    heading="Get Started Today!"
+    subheading="Experience the power of function-specific AI Agents firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo tailored to your sector."
+    ctaLabel="Schedule Demo"
+  />
+</Layout>

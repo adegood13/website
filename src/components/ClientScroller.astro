@@ -1,0 +1,56 @@
+---
+/**
+ * Infinite-loop horizontal logo strip.
+ *
+ * Logos are duplicated once so the animation can translate by -50% for a
+ * seamless wrap. Pure CSS, no JS. Hovering pauses the scroll.
+ *
+ * Pass `logos` to override; otherwise defaults to current AskBobAI client list.
+ * When you add more logos to /public/images/client-logos/, just extend the
+ * default array below (or pass a custom list via props).
+ */
+interface Logo {
+  src: string;
+  alt: string;
+  /** Optional fixed height in px — default 40 */
+  height?: number;
+}
+interface Props {
+  logos?: Logo[];
+}
+
+const defaultLogos: Logo[] = [
+  { src: "/images/client-logos/housingwire.svg", alt: "HousingWire" },
+  { src: "/images/client-logos/icera.png",       alt: "ICERA" },
+  { src: "/images/client-logos/verus.svg",       alt: "Verus Mortgage Capital" },
+  { src: "/images/client-logos/nqm-funding.png", alt: "NQM Funding" },
+  { src: "/images/client-logos/acuma.svg",       alt: "ACUMA" },
+];
+
+const { logos = defaultLogos } = Astro.props;
+// Duplicate for seamless loop
+const doubled = [...logos, ...logos];
+---
+
+<div class="relative overflow-hidden" aria-label="Trusted by">
+  <!-- Soft fade masks at edges -->
+  <div class="absolute left-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
+  <div class="absolute right-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+
+  <div class="flex w-max animate-marquee items-center gap-12 py-6">
+    {doubled.map((logo, i) => (
+      <div
+        class="w-36 h-14 flex items-center justify-center shrink-0"
+        aria-hidden={i >= logos.length}
+      >
+        <img
+          src={logo.src}
+          alt={i < logos.length ? logo.alt : ""}
+          class="max-h-12 max-w-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity"
+          style="filter: grayscale(1) contrast(1.1);"
+          loading="lazy"
+        />
+      </div>
+    ))}
+  </div>
+</div>

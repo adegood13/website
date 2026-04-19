@@ -1,0 +1,116 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ClientScroller from "../components/ClientScroller.astro";
+
+/* NOTE: Real HubSpot form embed replaces this block once Andrew provides
+   Portal + Form IDs. For now this is a native form that POSTs to the
+   HubSpot Forms API via portal 45488669 (confirmed via script tag on the
+   live site). Without a Form ID it won't actually submit to a form — it
+   serves as the pixel-perfect placeholder. */
+const HUBSPOT_PORTAL_ID = "45488669";
+const HUBSPOT_FORM_ID   = "REPLACE_ME"; // TODO: from HubSpot
+---
+
+<Layout title="AskBob AI — Get a Demo" description="Finance. HR. Operations. Customer Support. Sales. AskBobAI delivers AI that helps every team instantly find answers from company knowledge.">
+  <section class="bg-hero-gradient relative overflow-hidden">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 pt-24 pb-32 grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <!-- Copy side -->
+      <div>
+        <h1 class="text-white font-bold tracking-tight text-4xl lg:text-5xl leading-[1.1]">
+          Trusted Across Industries
+        </h1>
+        <p class="mt-5 text-white/90 text-lg leading-relaxed">
+          AskBob powers knowledge-driven teams across industries where accuracy,
+          speed, and trust matter most.
+        </p>
+        <div class="mt-8">
+          <ClientScroller />
+        </div>
+      </div>
+
+      <!-- Form side -->
+      <div class="bg-white rounded-3xl p-8 shadow-xl">
+        <form
+          id="demo-form"
+          class="space-y-4"
+          data-hs-portal={HUBSPOT_PORTAL_ID}
+          data-hs-form={HUBSPOT_FORM_ID}
+        >
+          <div class="grid grid-cols-2 gap-4">
+            <label class="block">
+              <span class="text-xs font-semibold uppercase tracking-wider text-ink-muted">First Name *</span>
+              <input name="firstname" required placeholder="e.g. John" class="mt-1 w-full px-4 py-3 rounded-xl bg-black/5 border border-transparent focus:border-brand focus:outline-none focus:bg-white transition-all" />
+            </label>
+            <label class="block">
+              <span class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Last Name *</span>
+              <input name="lastname" required placeholder="e.g. Smith" class="mt-1 w-full px-4 py-3 rounded-xl bg-black/5 border border-transparent focus:border-brand focus:outline-none focus:bg-white transition-all" />
+            </label>
+          </div>
+          <label class="block">
+            <span class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Work Email *</span>
+            <input name="email" type="email" required placeholder="name@company.com" class="mt-1 w-full px-4 py-3 rounded-xl bg-black/5 border border-transparent focus:border-brand focus:outline-none focus:bg-white transition-all" />
+          </label>
+          <label class="block">
+            <span class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Company Name *</span>
+            <input name="company" required placeholder="Your company name" class="mt-1 w-full px-4 py-3 rounded-xl bg-black/5 border border-transparent focus:border-brand focus:outline-none focus:bg-white transition-all" />
+          </label>
+          <label class="flex items-start gap-3 py-1">
+            <input type="checkbox" name="opt_in" class="mt-1" />
+            <span class="text-sm text-ink-muted">I am interested in <em>(Optional)</em></span>
+          </label>
+          <button
+            type="submit"
+            class="w-full px-6 py-4 rounded-full bg-brand text-white font-semibold hover:bg-brand-light transition-all flex items-center justify-center gap-2"
+          >
+            Submit
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </button>
+          <p id="demo-form-status" class="text-sm text-center mt-2 hidden"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  /* Submits to HubSpot Forms API once the Form ID is wired up.
+     If HUBSPOT_FORM_ID is still the placeholder, we log to console and
+     show a success toast so the UX looks live during development. */
+  const form = document.getElementById("demo-form");
+  const status = document.getElementById("demo-form-status");
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const portal = form.dataset.hsPortal;
+    const formId = form.dataset.hsForm;
+    const data = Object.fromEntries(new FormData(form).entries());
+    status.className = "text-sm text-center mt-2 text-ink-muted";
+    status.textContent = "Sending…";
+
+    if (formId && formId !== "REPLACE_ME") {
+      try {
+        const res = await fetch(
+          `https://api.hsforms.com/submissions/v3/integration/submit/${portal}/${formId}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              fields: Object.entries(data).map(([name, value]) => ({ name, value })),
+              context: { pageUri: location.href, pageName: document.title },
+            }),
+          },
+        );
+        if (!res.ok) throw new Error("HubSpot submission failed");
+        status.className = "text-sm text-center mt-2 text-brand";
+        status.textContent = "Thanks — we'll be in touch shortly.";
+        form.reset();
+      } catch (err) {
+        status.className = "text-sm text-center mt-2 text-red-600";
+        status.textContent = "Something went wrong. Please email hello@askbobai.com.";
+      }
+    } else {
+      console.log("[demo-form] HubSpot Form ID not set; payload =", data);
+      status.className = "text-sm text-center mt-2 text-brand";
+      status.textContent = "Form ready (HubSpot Form ID pending setup).";
+    }
+  });
+</script>

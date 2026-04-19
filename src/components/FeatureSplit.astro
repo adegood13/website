@@ -1,0 +1,88 @@
+---
+/**
+ * 2-column split section: text on one side, image/illustration on the other.
+ * Used throughout Platform and Solutions pages.
+ *
+ * <FeatureSplit
+ *   heading="Data is Context, Not Everything"
+ *   body="..."
+ *   image="/images/platform-data-hero.png"
+ *   reversed={false}   // put image on left instead of right
+ *   background="white" // "white" | "blue" | "green"
+ * />
+ */
+interface Props {
+  heading: string;
+  eyebrow?: string;
+  body?: string;
+  bullets?: string[];
+  image?: string;
+  imageAlt?: string;
+  reversed?: boolean;
+  background?: "white" | "blue" | "green";
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  heading,
+  eyebrow,
+  body,
+  bullets,
+  image,
+  imageAlt = "",
+  reversed = false,
+  background = "white",
+  ctaLabel,
+  ctaHref = "/get-a-demo",
+} = Astro.props;
+
+const bgClass = {
+  white: "bg-white",
+  blue:  "bg-blue-bg",
+  green: "bg-brand-bg",
+}[background];
+---
+
+<section class={`${bgClass} py-20 lg:py-24`}>
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+    <div class={`grid md:grid-cols-2 gap-12 items-center ${reversed ? "md:[&>*:first-child]:order-2" : ""}`}>
+      <div>
+        {eyebrow && <p class="text-sm font-semibold text-brand uppercase tracking-wider mb-3">{eyebrow}</p>}
+        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">{heading}</h2>
+        {body && <p class="mt-5 text-ink-muted text-lg leading-relaxed">{body}</p>}
+        {bullets && bullets.length > 0 && (
+          <ul class="mt-6 space-y-3">
+            {bullets.map(b => (
+              <li class="flex gap-3 text-ink-muted">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="shrink-0 mt-0.5 text-brand" aria-hidden="true">
+                  <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>{b}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+        {ctaLabel && (
+          <div class="mt-8">
+            <a href={ctaHref} class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white font-semibold hover:bg-brand-light transition-colors">
+              {ctaLabel}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        )}
+        <slot name="left" />
+      </div>
+
+      <div class="flex items-center justify-center">
+        {image ? (
+          <img src={image} alt={imageAlt} class="max-w-full h-auto rounded-2xl shadow-card" loading="lazy" />
+        ) : (
+          <slot name="right" />
+        )}
+      </div>
+    </div>
+  </div>
+</section>

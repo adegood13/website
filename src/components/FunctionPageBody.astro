@@ -1,0 +1,75 @@
+---
+/**
+ * Shared body for function-solution pages (Finance, HR, Sales, Supply Chain,
+ * Technology). Hero + Stats + CTABanner are rendered by the parent page; this
+ * handles the middle sections that differ only in copy.
+ */
+interface Props {
+  sampleQuestions: string[];
+  coreHeading: string;
+  coreBody: string;
+  helpsWith: string[];
+  whyChooseHeading: string;
+  whyChoose: string[];
+}
+const { sampleQuestions, coreHeading, coreBody, helpsWith, whyChooseHeading, whyChoose } = Astro.props;
+---
+
+<!-- Sample questions grid -->
+<section class="bg-white py-20 lg:py-24">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <p class="text-sm font-semibold text-brand uppercase tracking-wider mb-3">Sample Questions</p>
+      <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">Answers your team asks every day.</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+      {sampleQuestions.map(q => (
+        <div class="bg-blue-bg rounded-2xl p-5 flex items-start gap-3">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-brand mt-0.5 shrink-0" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="text-ink leading-relaxed">{q}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Core value + two bulleted lists -->
+<section class="bg-blue-bg py-20 lg:py-24">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">{coreHeading}</h2>
+      <p class="mt-5 text-ink-muted text-lg leading-relaxed">{coreBody}</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+      <div class="bg-white rounded-3xl p-8">
+        <h3 class="text-xl font-bold mb-4">What AskBob Helps With</h3>
+        <ul class="space-y-3">
+          {helpsWith.map(item => (
+            <li class="flex gap-3 text-ink-muted">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="shrink-0 mt-0.5 text-brand" aria-hidden="true">
+                <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="bg-white rounded-3xl p-8">
+        <h3 class="text-xl font-bold mb-4">{whyChooseHeading}</h3>
+        <ul class="space-y-3">
+          {whyChoose.map(item => (
+            <li class="flex gap-3 text-ink-muted">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="shrink-0 mt-0.5 text-brand" aria-hidden="true">
+                <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

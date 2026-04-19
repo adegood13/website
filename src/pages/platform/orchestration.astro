@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/Hero.astro";
+import FeatureCards from "../../components/FeatureCards.astro";
+import FeatureSplit from "../../components/FeatureSplit.astro";
+import Stats from "../../components/Stats.astro";
+import CTABanner from "../../components/CTABanner.astro";
+
+const benefits = [
+  {
+    icon: "⚡",
+    title: "Increased Efficiency",
+    body: "Automated workflows eliminate repetitive human effort. Teams get answers instantly instead of searching or escalating.",
+  },
+  {
+    icon: "🤝",
+    title: "Better Collaboration",
+    body: "Shared, centralized AI system across departments. Fewer silos between IT, legal, finance, support, and operations.",
+  },
+  {
+    icon: "🎯",
+    title: "Improved Performance",
+    body: "Multiple specialized models working together. Higher accuracy, better reasoning, and fewer hallucinations.",
+  },
+];
+---
+
+<Layout title="AskBobAI — Platform — Orchestration" description="Learn how AI orchestration connects your tools, data, and workflows—so teams can find answers instantly, reduce bottlenecks, and improve decision-making.">
+  <Hero
+    eyebrow="AI Orchestration"
+    heading="Multi-agent AI Orchestration That Actually Gets Work Done."
+    subheading="AskBob coordinates specialized agents, tools, and reasoning to solve complex, multi-step business problems."
+  />
+
+  <FeatureCards
+    heading="Why"
+    headingAccent="Orchestration Matters"
+    subheading="Enterprise problems require coordinated AI—not isolated tools. AskBob delivers orchestration built for scale and control."
+    cards={benefits}
+    background="white"
+    cardBackground="blue"
+  />
+
+  <FeatureSplit
+    heading="Built for complex, multi-step work"
+    body="AskBob breaks down complex business problems into coordinated agent tasks — analyzing, reasoning, and executing across your stack. The result: real outcomes, not just responses."
+    image="/images/framer-assets/k45eD1b4A1P0f5cPmUjFeSnGOVU.png"
+    imageAlt="Orchestration illustration"
+    background="blue"
+    ctaLabel="Get a Demo"
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Ready To Orchestrate Your Workflow With AskBob AI?"
+    subheading="Ready to transform your business with AI? Take the leap and unlock the power of AskBob AI today. Elevate your customer experience, streamline your processes."
+    ctaLabel="Schedule Demo"
+  />
+</Layout>

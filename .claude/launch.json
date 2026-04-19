@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "askbobai",
+      "runtimeExecutable": "/Users/andrewdegood/Desktop/Claude/tools/node/bin/npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 4321
+    }
+  ]
+}

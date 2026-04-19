@@ -1,0 +1,92 @@
+/* Fonts must be imported before anything else (CSS spec). */
+@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap");
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------
+   AskBobAI — Design Tokens (Tailwind v4 @theme directive)
+   Extracted from askbobai.com (Framer source, Apr 2026).
+   ---------------------------------------------------------------
+   Editing values here updates utility classes everywhere.
+   --------------------------------------------------------------- */
+
+@theme {
+  /* Brand greens — CTA buttons, accent marks */
+  --color-brand: #00be50;
+  --color-brand-light: #19d467;
+  --color-brand-dark: #008035;
+  --color-brand-accent: #20e371;
+  --color-brand-bg: #dbffea;
+
+  /* Blue — hero gradient, secondary accents */
+  --color-blue: #1281de;
+  --color-blue-light: #1f9aff;
+  --color-blue-bg: #edf7ff;
+
+  /* Neutrals */
+  --color-navy: #001e2b;          /* dark footer */
+  --color-ink: #000000;           /* primary text */
+  --color-ink-muted: #6a6a6a;     /* secondary text */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f4fefc;
+  --color-overlay: rgba(34, 34, 34, 0.1);
+
+  /* Type */
+  --font-sans: "Figtree", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Figtree", ui-sans-serif, system-ui, sans-serif;
+
+  /* Fluid heading sizes — pixel-perfect match to Framer */
+  --text-display: 64px;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.02em;
+  --text-h2: 54px;
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h3: 44px;
+  --text-h3--line-height: 1.2;
+  --text-h4: 18px;
+  --text-h4--line-height: 1.5;
+
+  /* Radii */
+  --radius-sm: 10px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-card: 0 10px 20px rgba(0, 0, 0, 0.16);
+}
+
+/* Base resets + body typography */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+/* Shared hero-blue gradient (matches Framer's blue-to-transparent radial) */
+.bg-hero-gradient {
+  background:
+    radial-gradient(ellipse at 50% 0%, #1281de 0%, #188ded 42%, rgba(31, 154, 255, 0) 100%),
+    #edf7ff;
+}
+
+/* Client-logo strip marquee animation */
+@keyframes scroll-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: scroll-x 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

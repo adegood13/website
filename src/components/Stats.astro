@@ -1,0 +1,100 @@
+---
+/**
+ * "Results You Can Measure" block — appears on home, AI Agents, Platform pages,
+ * Industry/Function solution pages. Stats count up when scrolled into view.
+ *
+ * The count-up script is loaded once per page via index.astro; any page that
+ * includes <Stats /> needs the script (stats-counter.js) OR relies on the
+ * one in the home page. For pages without the home's inline script, use
+ * <StatsScript /> imported separately, OR move the script into this component
+ * (it's safe to include multiple times with the "once" guard).
+ */
+interface Stat { value: string; label: string; }
+interface Props {
+  heading?: string;
+  headingAccent?: string;
+  subheading?: string;
+  stats?: Stat[];
+}
+
+const {
+  heading = "Results",
+  headingAccent = "You Can Measure",
+  subheading = "No hype. Just real impact your team will feel in week one.",
+  stats = [
+    { value: "12+", label: "Integrations" },
+    { value: "98%", label: "Answer Accuracy" },
+    { value: "5x",  label: "Faster Resolutions" },
+  ],
+} = Astro.props;
+---
+
+<section class="bg-blue-bg py-20 lg:py-28">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+    <div class="text-center max-w-2xl mx-auto mb-14">
+      <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">
+        {heading} <span class="text-brand">{headingAccent}</span>
+      </h2>
+      <p class="mt-4 text-ink-muted text-lg">{subheading}</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {stats.map(stat => {
+        const match = stat.value.match(/^(\d+(?:\.\d+)?)(.*)$/) ?? ["", stat.value, ""];
+        const target = match[1];
+        const suffix = match[2];
+        return (
+          <div class="bg-white rounded-2xl p-8 text-center shadow-sm border border-black/5">
+            <div class="text-6xl lg:text-7xl font-bold text-brand tracking-tight">
+              <span data-count-up={target} data-count-suffix={suffix}>0{suffix}</span>
+            </div>
+            <p class="mt-3 text-ink-muted font-medium">{stat.label}</p>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<!-- Count-up script — self-guarded so it's safe to include on every page. -->
+<script is:inline>
+  if (!window.__askbobCounterInstalled) {
+    window.__askbobCounterInstalled = true;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const fmt = (n, t) => {
+      const d = (String(t).split(".")[1] || "").length;
+      return d > 0 ? n.toFixed(d) : String(Math.round(n));
+    };
+    const run = (el) => {
+      const t = parseFloat(el.dataset.countUp);
+      const s = el.dataset.countSuffix || "";
+      if (reduce || !isFinite(t)) { el.textContent = t + s; return; }
+      const start = performance.now(), dur = 1600;
+      const tick = (now) => {
+        const p = Math.min(1, (now - start) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmt(e * t, t) + s;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const init = () => {
+      const els = document.querySelectorAll("[data-count-up]:not([data-count-init])");
+      els.forEach(el => el.setAttribute("data-count-init", "1"));
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver((entries, obs) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) { run(e.target); obs.unobserve(e.target); }
+          });
+        }, { threshold: 0.35 });
+        els.forEach(el => io.observe(el));
+      } else {
+        els.forEach(run);
+      }
+    };
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  }
+</script>

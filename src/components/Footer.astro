@@ -1,0 +1,89 @@
+---
+/**
+ * Dark footer. Column structure matches Framer source exactly.
+ */
+const columns = [
+  { heading: "Function", links: [
+    { href: "/solutions/function/technology",      label: "Technology" },
+    { href: "/solutions/function/finance",         label: "Finance" },
+    { href: "/solutions/function/human-resources", label: "Human Resources" },
+    { href: "/solutions/function/sales",           label: "Sales" },
+    { href: "/solutions/function/supply-chain",    label: "Supply Chain" },
+  ]},
+  { heading: "Industry", links: [
+    { href: "/solutions/industry/finance",    label: "Banking" },
+    { href: "/solutions/industry/mortgage",   label: "Mortgage" },
+    { href: "/solutions/industry/government", label: "Insurance" },
+    { href: "/solutions/industry/saas",       label: "Government" },
+    { href: "/solutions/industry/saas",       label: "Retail" },
+    { href: "/solutions/industry/saas",       label: "SaaS" },
+  ]},
+  { heading: "Platform", links: [
+    { href: "/platform/data",          label: "Data" },
+    { href: "/platform/knowledge",     label: "Knowledge" },
+    { href: "/platform/workflows",     label: "Workflows" },
+    { href: "/platform/orchestration", label: "Orchestration" },
+  ]},
+  { heading: "Resources", links: [
+    { href: "/resources/blog",   label: "Blog" },
+    { href: "/resources/guides", label: "Guides" },
+  ]},
+  { heading: "Agents", links: [
+    { href: "/ai-agents", label: "AI Agents" },
+  ]},
+  { heading: "Company", links: [
+    { href: "/about", label: "About" },
+  ]},
+];
+---
+
+<footer class="bg-navy text-white mt-auto">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_repeat(6,1fr)] gap-10 lg:gap-6">
+      <!-- Brand block -->
+      <div class="lg:max-w-[260px]">
+        <div class="flex items-center gap-2 mb-4">
+          <img src="/images/askbobai-logo.svg" alt="" class="h-7 w-auto" />
+          <span class="text-xl font-bold">AskBobAI</span>
+        </div>
+        <p class="text-sm text-white/70 leading-relaxed">
+          Empower your teams with a secure and customizable language model solution
+          that seamlessly integrates into your existing tools.
+        </p>
+      </div>
+
+      <!-- Link columns -->
+      {columns.map(col => (
+        <div>
+          <h4 class="text-sm font-semibold mb-4">{col.heading}</h4>
+          <ul class="space-y-2 text-sm text-white/70">
+            {col.links.map(l => (
+              <li><a href={l.href} class="hover:text-white transition-colors">{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom row -->
+    <div class="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/60">
+      <p>Copyright © 2026 AskBobAI — All Rights Reserved.</p>
+      <div class="flex items-center gap-6">
+        <a href="/privacy" class="hover:text-white transition-colors">Privacy</a>
+        <a href="/terms" class="hover:text-white transition-colors">Terms</a>
+        <div class="flex items-center gap-3 ml-2">
+          <a href="https://www.youtube.com/@askbobai_1" aria-label="YouTube" class="hover:text-white transition-colors" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2C0 8 0 12 0 12s0 4 .5 5.8a3 3 0 0 0 2.1 2.1C4.4 20.4 12 20.4 12 20.4s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1C24 16 24 12 24 12s0-4-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/>
+            </svg>
+          </a>
+          <a href="https://www.linkedin.com/company/askbobai" aria-label="LinkedIn" class="hover:text-white transition-colors" target="_blank" rel="noopener">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.05-1.86-3.05-1.86 0-2.15 1.45-2.15 2.95v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.86 3.36-1.86 3.6 0 4.27 2.37 4.27 5.46v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.45C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.22 0z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

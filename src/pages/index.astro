@@ -1,0 +1,329 @@
+---
+/**
+ * Home page — pixel-perfect port of the Framer original.
+ * All copy matches the scraped Apr 2026 source; swap in real stats/labels
+ * as needed (stat values are best-guess until confirmed).
+ */
+import Layout from "../layouts/Layout.astro";
+import GetDemoButton from "../components/GetDemoButton.astro";
+import ClientScroller from "../components/ClientScroller.astro";
+import VideoPlayer from "../components/VideoPlayer.astro";
+
+const stats = [
+  { value: "12+", label: "Integrations" },
+  { value: "98%", label: "Answer Accuracy" },
+  { value: "5x",  label: "Faster Resolutions" },
+];
+
+/* Workflow cards use real Framer illustrations pulled from the live site. */
+const workflowCards = [
+  {
+    image: "/images/workflow-bottlenecks.png",
+    imageAlt: "Support channels surrounding AskBob agent",
+    title: "Bottlenecks show up everywhere",
+    body: "Guidelines, policies, product specs — the answer lives somewhere, but finding it slows every team down.",
+  },
+  {
+    /* Middle card shows the tools AskBob plugs into */
+    isIntegrations: true,
+    title: "AskBob plugs into your workflow",
+    body: "No process change. AskBob meets your teams inside the tools they already use.",
+  },
+  {
+    image: "/images/workflow-chat-ui.png",
+    imageAlt: "AskBob chat interface showing welcome screen",
+    title: "Answers become instant and consistent",
+    body: "Answer-first responses grounded in your knowledge—consistent and defensible.",
+  },
+];
+
+const integrationLogos = [
+  { src: "/images/integrations/gmail.png",             alt: "Gmail" },
+  { src: "/images/integrations/salesforce.png",        alt: "Salesforce" },
+  { src: "/images/integrations/zendesk-dark.png",      alt: "Zendesk" },
+  { src: "/images/integrations/confluence.png",        alt: "Confluence" },
+  { src: "/images/integrations/chrome-extensions.png", alt: "Chrome Extensions" },
+  { src: "/images/integrations/docusaurus.png",        alt: "Docusaurus" },
+];
+
+const industries = [
+  { id: "banking",    label: "Banking",    title: "Banking, made intuitive",    body: "AskBob helps banking teams deliver fast, accurate responses that keep customers engaged and transactions moving." },
+  { id: "mortgage",   label: "Mortgage",   title: "Mortgage, simplified",        body: "Guideline-grounded answers for LOs, processors, and underwriters — right inside the tools they already use." },
+  { id: "insurance",  label: "Insurance",  title: "Claims clarity, instantly",   body: "Policy-aware answers that help adjusters and agents respond faster and more consistently." },
+  { id: "government", label: "Government", title: "Citizen service that scales", body: "Secure, auditable AI that helps agencies respond to constituents with accuracy and trust." },
+  { id: "retail",     label: "Retail",     title: "Retail support, accelerated", body: "Turn product and policy knowledge into instant answers for associates and customers alike." },
+  { id: "saas",       label: "SaaS",       title: "SaaS support, supercharged",  body: "Product knowledge, release notes, and troubleshooting — grounded answers for CS and engineering." },
+];
+---
+
+<Layout title="AskBobAI — #1 Knowledge Management platform for work">
+  <!-- =============================================================
+       HERO
+       Minimal, text-only (matches Framer). Background uses radial
+       gradient to replicate the spotlight-fade blue seen in the source.
+       ============================================================= -->
+  <section class="bg-hero-gradient relative overflow-hidden">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 pt-24 pb-32 lg:pt-32 lg:pb-48 text-center relative z-10">
+      <h1 class="text-white font-bold tracking-tight text-5xl sm:text-6xl lg:text-[64px] leading-[1.05]">
+        AI for Every Function
+      </h1>
+      <p class="mt-6 text-lg lg:text-xl text-white/90 max-w-xl mx-auto leading-relaxed">
+        AskBob brings speed to your customers and time back to your teams.
+        Instant, trusted answers — right where work happens.
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <GetDemoButton size="lg" />
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       VIDEO — dedicated section, not stuffed into hero.
+       Overlaps hero/next section by -mt-20 to create a "floating" card.
+       ============================================================= -->
+  <section class="bg-white">
+    <div class="max-w-[1100px] mx-auto px-6 lg:px-10 -mt-24 lg:-mt-32 relative z-20">
+      <VideoPlayer
+        src="/videos/commercial.mp4"
+        webm="/videos/commercial.webm"
+        poster="/videos/commercial-poster.jpg"
+        title="Watch the AskBobAI commercial"
+      />
+    </div>
+  </section>
+
+  <!-- =============================================================
+       TRUSTED ACROSS INDUSTRIES
+       ============================================================= -->
+  <section class="bg-white py-20 lg:py-24">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">Trusted Across Industries</h2>
+        <p class="mt-3 text-ink-muted">
+          AskBob powers knowledge-driven teams across industries where accuracy, speed, and trust matter most.
+        </p>
+      </div>
+      <ClientScroller />
+      <div class="text-center mt-10">
+        <GetDemoButton label="Get Knowledge to Work" />
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       RESULTS YOU CAN MEASURE
+       ============================================================= -->
+  <section class="bg-blue-bg py-20 lg:py-28">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">
+          Results <span class="text-brand">You Can Measure</span>
+        </h2>
+        <p class="mt-4 text-ink-muted text-lg">
+          No hype. Just real impact your team will feel in week one.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {stats.map(stat => {
+          /* Split numeric value from suffix (e.g. "12+" → 12 + "+") so the
+             counter animates only the digits and keeps the symbol attached. */
+          const match = stat.value.match(/^(\d+(?:\.\d+)?)(.*)$/) ?? ["", stat.value, ""];
+          const target = match[1];
+          const suffix = match[2];
+          return (
+            <div class="bg-white rounded-2xl p-8 text-center shadow-sm border border-black/5">
+              <div class="text-6xl lg:text-7xl font-bold text-brand tracking-tight">
+                <span data-count-up={target} data-count-suffix={suffix}>0{suffix}</span>
+              </div>
+              <p class="mt-3 text-ink-muted font-medium">{stat.label}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       HOW ASKBOBAI FITS INTO YOUR WORKFLOW
+       ============================================================= -->
+  <section id="how-it-works" class="bg-white py-20 lg:py-28">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">
+          How AskBobAI <span class="text-brand">Fits Into Your Workflow</span>
+        </h2>
+        <p class="mt-4 text-ink-muted text-lg">
+          From bottlenecks to instant answers — without changing how your team works.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {workflowCards.map(card => (
+          <div class="bg-blue-bg rounded-3xl p-8 flex flex-col gap-5 overflow-hidden">
+            <div class="aspect-[4/3] rounded-xl bg-white/60 flex items-center justify-center overflow-hidden">
+              {card.isIntegrations ? (
+                <div class="grid grid-cols-3 gap-4 p-6 w-full h-full items-center">
+                  {integrationLogos.slice(0, 6).map(logo => (
+                    <img src={logo.src} alt={logo.alt} class="h-8 w-auto mx-auto object-contain opacity-80" loading="lazy" />
+                  ))}
+                </div>
+              ) : (
+                <img src={card.image} alt={card.imageAlt} class="max-w-[85%] max-h-[85%] object-contain" loading="lazy" />
+              )}
+            </div>
+            <h3 class="text-xl font-bold">{card.title}</h3>
+            <p class="text-ink-muted leading-relaxed text-sm">{card.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       INDUSTRY TABS
+       ============================================================= -->
+  <section class="bg-white pb-20 lg:pb-28">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <div class="text-center mb-8">
+        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">Industry</h2>
+      </div>
+
+      <!-- Tab buttons -->
+      <div class="flex flex-wrap justify-center gap-2 mb-8" role="tablist" aria-label="Industries">
+        {industries.map((industry, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-${industry.id}`}
+            aria-controls={`panel-${industry.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            data-industry-tab={industry.id}
+            class:list={[
+              "px-5 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer",
+              i === 0 ? "bg-navy text-white" : "bg-black/5 text-ink hover:bg-black/10",
+            ]}
+          >
+            {industry.label}
+          </button>
+        ))}
+      </div>
+
+      <!-- Tab panels -->
+      <div class="relative rounded-3xl bg-blue-bg overflow-hidden">
+        {industries.map((industry, i) => (
+          <div
+            id={`panel-${industry.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${industry.id}`}
+            data-industry-panel={industry.id}
+            class:list={["grid md:grid-cols-2 gap-8 p-8 lg:p-12 items-center", i === 0 ? "" : "hidden"]}
+          >
+            <div>
+              <h3 class="text-3xl lg:text-4xl font-bold tracking-tight">{industry.title}</h3>
+              <p class="mt-4 text-ink-muted text-lg leading-relaxed">{industry.body}</p>
+              <div class="mt-6">
+                <GetDemoButton label="See it in action" />
+              </div>
+            </div>
+            <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-white">
+              <img src="/images/banking-workstation.png" alt="" class="w-full h-full object-cover" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       BOTTOM CTA — "AI FOR EVERY FUNCTION"
+       Blue gradient with dot-pattern overlay (matches Framer).
+       ============================================================= -->
+  <section class="relative overflow-hidden bg-hero-gradient py-24 lg:py-32">
+    <img
+      src="/images/blue-dot-pattern.png"
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-x-0 bottom-0 w-full pointer-events-none opacity-90"
+    />
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center relative z-10">
+      <h2 class="text-4xl lg:text-6xl font-bold text-white tracking-tight">
+        AI For Every Function
+      </h2>
+      <p class="mt-5 text-white/90 text-lg max-w-2xl mx-auto">
+        Experience the power of function-specific AI Agents firsthand. Kickstart your
+        journey towards enhanced efficiency and precision.
+      </p>
+      <div class="mt-8">
+        <GetDemoButton size="lg" label="Explore AI for Your Role" />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  /* =============================================================
+     Industry tab switcher — progressive enhancement.
+     ============================================================= */
+  const tabs   = document.querySelectorAll("[data-industry-tab]");
+  const panels = document.querySelectorAll("[data-industry-panel]");
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.getAttribute("data-industry-tab");
+      tabs.forEach((t) => {
+        const active = t.getAttribute("data-industry-tab") === target;
+        t.setAttribute("aria-selected", String(active));
+        t.classList.toggle("bg-navy", active);
+        t.classList.toggle("text-white", active);
+        t.classList.toggle("bg-black/5", !active);
+        t.classList.toggle("text-ink", !active);
+      });
+      panels.forEach((panel) => {
+        const match = panel.getAttribute("data-industry-panel") === target;
+        panel.classList.toggle("hidden", !match);
+      });
+    });
+  });
+
+  /* =============================================================
+     Count-up animation for stats.
+     Fires when the element enters the viewport. Uses ease-out-cubic
+     so numbers decelerate into their final value.
+     Respects prefers-reduced-motion.
+     ============================================================= */
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const formatValue = (raw, target) => {
+    // Preserve decimals present in target (e.g. target 3.5 → one decimal)
+    const decimals = (String(target).split(".")[1] || "").length;
+    return decimals > 0 ? raw.toFixed(decimals) : String(Math.round(raw));
+  };
+  const animateCount = (el) => {
+    const target = parseFloat(el.getAttribute("data-count-up"));
+    const suffix = el.getAttribute("data-count-suffix") || "";
+    if (reduceMotion || !isFinite(target)) {
+      el.textContent = target + suffix;
+      return;
+    }
+    const duration = 1600; // ms
+    const start = performance.now();
+    const tick = (now) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out-cubic
+      el.textContent = formatValue(eased * target, target) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const counters = document.querySelectorAll("[data-count-up]");
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+    counters.forEach((el) => observer.observe(el));
+  } else {
+    counters.forEach(animateCount);
+  }
+</script>

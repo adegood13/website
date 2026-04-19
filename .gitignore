@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Astro build output
+dist/
+.astro/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log*
+
+# Raw Framer CDN dump (we only commit curated assets)
+public/images/framer-assets/
+
+# IDE
+.vscode/
+.idea/

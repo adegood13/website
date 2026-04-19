@@ -1,0 +1,47 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Hero from "../../../components/Hero.astro";
+import FunctionPageBody from "../../../components/FunctionPageBody.astro";
+import Stats from "../../../components/Stats.astro";
+import CTABanner from "../../../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — Sales Function" description="AI for sales teams—AskBobAI turns playbooks, pricing, and customer data into instant answers that close deals faster.">
+  <Hero
+    eyebrow="Sales"
+    heading="AskBob: Your Sales Expert"
+    subheading="AskBob coordinates specialized agents, tools, and reasoning to solve complex, multi-step business problems."
+  />
+
+  <FunctionPageBody
+    sampleQuestions={[
+      "Are we running any discount programs?",
+      "Who are my top 3 prospects?",
+      "What is our pricing by product?",
+      "How many leads are in my queue?",
+    ]}
+    coreHeading="Sell with confidence—using your real rules, pricing, and approvals."
+    coreBody="AskBob gives sales teams instant access to pricing rules, product details, approval workflows, and competitive guidance—without chasing Slack messages."
+    helpsWith={[
+      "Answering deal and pricing questions",
+      "Understanding contract and approval rules",
+      "Accelerating onboarding for new reps",
+      "Reducing back-and-forth with legal and finance",
+    ]}
+    whyChooseHeading="Why Sales Teams Choose AskBob"
+    whyChoose={[
+      "Faster answers without slowing deals",
+      "Consistent guidance across the team",
+      "Reduces errors and rework",
+      "Works inside CRM-adjacent workflows",
+    ]}
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Get your Sales Function Started Today!"
+    subheading="Experience the power of function-specific language models firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo."
+    ctaLabel="Schedule Demo"
+  />
+</Layout>

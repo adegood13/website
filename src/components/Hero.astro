@@ -1,0 +1,58 @@
+---
+/**
+ * Reusable blue-gradient hero (matches Framer source across all pages).
+ * Centers heading + optional subheading + optional CTA button.
+ *
+ * <Hero heading="Data is Power" />
+ * <Hero heading="Data is Power" subheading="..." ctaLabel="Get a Demo" />
+ * <Hero heading="..."> custom content via default slot </Hero>
+ */
+import GetDemoButton from "./GetDemoButton.astro";
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  subheading?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  /** Vertical padding preset — pages with tall hero (home) vs compact. */
+  size?: "md" | "lg";
+}
+
+const {
+  eyebrow,
+  heading,
+  subheading,
+  ctaLabel = "Get a Demo",
+  ctaHref = "/get-a-demo",
+  size = "md",
+} = Astro.props;
+
+const paddingClass = size === "lg"
+  ? "pt-24 pb-32 lg:pt-32 lg:pb-48"
+  : "pt-20 pb-24 lg:pt-28 lg:pb-32";
+---
+
+<section class="bg-hero-gradient relative overflow-hidden">
+  <div class={`max-w-[1200px] mx-auto px-6 lg:px-10 ${paddingClass} text-center relative z-10`}>
+    {eyebrow && (
+      <p class="inline-block text-sm font-semibold text-white/90 bg-white/15 backdrop-blur px-4 py-1.5 rounded-full mb-6">
+        {eyebrow}
+      </p>
+    )}
+    <h1 class="text-white font-bold tracking-tight text-4xl sm:text-5xl lg:text-[56px] leading-[1.08]">
+      {heading}
+    </h1>
+    {subheading && (
+      <p class="mt-6 text-lg lg:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+        {subheading}
+      </p>
+    )}
+    {ctaLabel && (
+      <div class="mt-8 flex justify-center">
+        <GetDemoButton size="lg" label={ctaLabel} href={ctaHref} />
+      </div>
+    )}
+    <slot />
+  </div>
+</section>

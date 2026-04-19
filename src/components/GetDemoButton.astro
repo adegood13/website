@@ -1,0 +1,49 @@
+---
+/**
+ * Green pill CTA that appears across the site.
+ *   <GetDemoButton />                 → default
+ *   <GetDemoButton label="Try free" />→ override copy
+ *   <GetDemoButton href="#contact" /> → link somewhere other than /get-a-demo
+ *   <GetDemoButton size="sm" />       → smaller version for nav
+ */
+interface Props {
+  href?: string;
+  label?: string;
+  size?: "sm" | "md" | "lg";
+  class?: string;
+}
+
+const {
+  href = "/get-a-demo",
+  label = "Get a Demo",
+  size = "md",
+  class: className = "",
+} = Astro.props;
+
+const sizeClasses = {
+  sm: "px-5 py-2 text-sm",
+  md: "px-6 py-3 text-base",
+  lg: "px-8 py-4 text-lg",
+}[size];
+---
+
+<a
+  href={href}
+  class={`inline-flex items-center gap-2 rounded-full bg-brand text-white font-semibold shadow-sm transition-all hover:bg-brand-light hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 ${sizeClasses} ${className}`}
+>
+  {label}
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M5 12h14M13 5l7 7-7 7" />
+  </svg>
+</a>

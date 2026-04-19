@@ -1,0 +1,117 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import CTABanner from "../components/CTABanner.astro";
+
+const sampleQuestions = [
+  "Can you describe the residual income method for evaluating borrower affordability under FHLMC standards?",
+  "How does FNMA instruct underwriters to treat assets held in cryptocurrencies when considering them for down payment funds?",
+  "What documentation is required to verify large deposits found during the bank statement review process under FNMA rules?",
+];
+
+const leadership = [
+  { name: "Andrew DeGood", role: "CEO & Co-Founder",  image: "/images/team/andrew.jpg" },
+  { name: "Tim Nguyen",    role: "CTO & Co-Founder",  image: "/images/team/tim.jpg" },
+];
+
+const values = [
+  { icon: "🎉", title: "Have Fun",         body: "We infuse every project with a sense of joy and excitement, harnessing the power of fun to drive creativity and innovation." },
+  { icon: "🤝", title: "Be Transparent",   body: "We believe in open and honest communication, both internally within our team and externally with our clients and partners." },
+  { icon: "🌍", title: "Embrace Diversity",body: "By embracing different perspectives, backgrounds, and experiences, we create a more dynamic work environment." },
+  { icon: "⚖️", title: "Act with Integrity",body: "Integrity is at the core of everything we do. It guides us in every decision we make, ensuring we build trust." },
+];
+---
+
+<Layout title="AskBobAI — About" description="Learn about AskBobAI's mission to make company knowledge useful—helping teams save time, reduce cost, and move faster.">
+  <Hero
+    heading="Meet the Diverse Minds Fueling AskBob's Innovation!"
+    ctaLabel={undefined}
+  >
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
+      {sampleQuestions.map(q => (
+        <div class="bg-white/95 text-ink rounded-2xl p-5 text-sm leading-relaxed shadow-lg">
+          {q}
+        </div>
+      ))}
+    </div>
+  </Hero>
+
+  <!-- Leadership -->
+  <section class="bg-white py-20 lg:py-24">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">The leadership team charting the course.</h2>
+        <p class="mt-4 text-ink-muted text-lg">AskBob powers knowledge-driven teams across industries where accuracy, speed, and trust matter most.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+        {leadership.map(p => (
+          <div class="bg-blue-bg rounded-3xl p-8 text-center">
+            <div class="w-32 h-32 rounded-full bg-white/80 mx-auto mb-4 overflow-hidden flex items-center justify-center text-4xl font-bold text-ink-muted">
+              {p.name.split(" ").map(n => n[0]).join("")}
+            </div>
+            <h3 class="text-xl font-bold">{p.name}</h3>
+            <p class="text-ink-muted mt-1">{p.role}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="bg-white py-20 lg:py-24">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">Envisioning: The New Personalized AI for Business.</h2>
+        <p class="mt-5 text-ink-muted text-lg leading-relaxed">
+          AskBobAI is on a mission to reimagine how businesses unlock the value of their own knowledge.
+          By combining the power of language models with secure, domain-specific data, we're building AI that's
+          reliable, customizable, and ready to transform everyday operations.
+        </p>
+      </div>
+      <div class="bg-blue-bg rounded-3xl aspect-[4/3] flex items-center justify-center">
+        <span class="text-6xl">💡</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey -->
+  <section class="bg-white py-20 lg:py-24 border-t border-black/5">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 grid md:grid-cols-2 gap-12 items-center">
+      <div class="bg-blue-bg rounded-3xl aspect-[4/3] flex items-center justify-center order-last md:order-first">
+        <span class="text-6xl">🚀</span>
+      </div>
+      <div>
+        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">The Journey of AskBob's Founders.</h2>
+        <p class="mt-5 text-ink-muted text-lg leading-relaxed">
+          We believe in open and honest communication, both internally within our team and externally with our
+          clients and partners. Together we are building a company that embraces transparency, curiosity, and
+          the belief that knowledge should work for everyone.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="bg-white py-20 lg:py-24">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">What We Value.</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {values.map(v => (
+          <div class="bg-blue-bg rounded-3xl p-6 text-center">
+            <div class="text-4xl mb-3">{v.icon}</div>
+            <h3 class="font-bold mb-2">{v.title}</h3>
+            <p class="text-ink-muted text-sm leading-relaxed">{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    heading="Get Started Today!"
+    subheading="Experience the power of function-specific AI Agents firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo tailored to your sector."
+    ctaLabel="Schedule Demo"
+  />
+</Layout>

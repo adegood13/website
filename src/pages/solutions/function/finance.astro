@@ -1,0 +1,47 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Hero from "../../../components/Hero.astro";
+import FunctionPageBody from "../../../components/FunctionPageBody.astro";
+import Stats from "../../../components/Stats.astro";
+import CTABanner from "../../../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — Finance Function" description="AI for finance teams that delivers instant, accurate answers on policies, controls, and audits—improving efficiency, reducing risk, and increasing knowledge usage.">
+  <Hero
+    eyebrow="Finance Function"
+    heading="AskBob: Your Finance Expert."
+    subheading="AskBob coordinates specialized agents, tools, and reasoning to solve complex, multi-step business problems."
+  />
+
+  <FunctionPageBody
+    sampleQuestions={[
+      "What is our current balance for all invoices over 90 days overdue?",
+      "What is our policy on expense reimbursements?",
+      "How much cash do we have on our balance sheet as of March?",
+      "What was our last audit opinion?",
+    ]}
+    coreHeading="Clarity, consistency, and confidence—powered by your source of truth."
+    coreBody="AskBob helps finance teams answer complex questions about policies, controls, contracts, and procedures using your actual documents. No spreadsheets needed."
+    helpsWith={[
+      "Interpreting accounting policies and controls",
+      "Supporting audits and compliance reviews",
+      "Explaining processes to non-finance teams",
+      "Reducing dependency on a few subject-matter experts",
+    ]}
+    whyChooseHeading="Why Finance Teams Choose AskBob"
+    whyChoose={[
+      "Every answer includes a citation",
+      "Reduces risk from outdated or informal guidance",
+      "Keeps sensitive data governed and secure",
+      "Improves response time without sacrificing accuracy",
+    ]}
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Get your Finance Function Started Today!"
+    subheading="Experience the power of function-specific language models firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo."
+    ctaLabel="Schedule Demo"
+  />
+</Layout>

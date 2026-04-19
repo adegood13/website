@@ -1,0 +1,72 @@
+---
+/**
+ * 3-column grid of feature cards, each with optional image, title, body.
+ * Used on home, Platform, Industry pages.
+ *
+ * <FeatureCards
+ *   heading="Built for teams that need speed"
+ *   cards={[
+ *     { image: "...", title: "Make knowledge searchable", body: "..." },
+ *     ...
+ *   ]}
+ * />
+ */
+interface Card {
+  image?: string;
+  imageAlt?: string;
+  icon?: string;       // emoji or single character as fallback
+  title: string;
+  body: string;
+}
+interface Props {
+  heading?: string;
+  headingAccent?: string;
+  subheading?: string;
+  cards: Card[];
+  background?: "white" | "blue";
+  cardBackground?: "white" | "blue";
+}
+
+const {
+  heading,
+  headingAccent,
+  subheading,
+  cards,
+  background = "white",
+  cardBackground = "blue",
+} = Astro.props;
+
+const sectionBg = background === "blue" ? "bg-blue-bg" : "bg-white";
+const cardBg = cardBackground === "blue" ? "bg-blue-bg" : "bg-white border border-black/5";
+---
+
+<section class={`${sectionBg} py-20 lg:py-24`}>
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+    {heading && (
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <h2 class="text-3xl lg:text-5xl font-bold tracking-tight">
+          {heading}{headingAccent && <> <span class="text-brand">{headingAccent}</span></>}
+        </h2>
+        {subheading && <p class="mt-4 text-ink-muted text-lg">{subheading}</p>}
+      </div>
+    )}
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {cards.map(card => (
+        <div class={`${cardBg} rounded-3xl p-8 flex flex-col gap-5`}>
+          {card.image && (
+            <div class="aspect-[4/3] rounded-xl bg-white/60 flex items-center justify-center overflow-hidden">
+              <img src={card.image} alt={card.imageAlt ?? ""} class="max-w-[85%] max-h-[85%] object-contain" loading="lazy" />
+            </div>
+          )}
+          {card.icon && !card.image && (
+            <div class="w-12 h-12 rounded-xl bg-brand text-white font-bold flex items-center justify-center text-xl">
+              {card.icon}
+            </div>
+          )}
+          <h3 class="text-xl font-bold">{card.title}</h3>
+          <p class="text-ink-muted leading-relaxed text-sm">{card.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

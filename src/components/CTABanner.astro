@@ -1,0 +1,44 @@
+---
+/**
+ * Blue-gradient CTA banner with dot-pattern overlay. Used at the bottom of
+ * nearly every page.
+ *
+ * <CTABanner heading="Get Started Today!" />
+ * <CTABanner heading="Make Your Mortgage Data Instantly Usable" ctaLabel="Book a Demo" />
+ */
+import GetDemoButton from "./GetDemoButton.astro";
+
+interface Props {
+  heading: string;
+  subheading?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+
+const {
+  heading,
+  subheading,
+  ctaLabel = "Get a Demo",
+  ctaHref = "/get-a-demo",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-hero-gradient py-24 lg:py-32">
+  <img
+    src="/images/blue-dot-pattern.png"
+    alt=""
+    aria-hidden="true"
+    class="absolute inset-x-0 bottom-0 w-full pointer-events-none opacity-90"
+  />
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center relative z-10">
+    <h2 class="text-4xl lg:text-6xl font-bold text-white tracking-tight">
+      {heading}
+    </h2>
+    {subheading && (
+      <p class="mt-5 text-white/90 text-lg max-w-2xl mx-auto">{subheading}</p>
+    )}
+    <div class="mt-8">
+      <GetDemoButton size="lg" label={ctaLabel} href={ctaHref} />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,181 @@
+---
+/**
+ * Top navigation bar.
+ * Mobile: hamburger → full-screen drawer.
+ * Desktop: horizontal menu with dropdown groups.
+ */
+import GetDemoButton from "./GetDemoButton.astro";
+
+const solutions = [
+  { heading: "By Function", links: [
+    { href: "/solutions/function/finance",         label: "Finance" },
+    { href: "/solutions/function/human-resources", label: "Human Resources" },
+    { href: "/solutions/function/sales",           label: "Sales" },
+    { href: "/solutions/function/supply-chain",    label: "Supply Chain" },
+    { href: "/solutions/function/technology",      label: "Technology" },
+  ]},
+  { heading: "By Industry", links: [
+    { href: "/solutions/industry/finance",    label: "Finance" },
+    { href: "/solutions/industry/government", label: "Government" },
+    { href: "/solutions/industry/mortgage",   label: "Mortgage" },
+    { href: "/solutions/industry/saas",       label: "SaaS" },
+  ]},
+];
+
+const platform = [
+  { href: "/platform/data",          label: "Data" },
+  { href: "/platform/knowledge",     label: "Knowledge" },
+  { href: "/platform/orchestration", label: "Orchestration" },
+  { href: "/platform/workflows",     label: "Workflows" },
+];
+
+const resources = [
+  { href: "/resources/blog",   label: "Blog" },
+  { href: "/resources/guides", label: "Guides" },
+];
+---
+
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-black/5">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 shrink-0" aria-label="AskBobAI home">
+      <img src="/images/askbobai-logo.svg" alt="AskBobAI" class="h-7 w-auto" />
+      <span class="text-xl font-bold tracking-tight">AskBobAI</span>
+    </a>
+
+    <!-- Desktop menu -->
+    <nav class="hidden lg:flex items-center gap-1 text-sm font-medium" aria-label="Primary">
+      <!-- Solutions -->
+      <div class="relative group">
+        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
+          Solutions
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-60">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 w-[480px]">
+          <div class="grid grid-cols-2 gap-6 p-6 bg-white rounded-xl shadow-xl border border-black/5">
+            {solutions.map(group => (
+              <div>
+                <p class="text-xs uppercase tracking-wider text-ink-muted mb-3 font-semibold">{group.heading}</p>
+                <ul class="space-y-2">
+                  {group.links.map(l => (
+                    <li><a href={l.href} class="block py-1 hover:text-brand transition-colors">{l.label}</a></li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform -->
+      <div class="relative group">
+        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
+          Platform
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-60">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 w-[220px]">
+          <ul class="p-4 bg-white rounded-xl shadow-xl border border-black/5 space-y-1">
+            {platform.map(l => (
+              <li><a href={l.href} class="block px-3 py-2 rounded hover:bg-black/5 hover:text-brand transition-colors">{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <a href="/ai-agents" class="px-4 py-2 rounded-md hover:bg-black/5">AI Agents</a>
+
+      <!-- Resources -->
+      <div class="relative group">
+        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
+          Resources
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-60">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 w-[180px]">
+          <ul class="p-4 bg-white rounded-xl shadow-xl border border-black/5 space-y-1">
+            {resources.map(l => (
+              <li><a href={l.href} class="block px-3 py-2 rounded hover:bg-black/5 hover:text-brand transition-colors">{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <a href="/about" class="px-4 py-2 rounded-md hover:bg-black/5">About</a>
+    </nav>
+
+    <!-- CTA (desktop) + mobile toggle -->
+    <div class="flex items-center gap-3">
+      <div class="hidden lg:block">
+        <GetDemoButton size="sm" />
+      </div>
+      <button
+        id="nav-toggle"
+        class="lg:hidden p-2 -mr-2"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div id="mobile-nav" class="lg:hidden hidden border-t border-black/5">
+    <div class="px-6 py-4 space-y-4 text-base font-medium">
+      <details class="group">
+        <summary class="flex justify-between items-center cursor-pointer py-2 list-none">
+          Solutions
+          <span class="group-open:rotate-180 transition-transform">▾</span>
+        </summary>
+        <div class="pl-4 py-2 space-y-3">
+          {solutions.map(group => (
+            <div>
+              <p class="text-xs uppercase text-ink-muted font-semibold mb-1">{group.heading}</p>
+              <ul class="space-y-1">
+                {group.links.map(l => <li><a href={l.href} class="block py-1">{l.label}</a></li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </details>
+      <details class="group">
+        <summary class="flex justify-between items-center cursor-pointer py-2 list-none">
+          Platform <span class="group-open:rotate-180 transition-transform">▾</span>
+        </summary>
+        <ul class="pl-4 py-2 space-y-1">
+          {platform.map(l => <li><a href={l.href} class="block py-1">{l.label}</a></li>)}
+        </ul>
+      </details>
+      <a href="/ai-agents" class="block py-2">AI Agents</a>
+      <details class="group">
+        <summary class="flex justify-between items-center cursor-pointer py-2 list-none">
+          Resources <span class="group-open:rotate-180 transition-transform">▾</span>
+        </summary>
+        <ul class="pl-4 py-2 space-y-1">
+          {resources.map(l => <li><a href={l.href} class="block py-1">{l.label}</a></li>)}
+        </ul>
+      </details>
+      <a href="/about" class="block py-2">About</a>
+      <div class="pt-2">
+        <GetDemoButton />
+      </div>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const btn = document.getElementById("nav-toggle");
+  const drawer = document.getElementById("mobile-nav");
+  btn?.addEventListener("click", () => {
+    const open = drawer.classList.toggle("hidden") === false;
+    btn.setAttribute("aria-expanded", String(open));
+  });
+</script>

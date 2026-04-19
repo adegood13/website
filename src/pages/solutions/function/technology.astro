@@ -1,0 +1,47 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Hero from "../../../components/Hero.astro";
+import FunctionPageBody from "../../../components/FunctionPageBody.astro";
+import Stats from "../../../components/Stats.astro";
+import CTABanner from "../../../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — Technology Function" description="AI for IT teams—AskBobAI turns documentation, tickets, and systems into instant answers that reduce downtime.">
+  <Hero
+    eyebrow="Technology"
+    heading="AskBob: Your Technology Expert."
+    subheading="AskBob coordinates specialized agents, tools, and reasoning to solve complex, multi-step business problems."
+  />
+
+  <FunctionPageBody
+    sampleQuestions={[
+      "What is our policy on using your personal laptop?",
+      "How do I reset my password for email?",
+      "Who is the system admin for our CRM?",
+      "What is our security protocol on phishing emails?",
+    ]}
+    coreHeading="Turn technical knowledge into instant answers—without creating risk."
+    coreBody="AskBob gives technology teams a trusted way to surface policies, SOPs, system documentation, and historical decisions exactly where work happens."
+    helpsWith={[
+      "Answer internal technology questions using approved documentation",
+      "Reduce repeat tickets and interruptions",
+      "Preserve institutional knowledge as teams change",
+      "Support audits with traceable, sourced responses",
+    ]}
+    whyChooseHeading="Why Technology Teams Choose AskBob"
+    whyChoose={[
+      "Role-based access and tenant-level controls",
+      "Uses only approved data sources",
+      "Works inside chat, helpdesks, email, and portals",
+      "Fast to deploy without disrupting existing systems",
+    ]}
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Get your Technology function started today!"
+    subheading="Experience the power of function-specific language models firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo."
+    ctaLabel="Schedule Demo"
+  />
+</Layout>
