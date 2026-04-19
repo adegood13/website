@@ -1,108 +1,198 @@
 ---
+/**
+ * About page — pixel-perfect port of askbobai.com/about.
+ * All copy, imagery, and bios pulled from the live site.
+ */
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
 import CTABanner from "../components/CTABanner.astro";
 
-const sampleQuestions = [
-  "Can you describe the residual income method for evaluating borrower affordability under FHLMC standards?",
-  "How does FNMA instruct underwriters to treat assets held in cryptocurrencies when considering them for down payment funds?",
-  "What documentation is required to verify large deposits found during the bank statement review process under FNMA rules?",
+/* Chat-bubble content that floats in the hero (same Q's as live site). */
+const heroChat = [
+  {
+    avatar: "/images/about/client-avatar-1.png",
+    text: "Can you describe the residual income method for evaluating borrower affordability under FHLMC standards?",
+  },
+  {
+    avatar: "/images/about/client-avatar-2.png",
+    text: "How does FNMA instruct underwriters to treat assets held in cryptocurrencies when considering them for down payment funds?",
+  },
+  {
+    avatar: "/images/about/client-avatar-3.png",
+    text: "What documentation is required to verify large deposits found during the bank statement review process under FNMA rules?",
+  },
 ];
 
 const leadership = [
-  { name: "Andrew DeGood", role: "CEO & Co-Founder",  image: "/images/team/andrew.jpg" },
-  { name: "Tim Nguyen",    role: "CTO & Co-Founder",  image: "/images/team/tim.jpg" },
+  { name: "Andrew DeGood", role: "CEO & Co-Founder",  photo: "/images/team/andrew-degood.jpg" },
+  { name: "Tim Nguyen",    role: "CTO & Co-founder",  photo: "/images/team/tim-nguyen.jpg" },
 ];
 
 const values = [
-  { icon: "🎉", title: "Have Fun",         body: "We infuse every project with a sense of joy and excitement, harnessing the power of fun to drive creativity and innovation." },
-  { icon: "🤝", title: "Be Transparent",   body: "We believe in open and honest communication, both internally within our team and externally with our clients and partners." },
-  { icon: "🌍", title: "Embrace Diversity",body: "By embracing different perspectives, backgrounds, and experiences, we create a more dynamic work environment." },
-  { icon: "⚖️", title: "Act with Integrity",body: "Integrity is at the core of everything we do. It guides us in every decision we make, ensuring we build trust." },
+  { title: "Have Fun",           body: "We infuse every project with a sense of joy and excitement, harnessing the power of fun to drive creativity and innovation." },
+  { title: "Be Transparent",     body: "We believe in open and honest communication, both internally within our team and externally with our clients and partners." },
+  { title: "Embrace Diversity",  body: "By embracing different perspectives, backgrounds, and experiences, we create a more dynamic work environment." },
+  { title: "Act with Integrity", body: "Integrity is at the core of everything we do. Integrity guides us in every decision we make, ensuring we build trust." },
 ];
 ---
 
-<Layout title="AskBobAI — About" description="Learn about AskBobAI's mission to make company knowledge useful—helping teams save time, reduce cost, and move faster.">
-  <Hero
-    heading="Meet the Diverse Minds Fueling AskBob's Innovation!"
-    ctaLabel={undefined}
-  >
-    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
-      {sampleQuestions.map(q => (
-        <div class="bg-white/95 text-ink rounded-2xl p-5 text-sm leading-relaxed shadow-lg">
-          {q}
-        </div>
-      ))}
-    </div>
-  </Hero>
+<Layout
+  title="AskBobAI — Company"
+  description="Learn about AskBobAI's mission to make company knowledge useful—helping teams save time, reduce cost, and move faster."
+>
+  <!-- HERO ================================================================= -->
+  <section class="bg-hero-gradient relative overflow-hidden pt-28 lg:pt-36">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 pt-12 pb-24 lg:pt-16 lg:pb-32 text-center relative z-10">
+      <h1 class="text-white font-semibold tracking-tight text-4xl sm:text-5xl lg:text-[54px] leading-[1.1] max-w-3xl mx-auto">
+        Meet the Diverse Minds<br/>Fueling AskBob's Innovation!
+      </h1>
 
-  <!-- Leadership -->
-  <section class="bg-white py-20 lg:py-24">
+      <!-- Floating chat bubbles: 3 user Q's + 1 Ask Bob response.
+           Desktop: scattered at different columns. Mobile: stacked. -->
+      <div class="mt-12 max-w-5xl mx-auto text-left">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-y-3">
+          <!-- User bubble 1 -->
+          <div class="md:col-span-5 md:col-start-1">
+            <div class="bg-white/95 rounded-2xl p-4 shadow-lg flex items-start gap-3">
+              <img src={heroChat[0].avatar} alt="" class="w-8 h-8 rounded-full shrink-0 object-cover" />
+              <p class="text-sm leading-relaxed text-ink">{heroChat[0].text}</p>
+            </div>
+          </div>
+
+          <!-- Ask Bob response -->
+          <div class="md:col-span-5 md:col-start-8">
+            <div class="bg-[#1281DE] rounded-2xl p-4 shadow-lg flex items-center gap-3 text-white">
+              <span class="inline-flex w-8 h-8 rounded-md bg-brand items-center justify-center shrink-0">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+                  <path d="M12 2l2.3 6.8L21 12l-6.7 3.2L12 22l-2.3-6.8L3 12l6.7-3.2L12 2z"/>
+                </svg>
+              </span>
+              <p class="text-sm font-medium">How can I help you work today?</p>
+            </div>
+          </div>
+
+          <!-- User bubble 2 (center) -->
+          <div class="md:col-span-5 md:col-start-4">
+            <div class="bg-white/95 rounded-2xl p-4 shadow-lg flex items-start gap-3">
+              <img src={heroChat[1].avatar} alt="" class="w-8 h-8 rounded-full shrink-0 object-cover" />
+              <p class="text-sm leading-relaxed text-ink">{heroChat[1].text}</p>
+            </div>
+          </div>
+
+          <!-- User bubble 3 (right) -->
+          <div class="md:col-span-5 md:col-start-7">
+            <div class="bg-white/95 rounded-2xl p-4 shadow-lg flex items-start gap-3">
+              <img src={heroChat[2].avatar} alt="" class="w-8 h-8 rounded-full shrink-0 object-cover" />
+              <p class="text-sm leading-relaxed text-ink">{heroChat[2].text}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEET THE TEAM ========================================================= -->
+  <section class="bg-white py-20 lg:py-28">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">The leadership team charting the course.</h2>
-        <p class="mt-4 text-ink-muted text-lg">AskBob powers knowledge-driven teams across industries where accuracy, speed, and trust matter most.</p>
+        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">Meet the Team.</h2>
+        <p class="mt-3 text-ink-muted">The leadership team charting the course.</p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-        {leadership.map(p => (
-          <div class="bg-blue-bg rounded-3xl p-8 text-center">
-            <div class="w-32 h-32 rounded-full bg-white/80 mx-auto mb-4 overflow-hidden flex items-center justify-center text-4xl font-bold text-ink-muted">
-              {p.name.split(" ").map(n => n[0]).join("")}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        {leadership.map(person => (
+          <div class="rounded-3xl overflow-hidden bg-white border border-black/5 shadow-sm">
+            <div class="aspect-[5/4] overflow-hidden bg-blue-bg">
+              <img src={person.photo} alt={person.name} class="w-full h-full object-cover" />
             </div>
-            <h3 class="text-xl font-bold">{p.name}</h3>
-            <p class="text-ink-muted mt-1">{p.role}</p>
+            <div class="p-6 flex items-center justify-between">
+              <div>
+                <h3 class="text-xl font-bold">{person.name}</h3>
+                <p class="text-sm text-ink-muted mt-0.5">{person.role}</p>
+              </div>
+              <a href="#" class="text-sm font-semibold text-brand hover:underline">Read More</a>
+            </div>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Vision -->
-  <section class="bg-white py-20 lg:py-24">
-    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 grid md:grid-cols-2 gap-12 items-center">
+  <!-- ENVISIONING =========================================================== -->
+  <section class="bg-white pb-16 lg:pb-24">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
       <div>
-        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">Envisioning: The New Personalized AI for Business.</h2>
-        <p class="mt-5 text-ink-muted text-lg leading-relaxed">
-          AskBobAI is on a mission to reimagine how businesses unlock the value of their own knowledge.
-          By combining the power of language models with secure, domain-specific data, we're building AI that's
-          reliable, customizable, and ready to transform everyday operations.
+        <h2 class="text-3xl lg:text-[40px] font-bold tracking-tight leading-tight">
+          Envisioning: The New Personalized AI for Business.
+        </h2>
+        <p class="mt-6 text-ink-muted leading-relaxed">
+          At AskBob AI, we're driven by a shared passion for ushering in a future where
+          businesses flourish through the transformative capabilities of artificial intelligence.
+          Our mission is to spearhead this evolution by providing cutting-edge AI solutions
+          meticulously crafted to cater to the unique requirements of each business.
+          We firmly believe in simplifying the process of AI integration, empowering
+          organizations to amplify their efficiency, productivity, and innovation effortlessly.
+          With our personalized approach, we guarantee that businesses experience tangible
+          and measurable outcomes, enabling them to thrive in today's dynamic landscape.
+          Join us on our journey as we redefine the possibilities of AI and revolutionize
+          the way businesses operate to succeed.
         </p>
       </div>
-      <div class="bg-blue-bg rounded-3xl aspect-[4/3] flex items-center justify-center">
-        <span class="text-6xl">💡</span>
+      <div class="rounded-3xl overflow-hidden bg-blue-bg aspect-[4/3]">
+        <img src="/images/about/envisioning.jpg" alt="" class="w-full h-full object-cover" />
       </div>
     </div>
   </section>
 
-  <!-- Journey -->
-  <section class="bg-white py-20 lg:py-24 border-t border-black/5">
-    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 grid md:grid-cols-2 gap-12 items-center">
-      <div class="bg-blue-bg rounded-3xl aspect-[4/3] flex items-center justify-center order-last md:order-first">
-        <span class="text-6xl">🚀</span>
+  <!-- JOURNEY (reversed) ===================================================== -->
+  <section class="bg-white pb-16 lg:pb-24">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <div class="rounded-3xl overflow-hidden bg-blue-bg aspect-[4/3] md:order-first">
+        <img src="/images/about/journey.jpg" alt="" class="w-full h-full object-cover" />
       </div>
       <div>
-        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">The Journey of AskBob's Founders.</h2>
-        <p class="mt-5 text-ink-muted text-lg leading-relaxed">
-          We believe in open and honest communication, both internally within our team and externally with our
-          clients and partners. Together we are building a company that embraces transparency, curiosity, and
-          the belief that knowledge should work for everyone.
+        <h2 class="text-3xl lg:text-[40px] font-bold tracking-tight leading-tight">
+          The Journey of AskBob's Founders.
+        </h2>
+        <p class="mt-6 text-ink-muted leading-relaxed">
+          Tim Nguyen and Andrew DeGood, the co-founders of AskBob AI, forged a dynamic
+          partnership rooted in their shared values and diverse expertise. Tim's formative
+          years amidst the turmoil of war and poverty instilled within him a profound
+          dedication to driving societal change through entrepreneurial endeavors. Conversely,
+          Andrew's extensive background in finance and technology imbued him with a deep-seated
+          passion for innovation and the promotion of workplace well-being. United by a shared
+          vision to harness the potential of artificial intelligence for positive societal impact,
+          they embarked on a journey to establish AskBob AI. Combining Tim's entrepreneurial
+          drive with Andrew's strategic acumen, they laid the foundation for a groundbreaking
+          venture that stands today as a beacon of innovation and progress.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Values -->
-  <section class="bg-white py-20 lg:py-24">
+  <!-- WHAT WE VALUE ========================================================= -->
+  <section class="bg-white pb-20 lg:pb-28">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
-      <div class="text-center max-w-2xl mx-auto mb-14">
-        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">What We Value.</h2>
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-3xl lg:text-[40px] font-bold tracking-tight">What We Value.</h2>
+        <p class="mt-6 text-ink-muted leading-relaxed">
+          At AskBob AI, we live and breathe our core values, infusing every aspect of our work
+          with joy, honesty, pioneering spirit, and genuine authenticity. Every day, we tackle
+          challenges head-on, seeing them as opportunities for innovation and growth. We're all
+          about giving back, sharing our expertise, resources, and time to uplift our team,
+          clients, and community. With a relentless pursuit of excellence, we pour our hearts
+          into crafting exceptional solutions and experiences that go above and beyond
+          expectations. These values drive us forward, fueling our quest for greatness and
+          our mission to make a meaningful impact in the realm of AI technology.
+        </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Team illustration above the value cards -->
+      <div class="rounded-3xl overflow-hidden aspect-[21/9] mb-10">
+        <img src="/images/about/values.jpg" alt="The AskBobAI team collaborating" class="w-full h-full object-cover" />
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {values.map(v => (
-          <div class="bg-blue-bg rounded-3xl p-6 text-center">
-            <div class="text-4xl mb-3">{v.icon}</div>
-            <h3 class="font-bold mb-2">{v.title}</h3>
-            <p class="text-ink-muted text-sm leading-relaxed">{v.body}</p>
+          <div class="bg-blue-bg rounded-2xl p-6 text-center">
+            <h3 class="font-bold text-lg">{v.title}</h3>
+            <p class="mt-3 text-sm text-ink-muted leading-relaxed">{v.body}</p>
           </div>
         ))}
       </div>

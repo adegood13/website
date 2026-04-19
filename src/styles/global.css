@@ -16,6 +16,8 @@
   --color-brand-dark: #008035;
   --color-brand-accent: #20e371;
   --color-brand-bg: #dbffea;
+  /* Lighter mint used for the hero's cycling word — matches live site exactly */
+  --color-brand-mint: #99f0bd;
 
   /* Blue — hero gradient, secondary accents */
   --color-blue: #1281de;
@@ -70,11 +72,28 @@ body {
   background: var(--color-surface);
 }
 
-/* Shared hero-blue gradient (matches Framer's blue-to-transparent radial) */
+/* Hero gradient — exact computed values from live site.
+   linear-gradient(rgb(18,129,222) 0%, rgba(24,141,237,0.76) 41.58%, rgba(31,154,255,0) 100%)
+   Sits over white so the fade-to-white behavior matches the original. */
 .bg-hero-gradient {
   background:
-    radial-gradient(ellipse at 50% 0%, #1281de 0%, #188ded 42%, rgba(31, 154, 255, 0) 100%),
-    #edf7ff;
+    linear-gradient(
+      180deg,
+      rgb(18, 129, 222) 0%,
+      rgba(24, 141, 237, 0.76) 41.58%,
+      rgba(31, 154, 255, 0) 100%
+    ),
+    #ffffff;
+}
+
+/* ---------------------------------------------------------------
+   Hero cycling word animation
+   --------------------------------------------------------------- */
+@keyframes wordSwap {
+  0%, 20%   { opacity: 0; transform: translateY(8px); }
+  5%, 18%   { opacity: 1; transform: translateY(0); }
+  22%       { opacity: 0; transform: translateY(-8px); }
+  100%      { opacity: 0; transform: translateY(-8px); }
 }
 
 /* Client-logo strip marquee animation */

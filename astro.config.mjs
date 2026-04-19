@@ -6,6 +6,12 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   vite: {
-    plugins: [tailwindcss()]
-  }
+    plugins: [tailwindcss()],
+    // Allow dev-server previews via tunnels (cloudflared, ngrok, etc.)
+    // Safe for dev only — production is a static build, this setting is ignored.
+    server: {
+      host: true,
+      allowedHosts: true,
+    },
+  },
 });

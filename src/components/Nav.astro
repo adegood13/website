@@ -1,8 +1,14 @@
 ---
 /**
- * Top navigation bar.
- * Mobile: hamburger → full-screen drawer.
- * Desktop: horizontal menu with dropdown groups.
+ * Top navigation.
+ *
+ * Matches live askbobai.com exactly:
+ *   • Transparent background that sits OVER the hero gradient (no white bar,
+ *     no border). Text is white so it reads over the blue.
+ *   • On scroll past ~100px, we swap to a solid-white "scrolled" state
+ *     (dark text) so the nav stays readable over white content.
+ *   • The Layout/page is responsible for extending the hero gradient to the
+ *     top of the viewport (padding-top:0) so the nav visually blends in.
  */
 import GetDemoButton from "./GetDemoButton.astro";
 
@@ -35,26 +41,29 @@ const resources = [
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-black/5">
-  <div class="max-w-[1200px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+<header
+  id="site-nav"
+  class="absolute top-0 left-0 right-0 z-50 transition-colors duration-200"
+  data-nav
+>
+  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 flex items-center justify-between py-6 lg:py-7">
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2 shrink-0" aria-label="AskBobAI home">
-      <img src="/images/askbobai-logo.svg" alt="AskBobAI" class="h-7 w-auto" />
-      <span class="text-xl font-bold tracking-tight">AskBobAI</span>
+      <span class="text-2xl font-bold tracking-tight text-white group-[.scrolled]/nav:text-ink" data-nav-text>AskBobAI</span>
+      <img src="/images/askbobai-logo.svg" alt="" class="h-6 w-auto" />
     </a>
 
     <!-- Desktop menu -->
-    <nav class="hidden lg:flex items-center gap-1 text-sm font-medium" aria-label="Primary">
-      <!-- Solutions -->
+    <nav class="hidden lg:flex items-center gap-1 text-[15px] font-medium text-white" data-nav-text aria-label="Primary">
       <div class="relative group">
-        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
+        <button class="px-4 py-2 rounded-md hover:bg-white/10 flex items-center gap-1 cursor-pointer" data-nav-hover>
           Solutions
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-60">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
         <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 w-[480px]">
-          <div class="grid grid-cols-2 gap-6 p-6 bg-white rounded-xl shadow-xl border border-black/5">
+          <div class="grid grid-cols-2 gap-6 p-6 bg-white text-ink rounded-xl shadow-xl border border-black/5">
             {solutions.map(group => (
               <div>
                 <p class="text-xs uppercase tracking-wider text-ink-muted mb-3 font-semibold">{group.heading}</p>
@@ -69,16 +78,15 @@ const resources = [
         </div>
       </div>
 
-      <!-- Platform -->
       <div class="relative group">
-        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
+        <button class="px-4 py-2 rounded-md hover:bg-white/10 flex items-center gap-1 cursor-pointer" data-nav-hover>
           Platform
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-60">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
         <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 w-[220px]">
-          <ul class="p-4 bg-white rounded-xl shadow-xl border border-black/5 space-y-1">
+          <ul class="p-4 bg-white text-ink rounded-xl shadow-xl border border-black/5 space-y-1">
             {platform.map(l => (
               <li><a href={l.href} class="block px-3 py-2 rounded hover:bg-black/5 hover:text-brand transition-colors">{l.label}</a></li>
             ))}
@@ -86,18 +94,17 @@ const resources = [
         </div>
       </div>
 
-      <a href="/ai-agents" class="px-4 py-2 rounded-md hover:bg-black/5">AI Agents</a>
+      <a href="/ai-agents" class="px-4 py-2 rounded-md hover:bg-white/10" data-nav-hover>AI Agents</a>
 
-      <!-- Resources -->
       <div class="relative group">
-        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
+        <button class="px-4 py-2 rounded-md hover:bg-white/10 flex items-center gap-1 cursor-pointer" data-nav-hover>
           Resources
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-60">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
         <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150 w-[180px]">
-          <ul class="p-4 bg-white rounded-xl shadow-xl border border-black/5 space-y-1">
+          <ul class="p-4 bg-white text-ink rounded-xl shadow-xl border border-black/5 space-y-1">
             {resources.map(l => (
               <li><a href={l.href} class="block px-3 py-2 rounded hover:bg-black/5 hover:text-brand transition-colors">{l.label}</a></li>
             ))}
@@ -105,17 +112,23 @@ const resources = [
         </div>
       </div>
 
-      <a href="/about" class="px-4 py-2 rounded-md hover:bg-black/5">About</a>
+      <a href="/about" class="px-4 py-2 rounded-md hover:bg-white/10" data-nav-hover>About</a>
     </nav>
 
-    <!-- CTA (desktop) + mobile toggle -->
+    <!-- Get a Demo pill (desktop) + mobile toggle -->
     <div class="flex items-center gap-3">
-      <div class="hidden lg:block">
-        <GetDemoButton size="sm" />
-      </div>
+      <a
+        href="/get-a-demo"
+        class="hidden lg:inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/5 px-5 py-2 text-sm font-semibold text-white hover:bg-white hover:text-ink transition-colors"
+        data-nav-cta
+      >
+        Get a Demo
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
       <button
         id="nav-toggle"
-        class="lg:hidden p-2 -mr-2"
+        class="lg:hidden p-2 -mr-2 text-white"
+        data-nav-text
         aria-label="Toggle menu"
         aria-expanded="false"
         aria-controls="mobile-nav"
@@ -128,7 +141,7 @@ const resources = [
   </div>
 
   <!-- Mobile drawer -->
-  <div id="mobile-nav" class="lg:hidden hidden border-t border-black/5">
+  <div id="mobile-nav" class="lg:hidden hidden bg-white text-ink">
     <div class="px-6 py-4 space-y-4 text-base font-medium">
       <details class="group">
         <summary class="flex justify-between items-center cursor-pointer py-2 list-none">
@@ -164,14 +177,66 @@ const resources = [
         </ul>
       </details>
       <a href="/about" class="block py-2">About</a>
-      <div class="pt-2">
-        <GetDemoButton />
-      </div>
+      <div class="pt-2"><GetDemoButton /></div>
     </div>
   </div>
 </header>
 
 <script is:inline>
+  /* Scroll-state swap.
+     Past 80px of scroll, flip nav into solid-white, dark-text mode.
+     Applied via dataset flag that our CSS hooks below. */
+  /* The nav is rendered before the rest of <main>, so we need to wait for the
+     DOM to finish parsing before we can inspect the hero section. */
+  function initNav() {
+    const nav = document.getElementById("site-nav");
+    if (!nav) return;
+    const threshold = 80;
+    let scrolled = false;
+    /* Pages that don't have a hero gradient (legal, blog detail, etc.) show
+       the nav in its "scrolled" state from page load. Detected by checking
+       whether the first <section> under <main> has the bg-hero-gradient class. */
+    const heroSection = document.querySelector("main > section:first-of-type");
+    const hasHero = heroSection?.classList.contains("bg-hero-gradient") ?? false;
+    const apply = () => {
+      const now = !hasHero || window.scrollY > threshold;
+      if (now === scrolled) return;
+      scrolled = now;
+      nav.dataset.scrolled = now ? "true" : "false";
+      // Swap classes on text nodes
+      nav.querySelectorAll("[data-nav-text]").forEach(el => {
+        el.classList.toggle("text-white", !now);
+        el.classList.toggle("text-ink", now);
+      });
+      nav.querySelectorAll("[data-nav-hover]").forEach(el => {
+        el.classList.toggle("hover:bg-white/10", !now);
+        el.classList.toggle("hover:bg-black/5", now);
+      });
+      const cta = nav.querySelector("[data-nav-cta]");
+      if (cta) {
+        cta.classList.toggle("border-white/60", !now);
+        cta.classList.toggle("bg-white/5", !now);
+        cta.classList.toggle("text-white", !now);
+        cta.classList.toggle("border-brand", now);
+        cta.classList.toggle("bg-brand", now);
+        cta.classList.toggle("text-white", now);
+      }
+      nav.classList.toggle("bg-white/95", now);
+      nav.classList.toggle("backdrop-blur", now);
+      nav.classList.toggle("shadow-sm", now);
+      nav.classList.toggle("fixed", now);
+      nav.classList.toggle("absolute", !now);
+    };
+    apply();
+    window.addEventListener("scroll", apply, { passive: true });
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initNav);
+  } else {
+    initNav();
+  }
+
+  /* Mobile drawer toggle */
   const btn = document.getElementById("nav-toggle");
   const drawer = document.getElementById("mobile-nav");
   btn?.addEventListener("click", () => {

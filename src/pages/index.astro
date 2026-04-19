@@ -7,7 +7,6 @@
 import Layout from "../layouts/Layout.astro";
 import GetDemoButton from "../components/GetDemoButton.astro";
 import ClientScroller from "../components/ClientScroller.astro";
-import VideoPlayer from "../components/VideoPlayer.astro";
 
 const stats = [
   { value: "12+", label: "Integrations" },
@@ -58,48 +57,80 @@ const industries = [
 
 <Layout title="AskBobAI — #1 Knowledge Management platform for work">
   <!-- =============================================================
-       HERO
-       Minimal, text-only (matches Framer). Background uses radial
-       gradient to replicate the spotlight-fade blue seen in the source.
+       HERO  (exact match to live askbobai.com hero)
+       - Full-bleed blue gradient that fades to white at bottom
+       - Nav sits transparently ON TOP of this section (no bar)
+       - H1 line 1: static "AI for Every Function" (white)
+       - H1 line 2: animated mint-green word that cycles through
+         {Sales, Finance, HR, Marketing, Operations, Support,
+          Technology, Legal, Procurement}
+       - Two CTAs: "Watch Video" (opens modal) + "Get a Demo"
        ============================================================= -->
-  <section class="bg-hero-gradient relative overflow-hidden">
-    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 pt-24 pb-32 lg:pt-32 lg:pb-48 text-center relative z-10">
-      <h1 class="text-white font-bold tracking-tight text-5xl sm:text-6xl lg:text-[64px] leading-[1.05]">
+  <section class="bg-hero-gradient relative overflow-hidden pt-28 lg:pt-36">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 pt-20 pb-32 lg:pt-24 lg:pb-44 text-center relative z-10">
+      <h1 class="text-white font-semibold tracking-tight text-[44px] sm:text-6xl lg:text-[64px] leading-[1.08]">
         AI for Every Function
+        <br />
+        <span
+          id="cycle-word"
+          class="inline-block text-[#99f0bd]"
+          aria-live="polite"
+        >Sales</span>
       </h1>
       <p class="mt-6 text-lg lg:text-xl text-white/90 max-w-xl mx-auto leading-relaxed">
         AskBob brings speed to your customers and time back to your teams.
         Instant, trusted answers — right where work happens.
       </p>
       <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <GetDemoButton size="lg" />
+        <button
+          type="button"
+          id="hero-watch-video"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/60 bg-white/5 text-white font-semibold hover:bg-white hover:text-ink transition-colors"
+        >
+          Watch Video
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <GetDemoButton size="md" />
       </div>
     </div>
   </section>
 
-  <!-- =============================================================
-       VIDEO — dedicated section, not stuffed into hero.
-       Overlaps hero/next section by -mt-20 to create a "floating" card.
-       ============================================================= -->
-  <section class="bg-white">
-    <div class="max-w-[1100px] mx-auto px-6 lg:px-10 -mt-24 lg:-mt-32 relative z-20">
-      <VideoPlayer
-        src="/videos/commercial.mp4"
-        webm="/videos/commercial.webm"
+  <!-- Video modal (hidden until "Watch Video" is clicked) -->
+  <dialog
+    id="video-modal"
+    class="backdrop:bg-black/80 rounded-2xl p-0 max-w-5xl w-[92vw] bg-transparent border-0"
+  >
+    <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-black shadow-2xl">
+      <button
+        type="button"
+        id="video-modal-close"
+        class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 text-ink flex items-center justify-center hover:bg-white transition-colors"
+        aria-label="Close video"
+      >
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <video
+        id="video-modal-player"
+        controls
+        preload="none"
+        playsinline
         poster="/videos/commercial-poster.jpg"
-        title="Watch the AskBobAI commercial"
-      />
+        class="w-full h-full object-cover"
+      >
+        <source src="/videos/commercial.webm" type="video/webm" />
+        <source src="/videos/commercial.mp4" type="video/mp4" />
+      </video>
     </div>
-  </section>
+  </dialog>
 
   <!-- =============================================================
        TRUSTED ACROSS INDUSTRIES
        ============================================================= -->
   <section class="bg-white py-20 lg:py-24">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
-      <div class="text-center max-w-2xl mx-auto mb-10">
-        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">Trusted Across Industries</h2>
-        <p class="mt-3 text-ink-muted">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <h2 class="text-4xl lg:text-[54px] font-bold tracking-tight leading-[1.1]">Trusted Across Industries</h2>
+        <p class="mt-4 text-ink-muted text-lg">
           AskBob powers knowledge-driven teams across industries where accuracy, speed, and trust matter most.
         </p>
       </div>
@@ -260,6 +291,67 @@ const industries = [
 </Layout>
 
 <script is:inline>
+  /* =============================================================
+     Hero word cycler.
+     Cycles through functional roles every 2.5s with a subtle
+     letter-appear/disappear animation so the hero feels alive.
+     ============================================================= */
+  (function cycleHeroWord() {
+    const el = document.getElementById("cycle-word");
+    if (!el) return;
+    const words = [
+      "Sales", "Finance", "HR", "Marketing",
+      "Operations", "Support", "Technology",
+      "Legal", "Procurement",
+    ];
+    let i = 0;
+    const swap = () => {
+      el.style.transition = "opacity 240ms ease, transform 240ms ease";
+      el.style.opacity = "0";
+      el.style.transform = "translateY(8px)";
+      setTimeout(() => {
+        i = (i + 1) % words.length;
+        el.textContent = words[i];
+        el.style.transform = "translateY(-8px)";
+        // Frame flip to restart transition
+        requestAnimationFrame(() => {
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        });
+      }, 260);
+    };
+    setInterval(swap, 2500);
+  })();
+
+  /* =============================================================
+     Hero "Watch Video" modal — opens a native <dialog>, plays the
+     self-hosted commercial. Pauses + resets on close.
+     ============================================================= */
+  (function videoModal() {
+    const btn = document.getElementById("hero-watch-video");
+    const dlg = document.getElementById("video-modal");
+    const closeBtn = document.getElementById("video-modal-close");
+    const video = document.getElementById("video-modal-player");
+    if (!btn || !dlg || !video) return;
+    btn.addEventListener("click", () => {
+      dlg.showModal();
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    });
+    const close = () => {
+      video.pause();
+      dlg.close();
+    };
+    closeBtn?.addEventListener("click", close);
+    // Close when clicking the backdrop (outside the video element)
+    dlg.addEventListener("click", (e) => {
+      if (e.target === dlg) close();
+    });
+    dlg.addEventListener("cancel", (e) => {
+      video.pause();
+    });
+  })();
+
   /* =============================================================
      Industry tab switcher — progressive enhancement.
      ============================================================= */
