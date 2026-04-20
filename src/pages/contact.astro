@@ -1,0 +1,91 @@
+---
+import Layout from "../layouts/Layout.astro";
+import CTABanner from "../components/CTABanner.astro";
+
+const faqs = [
+  {
+    q: "How do I justify the ROI on AskBob AI?",
+    a: "AskBob pays for itself in hours saved on every ticket, policy lookup, and internal question your team runs. Customers typically see return on investment within the first 60 days through reduced escalations, faster onboarding, and fewer repeat questions.",
+  },
+  {
+    q: "AskBob AI vs ChatGPT?",
+    a: "ChatGPT is a general-purpose model. AskBob is grounded in your company's own policies, documents, and data — so every answer is cited, traceable, and defensible inside your workflows.",
+  },
+  {
+    q: "AskBob AI vs In-House AI?",
+    a: "Building a secure, production-grade knowledge AI in-house takes a dedicated team, months of engineering, and ongoing maintenance. AskBob ships with enterprise security, integrations, and model orchestration out of the box.",
+  },
+  {
+    q: "Is my businesses data secure?",
+    a: "Yes. AskBob is built for regulated industries with SOC 2–grade controls, data isolation per tenant, and zero training on your data by default. Your knowledge stays yours.",
+  },
+];
+---
+
+<Layout
+  title="AskBobAI — Contact"
+  description="Get in touch with the AskBobAI team. We'll respond to your message quickly."
+>
+  <!-- Hero -->
+  <section class="bg-hero-gradient relative overflow-hidden pt-28 lg:pt-36">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 pt-20 pb-24 lg:pt-24 lg:pb-32 text-center relative z-10">
+      <h1 class="text-white font-semibold tracking-tight text-[44px] sm:text-6xl lg:text-[64px] leading-[1.08]">
+        Got a question?
+      </h1>
+      <p class="mt-6 text-lg lg:text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+        Got a question about our product or have some exciting business inquiries?
+        Reach out to our team, and we'll swing back with a response in no time.
+      </p>
+      <div class="mt-10 flex justify-center">
+        <a
+          href="https://calendly.com/adegood13/askbobai-chat"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 rounded-full bg-brand text-white font-semibold px-7 py-3.5 hover:bg-brand-dark transition-colors"
+        >
+          Let's Chat
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Send us a message -->
+  <section class="bg-white py-20 lg:py-24">
+    <div class="max-w-[820px] mx-auto px-6 lg:px-10 text-center">
+      <h2 class="text-sm font-semibold uppercase tracking-wider text-ink-muted mb-4">Send us a message</h2>
+      <p class="text-xl lg:text-2xl text-ink leading-relaxed">
+        Prefer to write? Email us anytime — we read every message and respond within one business day.
+      </p>
+      <p class="mt-6">
+        <a
+          href="mailto:hello@askbobai.com"
+          class="text-brand text-2xl font-semibold hover:underline"
+        >hello@askbobai.com</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="bg-blue-bg py-20 lg:py-28">
+    <div class="max-w-[900px] mx-auto px-6 lg:px-10">
+      <h2 class="text-4xl lg:text-5xl font-bold tracking-tight text-center mb-12">FAQs</h2>
+      <div class="space-y-4">
+        {faqs.map(faq => (
+          <details class="group bg-white rounded-2xl p-6 shadow-sm border border-black/5">
+            <summary class="flex justify-between items-center cursor-pointer list-none font-semibold text-lg">
+              <span>{faq.q}</span>
+              <svg class="w-5 h-5 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+            </summary>
+            <p class="mt-4 text-ink-muted leading-relaxed">{faq.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABanner
+    heading="Get started today!"
+    subheading="Experience the power of industry-specific language models firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo tailored to your sector."
+  />
+</Layout>

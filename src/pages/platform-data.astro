@@ -1,0 +1,85 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureSplit from "../components/FeatureSplit.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — Platform" description="AskBobAI connects to your data sources to deliver real-time insights, answers, and automation across your business.">
+  <Hero
+    eyebrow="Platform"
+    heading="Data is Power"
+    subheading="AskBob delivers instant, trusted answers via your internal data — improving customer service while keeping employees confident, supported, and focused."
+  />
+
+  <FeatureSplit
+    heading="AI only works when people use the data."
+    body="The right data powers better decisions delivered directly into everyday workflows."
+    image="/images/framer/LPDTaWEPtz6xtcdn8xbpkN2b9Eg.png"
+    imageAlt="Line chart showing the AI agent's answer accuracy increasing week by week."
+    background="white"
+  />
+
+  <FeatureSplit
+    heading="Data is Context, Not Everything"
+    body="Successful AI isn't powered by all your data. It's powered by the right subset—trusted, relevant, and purpose-built. AskBob works with purposeful data:"
+    bullets={[
+      "Procedures",
+      "Knowledge articles",
+      "Product docs",
+      "Policies",
+      "Compliance materials",
+      "Internal FAQs",
+    ]}
+    image="/images/framer/8WCncUNQfwljpQz2LJxmJt7JSls.png"
+    imageAlt="Conversation view with an AI agent about rental income documentation requirements"
+    background="blue"
+    reversed
+  />
+
+  <!-- Integrations row — exact 7 logos from askbobai.com/platform-data. -->
+  <section class="bg-white py-20 lg:py-24">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center">
+      <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">Designed For <span class="text-brand">In-Workflow AI Delivery</span></h2>
+      <p class="mt-4 text-ink-muted text-lg max-w-2xl mx-auto">
+        AskBob operates inside the tools your teams already use — ensuring consistent answers without disruption.
+      </p>
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-8 lg:gap-12">
+        {[
+          { src: "/images/framer/fCujYoWAhjiRkqgXJgcBHpMlkDs.png", alt: "Zendesk logo sign" },
+          { src: "/images/framer/agSbuVOvF1nUDzE92aXtJdLRFrg.png", alt: "Help Scout logo sign" },
+          { src: "/images/framer/yrju6R3HT08GAT76AJSHr2NEoE.png",  alt: "Docusaurus logo sign" },
+          { src: "/images/framer/kahxlEAkuiKuU5lUlIiBhDRANys.png", alt: "Chrome extensions logo sign" },
+          { src: "/images/framer/tcRmqMAH3NA2YC3E9sRZdi88w78.png", alt: "Jira logo sign" },
+          { src: "/images/framer/fMuRgOBtFf4KW6n3owEtObvzE.png",   alt: "Confluence logo sign" },
+          { src: "/images/framer/8Yg9dmXNva0gE1FyBfCnD9cOw.png",   alt: "Salesforce logo sign" },
+        ].map(logo => (
+          <div class="w-36 h-16 flex items-center justify-center">
+            <img src={logo.src} alt={logo.alt} class="max-h-12 w-auto object-contain" />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FeatureSplit
+    heading="Data Precision Over Data Sprawl"
+    body="AskBob is built for precision, not data sprawl. By using scoped, source-attributed knowledge, teams get faster answers, stronger trust, and easier governance."
+    bullets={[
+      "Fast Answers — instant responses pulled from scoped knowledge",
+      "Lower Risk, Built-In Governance — role-appropriate data access",
+      "Trusted by Design — curated, approved, source-attributed",
+    ]}
+    image="/images/framer/HxbUwBCJk1iiIMMM8YGcuiiNc.png"
+    imageAlt="Control panel for defining the AI agent's answering style, logic, and response parameters"
+    background="blue"
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Get Started Today!"
+    subheading="Experience the power of function-specific AI Agents firsthand by scheduling a demo tailored to your sector."
+  />
+</Layout>

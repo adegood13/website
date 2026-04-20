@@ -1,68 +1,130 @@
 ---
 /**
  * Shared body for function-solution pages (Finance, HR, Sales, Supply Chain,
- * Technology). Hero + Stats + CTABanner are rendered by the parent page; this
- * handles the middle sections that differ only in copy.
+ * Technology, Support). Hero + Stats + CTABanner are rendered by the parent
+ * page; this handles the middle sections.
+ *
+ * Matches askbobai.com layout:
+ *  1. Sample-question chat bubbles — each user bubble has a client avatar,
+ *     and one AskBob bubble with the sparkle logo asks "How can I help?"
+ *  2. Core illustration split — large photo + body copy with two bulleted lists
+ *  3. "Why X teams choose AskBob" split — team photo + copy
  */
 interface Props {
   sampleQuestions: string[];
   coreHeading: string;
   coreBody: string;
+  coreImage?: string;          // hero photo for Clarity section
+  coreImageAlt?: string;
   helpsWith: string[];
   whyChooseHeading: string;
   whyChoose: string[];
+  whyImage?: string;            // team photo for Why section
+  whyImageAlt?: string;
 }
-const { sampleQuestions, coreHeading, coreBody, helpsWith, whyChooseHeading, whyChoose } = Astro.props;
+const {
+  sampleQuestions,
+  coreHeading, coreBody, coreImage, coreImageAlt = "",
+  helpsWith,
+  whyChooseHeading, whyChoose, whyImage, whyImageAlt = "",
+} = Astro.props;
+
+/* Shared client avatar set used across all function pages (same 4 faces as
+   askbobai.com). Cycles through as the questions render. */
+const avatars = [
+  "/images/framer/9yCODFjCQVcckbyy3PRxeRvmDw.png",
+  "/images/framer/ggA8oK3DnI1jLkSLw5IE6PEzfs.png",
+  "/images/framer/HumogXbWXkFa5cnEb891PqoA1Mo.png",
+  "/images/framer/fOv0fUrUv2D415RVaOiOkyenVo.png",
+];
 ---
 
-<!-- Sample questions grid -->
+<!-- Sample-question chat bubbles -->
 <section class="bg-white py-20 lg:py-24">
   <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
     <div class="text-center max-w-2xl mx-auto mb-12">
       <p class="text-sm font-semibold text-brand uppercase tracking-wider mb-3">Sample Questions</p>
       <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">Answers your team asks every day.</h2>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-      {sampleQuestions.map(q => (
-        <div class="bg-blue-bg rounded-2xl p-5 flex items-start gap-3">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-brand mt-0.5 shrink-0" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <p class="text-ink leading-relaxed">{q}</p>
+    <div class="max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        {/* AskBob opener sits at the top-right */}
+        <div class="md:col-span-6 md:col-start-7">
+          <div class="bg-[#1281DE] rounded-2xl p-4 shadow-lg flex items-center gap-3 text-white">
+            <img
+              src="/images/framer/nH9dzkavs8IwOFM2h6rHi9yEcmA.svg"
+              alt=""
+              class="w-8 h-8 shrink-0"
+            />
+            <p class="text-sm font-medium">How can I help?</p>
+          </div>
         </div>
-      ))}
+
+        {sampleQuestions.map((q, i) => (
+          <div class:list={[
+            "md:col-span-6",
+            i % 2 === 0 ? "md:col-start-1" : "md:col-start-7",
+          ]}>
+            <div class="bg-blue-bg rounded-2xl p-4 shadow-sm flex items-start gap-3">
+              <img
+                src={avatars[i % avatars.length]}
+                alt=""
+                class="w-8 h-8 rounded-full shrink-0 object-cover"
+              />
+              <p class="text-sm leading-relaxed text-ink">{q}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Core value + two bulleted lists -->
+<!-- Core split — heading + body + two bulleted lists, with optional hero image -->
 <section class="bg-blue-bg py-20 lg:py-24">
   <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
-    <div class="text-center max-w-3xl mx-auto mb-12">
-      <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">{coreHeading}</h2>
-      <p class="mt-5 text-ink-muted text-lg leading-relaxed">{coreBody}</p>
-    </div>
-    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-      <div class="bg-white rounded-3xl p-8">
-        <h3 class="text-xl font-bold mb-4">What AskBob Helps With</h3>
-        <ul class="space-y-3">
-          {helpsWith.map(item => (
-            <li class="flex gap-3 text-ink-muted">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="shrink-0 mt-0.5 text-brand" aria-hidden="true">
-                <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+    <div class:list={["grid gap-10 lg:gap-16 items-center", coreImage ? "lg:grid-cols-2" : ""]}>
+      <div>
+        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">{coreHeading}</h2>
+        <p class="mt-5 text-ink-muted text-lg leading-relaxed">{coreBody}</p>
+        <div class="mt-8 bg-white rounded-3xl p-6 lg:p-8">
+          <h3 class="text-lg font-bold mb-4">What AskBob Helps With</h3>
+          <ul class="space-y-3">
+            {helpsWith.map(item => (
+              <li class="flex gap-3 text-ink-muted">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="shrink-0 mt-0.5 text-brand" aria-hidden="true">
+                  <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div class="bg-white rounded-3xl p-8">
-        <h3 class="text-xl font-bold mb-4">{whyChooseHeading}</h3>
-        <ul class="space-y-3">
+      {coreImage && (
+        <div class="rounded-3xl overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-full">
+          <img src={coreImage} alt={coreImageAlt} class="w-full h-full object-cover" />
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+
+<!-- Why choose — mirrored split with team photo -->
+<section class="bg-white py-20 lg:py-24">
+  <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+    <div class:list={["grid gap-10 lg:gap-16 items-center", whyImage ? "lg:grid-cols-2" : ""]}>
+      {whyImage && (
+        <div class="rounded-3xl overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-full lg:order-first">
+          <img src={whyImage} alt={whyImageAlt} class="w-full h-full object-cover" />
+        </div>
+      )}
+      <div>
+        <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">{whyChooseHeading}</h2>
+        <ul class="mt-6 space-y-3">
           {whyChoose.map(item => (
-            <li class="flex gap-3 text-ink-muted">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="shrink-0 mt-0.5 text-brand" aria-hidden="true">
+            <li class="flex gap-3 text-ink-muted text-lg">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="shrink-0 mt-1 text-brand" aria-hidden="true">
                 <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               <span>{item}</span>

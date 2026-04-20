@@ -6,12 +6,25 @@ import Stats from "../components/Stats.astro";
 import CTABanner from "../components/CTABanner.astro";
 ---
 
-<Layout title="AskBobAI — AI Agents" description="Explore AskBobAI Agents built for specialized roles—delivering fast, accurate answers tailored to your business needs.">
+<Layout title="AskBobAI — Platform" description="Explore AskBobAI Agents built for specialized roles—delivering fast, accurate answers tailored to your business needs.">
   <Hero
-    eyebrow="Your AI Agents That Never Sleep"
-    heading="They're not just assistants."
-    subheading="They're your partners—working across your business, answering questions, analyzing data, and executing workflows in real time. Start with one agent."
+    eyebrow="AI Agents"
+    heading="Your AI Agents That Never Sleep"
+    subheading="They're not just assistants. They're your partners—working across your business, answering questions, analyzing data, and executing workflows in real time. Start with one agent. Expand into a system that powers your entire operation."
+    ctaLabel="See Demo"
   />
+
+  <!-- Hero illustration (Framer asset) -->
+  <section class="bg-white pt-0 -mt-16 lg:-mt-24 relative z-10">
+    <div class="max-w-[1100px] mx-auto px-6 lg:px-10">
+      <img
+        src="/images/framer/shvxjNWkwP0c1NiP0r1n1sWePY.png"
+        alt=""
+        class="w-full h-auto"
+        loading="eager"
+      />
+    </div>
+  </section>
 
   <!-- Multi-Agent System -->
   <section class="bg-white py-20 lg:py-28">
@@ -19,9 +32,14 @@ import CTABanner from "../components/CTABanner.astro";
       <h2 class="text-3xl lg:text-5xl font-bold tracking-tight">More Than One AI.<br/><span class="text-brand">A System of Agents Powering Every Team</span></h2>
       <p class="mt-6 text-ink-muted text-lg max-w-3xl mx-auto leading-relaxed">
         Each AskBobAI agent is built for a specific role—just like your team. Some specialize in knowledge.
-        Others in data. Others in orchestration. Together, they form a workforce of AI agents that plug into
-        every part of the business.
+        Others in data. Others in orchestration. Together, they form a system that works across your entire workflow.
       </p>
+      <div class="mt-8">
+        <a href="/get-a-demo" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white font-semibold hover:bg-brand-light transition-colors">
+          Get Your Agent
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
       <div class="mt-14">
         <ClientScroller />
       </div>
@@ -35,18 +53,17 @@ import CTABanner from "../components/CTABanner.astro";
         <div>
           <h3 class="text-3xl font-bold tracking-tight">A workforce of AI agents that plug into every part of the business</h3>
           <p class="mt-5 text-ink-muted leading-relaxed">
-            Deploy specialized agents across your organization — and watch them work together, reason together,
-            and deliver outcomes together.
+            Deploy specialized agents across your organization — working together, reasoning together, and delivering outcomes together.
           </p>
           <div class="mt-6">
             <a href="/get-a-demo" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand text-white font-semibold hover:bg-brand-light transition-colors">
-              Get to Know
+              Get My Agent
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
         <div class="bg-white rounded-2xl aspect-[4/3] overflow-hidden">
-          <img src="/images/banking-workstation.png" alt="AI agents at work" class="w-full h-full object-cover" />
+          <img src="/images/framer/pQTrFcpQ286PGaW4drHLXB3laM8.png" alt="" class="w-full h-full object-contain p-4" />
         </div>
       </div>
     </div>
@@ -57,6 +74,5 @@ import CTABanner from "../components/CTABanner.astro";
   <CTABanner
     heading="Get Started Today!"
     subheading="Experience the power of function-specific AI Agents firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo tailored to your sector."
-    ctaLabel="Schedule Demo"
   />
 </Layout>

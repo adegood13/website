@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureSplit from "../components/FeatureSplit.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — Platform" description="AI for finance teams—AskBobAI turns reports, systems, and internal policies into instant answers and insights.">
+  <Hero
+    eyebrow="Finance Industry"
+    heading="Finance, Made Intuitive"
+    subheading="AskBob helps banking teams deliver fast, accurate responses that keep customers engaged and transactions moving."
+  />
+
+  <FeatureSplit
+    heading="Faster Onboarding Powered by Know Your Customer Verification"
+    body="Automated know-your-customer checks and document verification. Faster account opening, without compromising security or compliance."
+    image="/images/framer/lhxpJRbPdchA51QWo6aqSMddLBs.png"
+    imageAlt="A person holding a smartphone with a glowing holographic ID verification"
+    background="white"
+    ctaLabel="See it in action"
+  />
+
+  <FeatureSplit
+    heading="Modern compliance, built for speed"
+    body="AskBob automates control review, documentation analysis, and regulatory alignment. Compliance teams move faster, catch issues earlier, and operate with confidence."
+    image="/images/framer/shvxjNWkwP0c1NiP0r1n1sWePY.png"
+    imageAlt=""
+    background="blue"
+    reversed
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Explore Your AI Banking Solution"
+    subheading="Ready to transform your Industry with AI? Take the leap and unlock the power of AskBob AI today. Elevate your customer experience, streamline your processes, and drive growth. Get started now!"
+  />
+</Layout>

@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureSplit from "../components/FeatureSplit.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — Platform" description="AI for government teams—AskBobAI turns policies, procedures, and internal knowledge into instant answers that save time.">
+  <Hero
+    eyebrow="Government"
+    heading="Built For The Pace And Responsibility Of Government"
+    subheading="AskBob gives government teams the clarity they need to protect, serve, and support communities."
+  />
+
+  <FeatureSplit
+    heading="Modernize government services without disrupting the mission"
+    body="Respond faster to threats, disasters, and citizen needs — while keeping the chain of custody and audit trail intact."
+    image="/images/framer/jNfud8S1VVHSX8IgfS4X1OYIxU.png"
+    imageAlt="Historic government building facade with neoclassical columns"
+    background="white"
+  />
+
+  <FeatureSplit
+    heading="Confidence for every public decision"
+    body="AskBob delivers trusted answers across systems so agencies move quickly without compromising security or oversight."
+    image="/images/framer/I36sHPekcP4gQ7fdO6VGxCy2Yg.png"
+    imageAlt=""
+    background="blue"
+    reversed
+    ctaLabel="See it in action"
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Explore Your AI Government Solution"
+    subheading="Ready to transform your Industry with AI? Take the leap and unlock the power of AskBob AI today. Elevate your customer experience, streamline your processes, and drive growth. Get started now!"
+  />
+</Layout>

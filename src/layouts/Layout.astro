@@ -17,7 +17,7 @@ interface Props {
 const {
   title,
   description = "The #1 AI platform for any department— turning your company knowledge into instant answers that save time and money.",
-  ogImage = "/images/askbobai-og.jpg",
+  ogImage,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://askbobai.com");
@@ -40,7 +40,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://askbobai.co
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Google Tag Manager -->

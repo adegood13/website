@@ -1,0 +1,191 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import ClientScroller from "../components/ClientScroller.astro";
+import FeatureSplit from "../components/FeatureSplit.astro";
+import FeatureCards from "../components/FeatureCards.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+
+const capabilities = [
+  {
+    image: "/images/framer/xYgrOuGnZtn3Qj4VOzPIFytBIvM.png",
+    imageAlt: "Bottleneck",
+    title: "Make knowledge searchable",
+    body: "Guidelines, overlays, SOPs, and internal docs become instantly accessible.",
+  },
+  {
+    image: "/images/framer/tCaOY8mLYvznkJ6IISOlyalBLI.png",
+    imageAlt: "Salesforce and Help Scout Logo signs",
+    title: "Get answers inside workflows",
+    body: "Deliver answers through helpdesk, email, SMS, or embedded chat.",
+  },
+  {
+    image: "/images/framer/uPKs6llSP2XN9fw6Dw961Yzo0L4.png",
+    imageAlt: "Control panel for defining the AI agent's answering style, logic, and response parameters",
+    title: "Stay consistent and defensible",
+    body: "Standardize responses for underwriting, QC, and compliance teams.",
+  },
+];
+
+/* Mortgage-specific ClientScroller logo set — AMB, BeSmartee, Perpetual,
+   Gmail, Zendesk, Salesforce — exact order from askbobai.com/solutions-byindustry-mortgage. */
+const mortgageLogos = [
+  { src: "/images/framer/SLhgDhMNWOobAehlLR875khLKI.png", alt: "AMB Logo sign" },
+  { src: "/images/framer/lSn8dCOogVEb5KyKV0702U7tM.png",  alt: "BeSmartee Logo sign" },
+  { src: "/images/framer/a6wRF0dLF6EoZ3j0fEnHe8eGgpQ.png", alt: "Perpetual logo sign" },
+  { src: "/images/framer/HjiZWOlcpB69BjHINwqgYQgzzo.png",  alt: "Gmail logo sign" },
+  { src: "/images/framer/EqFikPWB1C0wm2PvKKN1zrK4F8M.png", alt: "Zendesk logo sign" },
+  { src: "/images/framer/rvNEsOBdZHhy4lcumXCK824k9E.png",  alt: "SalesForce logo sign" },
+];
+
+/* Per-role "day-to-day" tab content — matches Framer's mortgage section
+   with 4 role tabs. Copy inferred from Framer page structure; verify. */
+const mortgageRoles = [
+  {
+    id: "underwriting",
+    label: "Underwriting",
+    heading: "Underwriting",
+    body: "Get instant answers on guidelines, overlays, and exceptions — without chasing scenarios in a chat thread. AskBob cites the agency and section every time.",
+  },
+  {
+    id: "qc-compliance",
+    label: "QC / Compliance",
+    heading: "QC / Compliance",
+    body: "Validate documentation, disclosures, and audit trails against your internal policies. AskBob flags gaps early and explains the reasoning behind every answer.",
+  },
+  {
+    id: "operations",
+    label: "Operations",
+    heading: "Operations",
+    body: "Standardize processing steps across teams. From condition clearing to post-close, every ops rep has the same playbook at their fingertips.",
+  },
+  {
+    id: "sales-secondary",
+    label: "Sales / Secondary",
+    heading: "Sales / Secondary",
+    body: "Price scenarios, compare investor guidelines, and respond to lock requests confidently — with the latest overlays and investor-specific rules pulled instantly.",
+  },
+];
+---
+
+<Layout title="AskBobAI — Platform" description="AI for mortgage teams—AskBobAI turns guidelines, overlays, and internal policies into instant answers that speed up decisions.">
+  <Hero
+    eyebrow="Mortgage"
+    heading="AI For Mortgage Teams."
+    subheading="Instant clarity on guidelines, overlays, and next steps—so every loan keeps moving forward."
+    ctaLabel="Start a Free Trial"
+  />
+
+  <!-- Client strip -->
+  <section class="bg-white py-16 lg:py-20">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center">
+      <h2 class="text-2xl lg:text-3xl font-bold tracking-tight max-w-2xl mx-auto">
+        Trusted By Lenders. Built To Work across Your Mortgage Tech Stack.
+      </h2>
+      <div class="mt-8">
+        <ClientScroller logos={mortgageLogos} />
+      </div>
+    </div>
+  </section>
+
+  <FeatureSplit
+    heading="Your mortgage knowledge is fragmented"
+    body="AskBobAI makes your mortgage data searchable, usable, and actionable — instantly."
+    image="/images/framer/OVKUKLbOnqrecK794Yba8TPGww.png"
+    imageAlt="A desk workspace featuring financial documents"
+    background="blue"
+    ctaLabel="Get Demo"
+  />
+
+  <FeatureCards
+    heading="Built for teams that need speed,"
+    headingAccent="accuracy, and consistency."
+    cards={capabilities}
+    background="white"
+    cardBackground="blue"
+  />
+
+  <!-- See How Each Team Uses AskBobAI Day-To-Day — role tabs (Framer section) -->
+  <section class="bg-blue-bg py-20 lg:py-28">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1]">
+          See How Each Team Uses <span class="text-brand">AskBobAI</span> Day-To-Day
+        </h2>
+      </div>
+      <div class="flex flex-wrap justify-center gap-2 mb-8" role="tablist" aria-label="Mortgage roles">
+        {mortgageRoles.map((role, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-${role.id}`}
+            aria-controls={`panel-${role.id}`}
+            aria-selected={i === 0 ? "true" : "false"}
+            data-mortgage-tab={role.id}
+            class:list={[
+              "px-5 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer",
+              i === 0 ? "bg-navy text-white" : "bg-white text-ink hover:bg-black/5",
+            ]}
+          >
+            {role.label}
+          </button>
+        ))}
+      </div>
+      <div class="rounded-3xl bg-white overflow-hidden border border-black/5 shadow-sm">
+        {mortgageRoles.map((role, i) => (
+          <div
+            id={`panel-${role.id}`}
+            role="tabpanel"
+            aria-labelledby={`tab-${role.id}`}
+            data-mortgage-panel={role.id}
+            class:list={["p-8 lg:p-12", i === 0 ? "" : "hidden"]}
+          >
+            <h3 class="text-2xl lg:text-3xl font-bold tracking-tight">{role.heading}</h3>
+            <p class="mt-4 text-ink-muted text-lg leading-relaxed max-w-3xl">{role.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <FeatureSplit
+    heading="More than guideline search."
+    body="AskBobAI is a mortgage data platform that turns scattered knowledge into instant, actionable answers."
+    image="/images/framer/sXNXHQsJSsjRFpFpR0jD7OoQQ.png"
+    imageAlt=""
+    background="blue"
+    reversed
+    ctaLabel="Try it Now"
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Make Your Mortgage Data Instantly Usable"
+    subheading="Ready to transform your Industry with AI? Take the leap and unlock the power of AskBob AI today. Elevate your customer experience, streamline your processes, and drive growth. Get started now!"
+  />
+</Layout>
+
+<script is:inline>
+  /* Mortgage role-tab switcher — progressive enhancement. */
+  const mTabs   = document.querySelectorAll("[data-mortgage-tab]");
+  const mPanels = document.querySelectorAll("[data-mortgage-panel]");
+  mTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.getAttribute("data-mortgage-tab");
+      mTabs.forEach((t) => {
+        const active = t.getAttribute("data-mortgage-tab") === target;
+        t.setAttribute("aria-selected", String(active));
+        t.classList.toggle("bg-navy", active);
+        t.classList.toggle("text-white", active);
+        t.classList.toggle("bg-white", !active);
+        t.classList.toggle("text-ink", !active);
+      });
+      mPanels.forEach((panel) => {
+        const match = panel.getAttribute("data-mortgage-panel") === target;
+        panel.classList.toggle("hidden", !match);
+      });
+    });
+  });
+</script>

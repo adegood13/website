@@ -5,9 +5,10 @@
  * Logos are duplicated once so the animation can translate by -50% for a
  * seamless wrap. Pure CSS, no JS. Hovering pauses the scroll.
  *
- * Pass `logos` to override; otherwise defaults to current AskBobAI client list.
- * When you add more logos to /public/images/client-logos/, just extend the
- * default array below (or pass a custom list via props).
+ * Pass `logos` to override; otherwise defaults to the exact logo set shown
+ * on askbobai.com. All default assets live in /public/images/framer/.
+ * Set `onDark` when rendering over the blue hero so logos knock to white
+ * and edge fades are skipped (the hero gradient isn't uniform).
  */
 interface Logo {
   src: string;
@@ -17,25 +18,42 @@ interface Logo {
 }
 interface Props {
   logos?: Logo[];
+  /** Render for dark backgrounds — logos get a white filter, edge fades
+   *  blend into blue hero instead of white. */
+  onDark?: boolean;
 }
 
+/* Exact logo set shown in the "Trusted Across Industries" scroller on
+   askbobai.com. Pulled as-is from the Framer source. */
 const defaultLogos: Logo[] = [
-  { src: "/images/client-logos/housingwire.svg", alt: "HousingWire" },
-  { src: "/images/client-logos/icera.png",       alt: "ICERA" },
-  { src: "/images/client-logos/verus.svg",       alt: "Verus Mortgage Capital" },
-  { src: "/images/client-logos/nqm-funding.png", alt: "NQM Funding" },
-  { src: "/images/client-logos/acuma.svg",       alt: "ACUMA" },
+  { src: "/images/framer/hEaEwpgEtwN3lNegyAQSvOmSRs.webp", alt: "Kidney forward logo" },
+  { src: "/images/framer/GLeh2huchbS0IypTUKzES6ZtB20.png", alt: "ICERA – Luxury Bath Fixtures" },
+  { src: "/images/framer/tnQ2apH0SSDVP5vFpAftqLaPM8.png",  alt: "NQM funding logo sign" },
+  { src: "/images/framer/SLhgDhMNWOobAehlLR875khLKI.png",  alt: "AMB Logo sign" },
+  { src: "/images/framer/a6wRF0dLF6EoZ3j0fEnHe8eGgpQ.png", alt: "Perpetual logo sign" },
 ];
 
-const { logos = defaultLogos } = Astro.props;
+const { logos = defaultLogos, onDark = false } = Astro.props;
 // Duplicate for seamless loop
 const doubled = [...logos, ...logos];
+
+/* On dark: knock the logos to pure white via `brightness(0) invert(1)` so
+   they read over the blue hero. Edge fades are skipped in dark mode — the
+   parent hero gradient is non-uniform, so a solid-blue fade creates a
+   visible band. On light: keep the tasteful grayscale-on-white default. */
+const imgStyle = onDark
+  ? "filter: brightness(0) invert(1);"
+  : "filter: grayscale(1) contrast(1.1);";
+const imgOpacity = onDark ? "opacity-80 hover:opacity-100" : "opacity-60 hover:opacity-100";
 ---
 
 <div class="relative overflow-hidden" aria-label="Trusted by">
-  <!-- Soft fade masks at edges -->
-  <div class="absolute left-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
-  <div class="absolute right-0 top-0 bottom-0 w-32 z-10 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+  {!onDark && (
+    <>
+      <div class="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+    </>
+  )}
 
   <div class="flex w-max animate-marquee items-center gap-12 py-6">
     {doubled.map((logo, i) => (
@@ -46,8 +64,8 @@ const doubled = [...logos, ...logos];
         <img
           src={logo.src}
           alt={i < logos.length ? logo.alt : ""}
-          class="max-h-12 max-w-full w-auto object-contain opacity-60 hover:opacity-100 transition-opacity"
-          style="filter: grayscale(1) contrast(1.1);"
+          class:list={["max-h-12 max-w-full w-auto object-contain transition-opacity", imgOpacity]}
+          style={imgStyle}
           loading="lazy"
         />
       </div>

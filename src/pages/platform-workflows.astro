@@ -1,0 +1,55 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureCards from "../components/FeatureCards.astro";
+import FeatureSplit from "../components/FeatureSplit.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+
+const benefits = [
+  {
+    icon: "🔗",
+    title: "Connected Workflows",
+    body: "No rip-and-replace, faster time to value, and immediate adoption.",
+  },
+  {
+    icon: "🎯",
+    title: "Workflow-Aware Intelligence",
+    body: "Higher accuracy, fewer wrong answers, and trust from frontline and compliance-driven teams.",
+  },
+  {
+    icon: "📄",
+    title: "From Documents to Action",
+    body: "Consistency, auditability, and confidence that nothing gets missed.",
+  },
+];
+---
+
+<Layout title="AskBobAI — Platform" description="AskBobAI embeds AI into your workflows so teams get instant answers and decisions without switching tools.">
+  <Hero
+    eyebrow="Platform"
+    heading="Built for workflows. Powered by AI"
+    subheading="From AI to execution. AskBob turns AI into real workflow execution—connected, contextual, and trusted."
+  />
+
+  <FeatureSplit
+    heading="Intelligence That Moves With Your Work"
+    body="AskBob operates inside the tools your teams already use — pulling relevant context, delivering answers where work happens, and keeping decisions traceable every step of the way."
+    image="/images/framer/ThoNwS5xj886QYiR8R5wfDs7j1M.png"
+    imageAlt="Screenshot of an interface for editing the AI agent's response settings for a specific question."
+    background="white"
+  />
+
+  <FeatureCards
+    cards={benefits}
+    background="blue"
+    cardBackground="white"
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Ready To Revolutionize Your Workflow With AskBob AI?"
+    subheading="Ready to transform your business with AI? Take the leap and unlock the power of AskBob AI today. Elevate your customer experience, streamline your processes, and drive growth. Get started now!"
+  />
+</Layout>

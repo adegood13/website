@@ -11,7 +11,7 @@ const HUBSPOT_PORTAL_ID = "45488669";
 const HUBSPOT_FORM_ID   = "REPLACE_ME"; // TODO: from HubSpot
 ---
 
-<Layout title="AskBob AI — Get a Demo" description="Finance. HR. Operations. Customer Support. Sales. AskBobAI delivers AI that helps every team instantly find answers from company knowledge.">
+<Layout title="AskBob AI —  AI Knowledge platform" description="Finance. HR. Operations. Customer Support. Sales. AskBobAI delivers AI that help every team instantly find answers from company knowledge.">
   <section class="bg-hero-gradient relative overflow-hidden">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10 pt-24 pb-32 grid md:grid-cols-2 gap-12 items-center relative z-10">
       <!-- Copy side -->
@@ -24,7 +24,7 @@ const HUBSPOT_FORM_ID   = "REPLACE_ME"; // TODO: from HubSpot
           speed, and trust matter most.
         </p>
         <div class="mt-8">
-          <ClientScroller />
+          <ClientScroller onDark />
         </div>
       </div>
 
@@ -47,16 +47,24 @@ const HUBSPOT_FORM_ID   = "REPLACE_ME"; // TODO: from HubSpot
             </label>
           </div>
           <label class="block">
-            <span class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Work Email *</span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Work email *</span>
             <input name="email" type="email" required placeholder="name@company.com" class="mt-1 w-full px-4 py-3 rounded-xl bg-black/5 border border-transparent focus:border-brand focus:outline-none focus:bg-white transition-all" />
           </label>
           <label class="block">
             <span class="text-xs font-semibold uppercase tracking-wider text-ink-muted">Company Name *</span>
             <input name="company" required placeholder="Your company name" class="mt-1 w-full px-4 py-3 rounded-xl bg-black/5 border border-transparent focus:border-brand focus:outline-none focus:bg-white transition-all" />
           </label>
-          <label class="flex items-start gap-3 py-1">
-            <input type="checkbox" name="opt_in" class="mt-1" />
-            <span class="text-sm text-ink-muted">I am interested in <em>(Optional)</em></span>
+          <label class="block">
+            <span class="text-xs font-semibold uppercase tracking-wider text-ink-muted">I am interested in <em class="font-normal normal-case text-ink-muted/70">(Optional)</em></span>
+            <select name="interest" class="mt-1 w-full px-4 py-3 rounded-xl bg-black/5 border border-transparent focus:border-brand focus:outline-none focus:bg-white transition-all">
+              <option value="">Select a function</option>
+              <option>Sales</option>
+              <option>Finance</option>
+              <option>Human Resources</option>
+              <option>Supply Chain</option>
+              <option>Support</option>
+              <option>Technology</option>
+            </select>
           </label>
           <button
             type="submit"

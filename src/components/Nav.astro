@@ -1,62 +1,75 @@
 ---
 /**
- * Top navigation.
+ * Top navigation — matches askbobai.com exactly.
  *
- * Matches live askbobai.com exactly:
- *   • Transparent background that sits OVER the hero gradient (no white bar,
- *     no border). Text is white so it reads over the blue.
- *   • On scroll past ~100px, we swap to a solid-white "scrolled" state
- *     (dark text) so the nav stays readable over white content.
- *   • The Layout/page is responsible for extending the hero gradient to the
- *     top of the viewport (padding-top:0) so the nav visually blends in.
+ * Renders as a single floating white pill, fixed 8px from the viewport top,
+ * centered with a max-width. Dark ink text at every scroll position (no
+ * transparent-over-hero transition).
+ *
+ * Scroll behavior: the pill hides when the user scrolls down and returns as
+ * soon as they scroll up. Implemented via the `.nav-pill--hidden` class,
+ * whose CSS lives in the scoped <style> block below.
  */
 import GetDemoButton from "./GetDemoButton.astro";
 
+/* URL slugs match askbobai.com exactly: flat routes, no hyphens in
+   multi-word function slugs (humanresources, supplychain). */
 const solutions = [
   { heading: "By Function", links: [
-    { href: "/solutions/function/finance",         label: "Finance" },
-    { href: "/solutions/function/human-resources", label: "Human Resources" },
-    { href: "/solutions/function/sales",           label: "Sales" },
-    { href: "/solutions/function/supply-chain",    label: "Supply Chain" },
-    { href: "/solutions/function/technology",      label: "Technology" },
+    { href: "/solutions-function-technology",      label: "Technology" },
+    { href: "/solutions-function-finance",         label: "Finance" },
+    { href: "/solutions-function-humanresources", label: "Human Resources" },
+    { href: "/solutions-function-sales",           label: "Sales" },
+    { href: "/solutions-function-supplychain",    label: "Supply Chain" },
+    { href: "/solutions-function-support",         label: "Support" },
   ]},
   { heading: "By Industry", links: [
-    { href: "/solutions/industry/finance",    label: "Finance" },
-    { href: "/solutions/industry/government", label: "Government" },
-    { href: "/solutions/industry/mortgage",   label: "Mortgage" },
-    { href: "/solutions/industry/saas",       label: "SaaS" },
+    { href: "/solutions-byindustry-finance",    label: "Banking" },
+    { href: "/solutions-byindustry-mortgage",   label: "Mortgage" },
+    { href: "/solutions-byindustry-insurance",  label: "Insurance" },
+    { href: "/solutions-byindustry-government", label: "Government" },
+    { href: "/solutions-byindustry-retail",     label: "Retail" },
+    { href: "/solutions-byindustry-saas",       label: "SaaS" },
   ]},
 ];
 
 const platform = [
-  { href: "/platform/data",          label: "Data" },
-  { href: "/platform/knowledge",     label: "Knowledge" },
-  { href: "/platform/orchestration", label: "Orchestration" },
-  { href: "/platform/workflows",     label: "Workflows" },
+  { href: "/platform-data",          label: "Data" },
+  { href: "/platform-knowledge",     label: "Knowledge" },
+  { href: "/platform-workflows",     label: "Workflows" },
+  { href: "/platform-orchestration", label: "Orchestration" },
 ];
 
 const resources = [
-  { href: "/resources/blog",   label: "Blog" },
-  { href: "/resources/guides", label: "Guides" },
+  { href: "/resources-blog",   label: "Blog" },
+  { href: "/resources-guides", label: "Guides" },
 ];
 ---
 
+<!--
+  Nav rebuilt to match askbobai.com exactly:
+  - Always a white pill, never transparent over the hero
+  - position: fixed, 8px from viewport top, centered with a max-width
+  - border-radius: 32px, height 64px, subtle 24px/12px side padding
+  - Dark ink text at all scroll positions (no scroll-state transition)
+  - Top-level items: Solutions ▾, Platform ▾, AI Agents, Resources ▾, About
+  - Right side: Get a Demo (green pill)
+-->
 <header
   id="site-nav"
-  class="absolute top-0 left-0 right-0 z-50 transition-colors duration-200"
-  data-nav
+  class="fixed left-0 right-0 z-50 px-2 lg:px-4 pointer-events-none nav-pill"
 >
-  <div class="max-w-[1400px] mx-auto px-6 lg:px-10 flex items-center justify-between py-6 lg:py-7">
+  <div class="max-w-[1200px] mx-auto bg-white rounded-full h-16 pl-6 pr-3 flex items-center justify-between gap-4 pointer-events-auto">
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2 shrink-0" aria-label="AskBobAI home">
-      <span class="text-2xl font-bold tracking-tight text-white group-[.scrolled]/nav:text-ink" data-nav-text>AskBobAI</span>
-      <img src="/images/askbobai-logo.svg" alt="" class="h-6 w-auto" />
+      <span class="text-xl font-bold tracking-tight text-ink">AskBobAI</span>
+      <img src="/images/askbobai-logo.svg" alt="" class="h-5 w-auto" />
     </a>
 
     <!-- Desktop menu -->
-    <nav class="hidden lg:flex items-center gap-1 text-[15px] font-medium text-white" data-nav-text aria-label="Primary">
+    <nav class="hidden lg:flex items-center gap-1 text-[15px] font-medium text-ink" aria-label="Primary">
       <div class="relative group">
-        <button class="px-4 py-2 rounded-md hover:bg-white/10 flex items-center gap-1 cursor-pointer" data-nav-hover>
+        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
           Solutions
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -79,7 +92,7 @@ const resources = [
       </div>
 
       <div class="relative group">
-        <button class="px-4 py-2 rounded-md hover:bg-white/10 flex items-center gap-1 cursor-pointer" data-nav-hover>
+        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
           Platform
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -94,10 +107,10 @@ const resources = [
         </div>
       </div>
 
-      <a href="/ai-agents" class="px-4 py-2 rounded-md hover:bg-white/10" data-nav-hover>AI Agents</a>
+      <a href="/ai-agents" class="px-4 py-2 rounded-md hover:bg-black/5">AI Agents</a>
 
       <div class="relative group">
-        <button class="px-4 py-2 rounded-md hover:bg-white/10 flex items-center gap-1 cursor-pointer" data-nav-hover>
+        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
           Resources
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -112,23 +125,21 @@ const resources = [
         </div>
       </div>
 
-      <a href="/about" class="px-4 py-2 rounded-md hover:bg-white/10" data-nav-hover>About</a>
+      <a href="/about" class="px-4 py-2 rounded-md hover:bg-black/5">About</a>
     </nav>
 
     <!-- Get a Demo pill (desktop) + mobile toggle -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2 shrink-0">
       <a
         href="/get-a-demo"
-        class="hidden lg:inline-flex items-center gap-2 rounded-full border border-white/60 bg-white/5 px-5 py-2 text-sm font-semibold text-white hover:bg-white hover:text-ink transition-colors"
-        data-nav-cta
+        class="hidden lg:inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-light transition-colors"
       >
         Get a Demo
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
       <button
         id="nav-toggle"
-        class="lg:hidden p-2 -mr-2 text-white"
-        data-nav-text
+        class="lg:hidden p-2 -mr-1 text-ink"
         aria-label="Toggle menu"
         aria-expanded="false"
         aria-controls="mobile-nav"
@@ -140,9 +151,9 @@ const resources = [
     </div>
   </div>
 
-  <!-- Mobile drawer -->
-  <div id="mobile-nav" class="lg:hidden hidden bg-white text-ink">
-    <div class="px-6 py-4 space-y-4 text-base font-medium">
+  <!-- Mobile drawer — sits below the pill, same horizontal margin -->
+  <div id="mobile-nav" class="lg:hidden hidden max-w-[1200px] mx-auto mt-2 bg-white text-ink rounded-2xl shadow-xl pointer-events-auto">
+    <div class="px-6 py-4 space-y-3 text-base font-medium">
       <details class="group">
         <summary class="flex justify-between items-center cursor-pointer py-2 list-none">
           Solutions
@@ -183,64 +194,69 @@ const resources = [
 </header>
 
 <script is:inline>
-  /* Scroll-state swap.
-     Past 80px of scroll, flip nav into solid-white, dark-text mode.
-     Applied via dataset flag that our CSS hooks below. */
-  /* The nav is rendered before the rest of <main>, so we need to wait for the
-     DOM to finish parsing before we can inspect the hero section. */
-  function initNav() {
+  /* Hide-on-scroll-down / show-on-scroll-up.
+     Always visible at the very top; slides up off-screen when scrolling
+     down past a short threshold; slides back in on any upward scroll.
+     Respects prefers-reduced-motion by keeping the nav always visible. */
+  (function navScroll() {
     const nav = document.getElementById("site-nav");
     if (!nav) return;
-    const threshold = 80;
-    let scrolled = false;
-    /* Pages that don't have a hero gradient (legal, blog detail, etc.) show
-       the nav in its "scrolled" state from page load. Detected by checking
-       whether the first <section> under <main> has the bg-hero-gradient class. */
-    const heroSection = document.querySelector("main > section:first-of-type");
-    const hasHero = heroSection?.classList.contains("bg-hero-gradient") ?? false;
-    const apply = () => {
-      const now = !hasHero || window.scrollY > threshold;
-      if (now === scrolled) return;
-      scrolled = now;
-      nav.dataset.scrolled = now ? "true" : "false";
-      // Swap classes on text nodes
-      nav.querySelectorAll("[data-nav-text]").forEach(el => {
-        el.classList.toggle("text-white", !now);
-        el.classList.toggle("text-ink", now);
-      });
-      nav.querySelectorAll("[data-nav-hover]").forEach(el => {
-        el.classList.toggle("hover:bg-white/10", !now);
-        el.classList.toggle("hover:bg-black/5", now);
-      });
-      const cta = nav.querySelector("[data-nav-cta]");
-      if (cta) {
-        cta.classList.toggle("border-white/60", !now);
-        cta.classList.toggle("bg-white/5", !now);
-        cta.classList.toggle("text-white", !now);
-        cta.classList.toggle("border-brand", now);
-        cta.classList.toggle("bg-brand", now);
-        cta.classList.toggle("text-white", now);
-      }
-      nav.classList.toggle("bg-white/95", now);
-      nav.classList.toggle("backdrop-blur", now);
-      nav.classList.toggle("shadow-sm", now);
-      nav.classList.toggle("fixed", now);
-      nav.classList.toggle("absolute", !now);
-    };
-    apply();
-    window.addEventListener("scroll", apply, { passive: true });
-  }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initNav);
-  } else {
-    initNav();
-  }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  /* Mobile drawer toggle */
-  const btn = document.getElementById("nav-toggle");
-  const drawer = document.getElementById("mobile-nav");
-  btn?.addEventListener("click", () => {
-    const open = drawer.classList.toggle("hidden") === false;
-    btn.setAttribute("aria-expanded", String(open));
-  });
+    const DELTA = 6;           // ignore tiny jitter
+    const TOP_SAFE = 80;       // always show this close to the top
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const update = () => {
+      const y = window.scrollY;
+      const diff = y - lastY;
+      if (Math.abs(diff) < DELTA) { ticking = false; return; }
+      if (y < TOP_SAFE || diff < 0) nav.classList.remove("nav-pill--hidden");
+      else nav.classList.add("nav-pill--hidden");
+      lastY = y;
+      ticking = false;
+    };
+
+    window.addEventListener("scroll", () => {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+  })();
+
+  /* Mobile drawer toggle + close-on-link-click. */
+  (function mobileDrawer() {
+    const btn = document.getElementById("nav-toggle");
+    const drawer = document.getElementById("mobile-nav");
+    if (!btn || !drawer) return;
+    btn.addEventListener("click", () => {
+      const open = drawer.classList.toggle("hidden") === false;
+      btn.setAttribute("aria-expanded", String(open));
+    });
+    /* Close the drawer when a link is tapped so the next page doesn't
+       render with the drawer still open. */
+    drawer.querySelectorAll("a").forEach(a => {
+      a.addEventListener("click", () => {
+        drawer.classList.add("hidden");
+        btn.setAttribute("aria-expanded", "false");
+      });
+    });
+  })();
 </script>
+
+<style>
+  /* Explicit base (without modifier) + explicit modifier, so the modifier
+     has strictly higher specificity than the base and can't lose to
+     cascade-order ambiguity in the bundled output. */
+  .nav-pill:not(.nav-pill--hidden) {
+    top: 0.5rem;
+    opacity: 1;
+  }
+  .nav-pill {
+    transition: top 300ms ease-out, opacity 300ms ease-out;
+  }
+  .nav-pill.nav-pill--hidden {
+    top: -96px;
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>

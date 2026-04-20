@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureSplit from "../components/FeatureSplit.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout
+  title="AskBobAI — Platform"
+  description="AI for retail teams—AskBobAI turns product info, policies, and internal knowledge into instant answers that save time."
+>
+  <Hero
+    eyebrow="Retail"
+    heading="Retail Meets AI"
+    subheading="Retail is won or lost in the customer experience. AI helps your teams personalize engagement, boost conversions, and build loyalty—at scale."
+  />
+
+  <FeatureSplit
+    heading="Unified Customer Insight → Action Engine"
+    body="AskBob turns scattered customer data into clear, actionable answers—so retail teams move from insight to action in real time, not weeks later."
+    image="/images/framer/7P9zaQ2Ix8u4qi3hI9LhLhxvY.jpg"
+    imageAlt="A smiling woman in a white shirt using a tablet in a clothing store, standing near racks of garments to manage inventory."
+    background="white"
+  />
+
+  <FeatureSplit
+    heading="Turn customer insight into action"
+    body="Faster decisions, smarter personalization, and revenue you don't leave on the table."
+    image="/images/framer/VoXQTxhs0sgj9ti1UwwICMlsNI.png"
+    imageAlt="Two professional retail consultants collaborating over a laptop in a modern showroom."
+    background="blue"
+    reversed
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Explore Your AI Retail Solution"
+    subheading="Ready to transform your industry with AI? Take the leap and unlock the power of AskBob AI today. Elevate your customer experience, streamline your processes, and drive growth. Get started now!"
+  />
+</Layout>

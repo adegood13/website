@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FunctionPageBody from "../components/FunctionPageBody.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — Company" description="AI for supply chain teams—AskBobAI turns logistics data, SOPs, and vendor info into instant answers that prevent delays.">
+  <Hero
+    eyebrow="Supply Chain"
+    heading="AskBob: Your Supply Chain Expert."
+    subheading="AskBob coordinates specialized agents, tools, and reasoning to solve complex, multi-step business problems."
+  />
+
+  <FunctionPageBody
+    sampleQuestions={[
+      "What is the estimated time of arrival?",
+      "What is our cancellation policy?",
+      "When do we need to reorder our top selling product?",
+      "What territories do we deliver to?",
+    ]}
+    coreHeading="Decisions backed by the right documentation—at the right moment."
+    coreBody="AskBob helps supply chain teams navigate contracts, vendor policies, SOPs, and operational guidelines without digging through shared drives or emails."
+    coreImage="/images/framer/BxozmlnFLDGrw5NRPeBG0zjTw.jpg"
+    coreImageAlt="Two professionals collaborating on a laptop at a round table"
+    helpsWith={[
+      "Interpreting vendor agreements and policies",
+      "Supporting procurement and sourcing decisions",
+      "Reducing delays caused by missing information",
+      "Preserving operational knowledge across teams",
+    ]}
+    whyChooseHeading="Why Supply Chain Teams Choose AskBob"
+    whyChoose={[
+      "Trusted answers with source references",
+      "Reduces dependency on tribal knowledge",
+      "Improves speed without sacrificing accuracy",
+      "Scales across locations and teams",
+    ]}
+    whyImage="/images/framer/HDIhUeZJVoFkJho2XXfN10zyl8.png"
+    whyImageAlt="Three professionals review inventory data"
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Get your Supply Chain Function Started Today!"
+    subheading="Experience the power of function-specific language models firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo tailored to your function."
+  />
+</Layout>

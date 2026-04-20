@@ -8,54 +8,51 @@ import Layout from "../layouts/Layout.astro";
 import GetDemoButton from "../components/GetDemoButton.astro";
 import ClientScroller from "../components/ClientScroller.astro";
 
+/* Stats copy lifted verbatim from askbobai.com — label + description per card. */
 const stats = [
-  { value: "12+", label: "Integrations" },
-  { value: "98%", label: "Answer Accuracy" },
-  { value: "5x",  label: "Faster Resolutions" },
+  { label: "Hours Saved",         body: "Fewer repeat questions, escalations, and internal back-and-forth." },
+  { label: "Answer Accuracy",     body: "Answer-first responses grounded in your knowledge—consistent and defensible." },
+  { label: "Knowledge Base Usage", body: "Instant answers that drive real adoption inside your workflow." },
 ];
 
-/* Workflow cards use real Framer illustrations pulled from the live site. */
+/* Workflow cards use the exact Framer illustrations pulled from askbobai.com. */
 const workflowCards = [
   {
-    image: "/images/workflow-bottlenecks.png",
-    imageAlt: "Support channels surrounding AskBob agent",
+    image: "/images/framer/ybacwKKcJp67qwSol4tUrN5Ig.webp",
+    imageAlt: "Bottleneck",
     title: "Bottlenecks show up everywhere",
-    body: "Guidelines, policies, product specs — the answer lives somewhere, but finding it slows every team down.",
+    body: "Guidelines, docs, and tickets slow decisions down.",
   },
   {
-    /* Middle card shows the tools AskBob plugs into */
-    isIntegrations: true,
+    image: "/images/framer/hHqPStblDEV8jGMkRVoFnOKl7c.webp",
+    imageAlt: "Salesforce and Help Scout Logo signs",
     title: "AskBob plugs into your workflow",
-    body: "No process change. AskBob meets your teams inside the tools they already use.",
+    body: "No new tools. No process change.",
   },
   {
-    image: "/images/workflow-chat-ui.png",
-    imageAlt: "AskBob chat interface showing welcome screen",
+    image: "/images/framer/k45eD1b4A1P0f5cPmUjFeSnGOVU.png",
+    imageAlt: "Screenshot of an interface for editing the AI agent's response settings for a specific question.",
     title: "Answers become instant and consistent",
-    body: "Answer-first responses grounded in your knowledge—consistent and defensible.",
+    body: "Cited, traceable responses your team can stand behind.",
   },
 ];
 
-const integrationLogos = [
-  { src: "/images/integrations/gmail.png",             alt: "Gmail" },
-  { src: "/images/integrations/salesforce.png",        alt: "Salesforce" },
-  { src: "/images/integrations/zendesk-dark.png",      alt: "Zendesk" },
-  { src: "/images/integrations/confluence.png",        alt: "Confluence" },
-  { src: "/images/integrations/chrome-extensions.png", alt: "Chrome Extensions" },
-  { src: "/images/integrations/docusaurus.png",        alt: "Docusaurus" },
-];
-
+/* Industry tab content — Framer's static HTML only ships the Banking
+   variant's image; other tabs reuse it visually until confirmed. */
 const industries = [
-  { id: "banking",    label: "Banking",    title: "Banking, made intuitive",    body: "AskBob helps banking teams deliver fast, accurate responses that keep customers engaged and transactions moving." },
-  { id: "mortgage",   label: "Mortgage",   title: "Mortgage, simplified",        body: "Guideline-grounded answers for LOs, processors, and underwriters — right inside the tools they already use." },
-  { id: "insurance",  label: "Insurance",  title: "Claims clarity, instantly",   body: "Policy-aware answers that help adjusters and agents respond faster and more consistently." },
-  { id: "government", label: "Government", title: "Citizen service that scales", body: "Secure, auditable AI that helps agencies respond to constituents with accuracy and trust." },
-  { id: "retail",     label: "Retail",     title: "Retail support, accelerated", body: "Turn product and policy knowledge into instant answers for associates and customers alike." },
-  { id: "saas",       label: "SaaS",       title: "SaaS support, supercharged",  body: "Product knowledge, release notes, and troubleshooting — grounded answers for CS and engineering." },
+  { id: "banking",    label: "Banking",    title: "Banking, made intuitive",    body: "AskBob helps banking teams deliver fast, accurate responses that keep customers engaged and transactions moving.", image: "/images/framer/EajKAdMTugjBB2TTZllzwuhACcg.png" },
+  { id: "mortgage",   label: "Mortgage",   title: "Mortgage, simplified",        body: "Guideline-grounded answers for LOs, processors, and underwriters — right inside the tools they already use.", image: "/images/framer/EajKAdMTugjBB2TTZllzwuhACcg.png" },
+  { id: "insurance",  label: "Insurance",  title: "Claims clarity, instantly",   body: "Policy-aware answers that help adjusters and agents respond faster and more consistently.", image: "/images/framer/EajKAdMTugjBB2TTZllzwuhACcg.png" },
+  { id: "government", label: "Government", title: "Citizen service that scales", body: "Secure, auditable AI that helps agencies respond to constituents with accuracy and trust.", image: "/images/framer/EajKAdMTugjBB2TTZllzwuhACcg.png" },
+  { id: "retail",     label: "Retail",     title: "Retail support, accelerated", body: "Turn product and policy knowledge into instant answers for associates and customers alike.", image: "/images/framer/EajKAdMTugjBB2TTZllzwuhACcg.png" },
+  { id: "saas",       label: "SaaS",       title: "SaaS support, supercharged",  body: "Product knowledge, release notes, and troubleshooting — grounded answers for CS and engineering.", image: "/images/framer/EajKAdMTugjBB2TTZllzwuhACcg.png" },
 ];
 ---
 
-<Layout title="AskBobAI — #1 Knowledge Management platform for work">
+<Layout
+  title="AskBobAI — #1 Knowledge Management platform for work"
+  description="The #1 AI platform for any department— turning your company knowledge into instant answers that save time and money."
+>
   <!-- =============================================================
        HERO  (exact match to live askbobai.com hero)
        - Full-bleed blue gradient that fades to white at bottom
@@ -73,9 +70,13 @@ const industries = [
         <br />
         <span
           id="cycle-word"
-          class="inline-block text-[#99f0bd]"
+          class="inline-block text-[#99f0bd] hero-typer"
           aria-live="polite"
-        >Sales</span>
+        ><span id="cycle-word-text"></span><span
+          id="cycle-word-caret"
+          aria-hidden="true"
+          class="hero-typer-caret"
+        ></span></span>
       </h1>
       <p class="mt-6 text-lg lg:text-xl text-white/90 max-w-xl mx-auto leading-relaxed">
         AskBob brings speed to your customers and time back to your teams.
@@ -136,18 +137,23 @@ const industries = [
       </div>
       <ClientScroller />
       <div class="text-center mt-10">
-        <GetDemoButton label="Get Knowledge to Work" />
+        <GetDemoButton label="Get a Demo" />
       </div>
     </div>
   </section>
 
   <!-- =============================================================
        RESULTS YOU CAN MEASURE
+       Matches askbobai.com exactly: eyebrow "Put Your Knowledge to Work",
+       heading "Results You Can Measure", and three benefit cards with a
+       short description per card (no hero-numeric counter — the live site
+       uses a qualitative pattern here, not numbers).
        ============================================================= -->
   <section class="bg-blue-bg py-20 lg:py-28">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
       <div class="text-center max-w-2xl mx-auto mb-14">
-        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">
+        <p class="text-sm font-semibold uppercase tracking-wider text-brand mb-3">Put Your Knowledge to Work</p>
+        <h2 class="text-4xl lg:text-[54px] font-bold tracking-tight leading-[1.1]">
           Results <span class="text-brand">You Can Measure</span>
         </h2>
         <p class="mt-4 text-ink-muted text-lg">
@@ -155,21 +161,12 @@ const industries = [
         </p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {stats.map(stat => {
-          /* Split numeric value from suffix (e.g. "12+" → 12 + "+") so the
-             counter animates only the digits and keeps the symbol attached. */
-          const match = stat.value.match(/^(\d+(?:\.\d+)?)(.*)$/) ?? ["", stat.value, ""];
-          const target = match[1];
-          const suffix = match[2];
-          return (
-            <div class="bg-white rounded-2xl p-8 text-center shadow-sm border border-black/5">
-              <div class="text-6xl lg:text-7xl font-bold text-brand tracking-tight">
-                <span data-count-up={target} data-count-suffix={suffix}>0{suffix}</span>
-              </div>
-              <p class="mt-3 text-ink-muted font-medium">{stat.label}</p>
-            </div>
-          );
-        })}
+        {stats.map(stat => (
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-black/5 flex flex-col gap-4">
+            <h3 class="text-2xl font-bold tracking-tight text-ink">{stat.label}</h3>
+            <p class="text-ink-muted leading-relaxed">{stat.body}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -191,15 +188,7 @@ const industries = [
         {workflowCards.map(card => (
           <div class="bg-blue-bg rounded-3xl p-8 flex flex-col gap-5 overflow-hidden">
             <div class="aspect-[4/3] rounded-xl bg-white/60 flex items-center justify-center overflow-hidden">
-              {card.isIntegrations ? (
-                <div class="grid grid-cols-3 gap-4 p-6 w-full h-full items-center">
-                  {integrationLogos.slice(0, 6).map(logo => (
-                    <img src={logo.src} alt={logo.alt} class="h-8 w-auto mx-auto object-contain opacity-80" loading="lazy" />
-                  ))}
-                </div>
-              ) : (
-                <img src={card.image} alt={card.imageAlt} class="max-w-[85%] max-h-[85%] object-contain" loading="lazy" />
-              )}
+              <img src={card.image} alt={card.imageAlt} class="max-w-[85%] max-h-[85%] object-contain" loading="lazy" />
             </div>
             <h3 class="text-xl font-bold">{card.title}</h3>
             <p class="text-ink-muted leading-relaxed text-sm">{card.body}</p>
@@ -252,11 +241,11 @@ const industries = [
               <h3 class="text-3xl lg:text-4xl font-bold tracking-tight">{industry.title}</h3>
               <p class="mt-4 text-ink-muted text-lg leading-relaxed">{industry.body}</p>
               <div class="mt-6">
-                <GetDemoButton label="See it in action" />
+                <GetDemoButton label="Get a Demo" />
               </div>
             </div>
             <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-white">
-              <img src="/images/banking-workstation.png" alt="" class="w-full h-full object-cover" />
+              <img src={industry.image} alt="" class="w-full h-full object-cover" />
             </div>
           </div>
         ))}
@@ -268,23 +257,20 @@ const industries = [
        BOTTOM CTA — "AI FOR EVERY FUNCTION"
        Blue gradient with dot-pattern overlay (matches Framer).
        ============================================================= -->
-  <section class="relative overflow-hidden bg-hero-gradient py-24 lg:py-32">
+  <section class="relative overflow-hidden rounded-3xl mx-6 lg:mx-10 mb-20 lg:mb-28 bg-[linear-gradient(to_bottom,#1281de,#4aa8f5)] py-24 lg:py-32">
     <img
-      src="/images/blue-dot-pattern.png"
+      src="/images/framer/tlIGNlBt0V7x6OXOLl1sY9sjpA.png"
       alt=""
       aria-hidden="true"
-      class="absolute inset-x-0 bottom-0 w-full pointer-events-none opacity-90"
+      class="absolute inset-x-0 bottom-0 w-full pointer-events-none select-none"
     />
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center relative z-10">
+      <p class="text-sm font-semibold uppercase tracking-wider text-white/80 mb-4">Explore AI for Your Role</p>
       <h2 class="text-4xl lg:text-6xl font-bold text-white tracking-tight">
         AI For Every Function
       </h2>
-      <p class="mt-5 text-white/90 text-lg max-w-2xl mx-auto">
-        Experience the power of function-specific AI Agents firsthand. Kickstart your
-        journey towards enhanced efficiency and precision.
-      </p>
       <div class="mt-8">
-        <GetDemoButton size="lg" label="Explore AI for Your Role" />
+        <GetDemoButton size="lg" label="Get a Demo" />
       </div>
     </div>
   </section>
@@ -292,35 +278,59 @@ const industries = [
 
 <script is:inline>
   /* =============================================================
-     Hero word cycler.
-     Cycles through functional roles every 2.5s with a subtle
-     letter-appear/disappear animation so the hero feels alive.
+     Hero typewriter.
+     Cycles through functional roles by typing each letter, holding
+     the completed word, then deleting it. A blinking caret sits
+     to the right. Respects prefers-reduced-motion by showing the
+     first word statically.
      ============================================================= */
-  (function cycleHeroWord() {
-    const el = document.getElementById("cycle-word");
-    if (!el) return;
+  (function typeHeroWord() {
+    const textEl = document.getElementById("cycle-word-text");
+    if (!textEl) return;
     const words = [
       "Sales", "Finance", "HR", "Marketing",
       "Operations", "Support", "Technology",
       "Legal", "Procurement",
     ];
-    let i = 0;
-    const swap = () => {
-      el.style.transition = "opacity 240ms ease, transform 240ms ease";
-      el.style.opacity = "0";
-      el.style.transform = "translateY(8px)";
-      setTimeout(() => {
-        i = (i + 1) % words.length;
-        el.textContent = words[i];
-        el.style.transform = "translateY(-8px)";
-        // Frame flip to restart transition
-        requestAnimationFrame(() => {
-          el.style.opacity = "1";
-          el.style.transform = "translateY(0)";
-        });
-      }, 260);
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      textEl.textContent = words[0];
+      return;
+    }
+
+    const TYPE_MS   = 85;    // per-letter typing speed
+    const DELETE_MS = 45;    // per-letter delete speed
+    const HOLD_MS   = 1500;  // pause after full word is typed
+    const GAP_MS    = 350;   // pause after deletion before next word
+
+    let wordIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    const tick = () => {
+      const current = words[wordIndex];
+      if (!deleting) {
+        charIndex += 1;
+        textEl.textContent = current.slice(0, charIndex);
+        if (charIndex >= current.length) {
+          deleting = true;
+          setTimeout(tick, HOLD_MS);
+          return;
+        }
+        setTimeout(tick, TYPE_MS);
+      } else {
+        charIndex -= 1;
+        textEl.textContent = current.slice(0, charIndex);
+        if (charIndex <= 0) {
+          deleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          setTimeout(tick, GAP_MS);
+          return;
+        }
+        setTimeout(tick, DELETE_MS);
+      }
     };
-    setInterval(swap, 2500);
+    tick();
   })();
 
   /* =============================================================
@@ -375,47 +385,4 @@ const industries = [
     });
   });
 
-  /* =============================================================
-     Count-up animation for stats.
-     Fires when the element enters the viewport. Uses ease-out-cubic
-     so numbers decelerate into their final value.
-     Respects prefers-reduced-motion.
-     ============================================================= */
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const formatValue = (raw, target) => {
-    // Preserve decimals present in target (e.g. target 3.5 → one decimal)
-    const decimals = (String(target).split(".")[1] || "").length;
-    return decimals > 0 ? raw.toFixed(decimals) : String(Math.round(raw));
-  };
-  const animateCount = (el) => {
-    const target = parseFloat(el.getAttribute("data-count-up"));
-    const suffix = el.getAttribute("data-count-suffix") || "";
-    if (reduceMotion || !isFinite(target)) {
-      el.textContent = target + suffix;
-      return;
-    }
-    const duration = 1600; // ms
-    const start = performance.now();
-    const tick = (now) => {
-      const progress = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out-cubic
-      el.textContent = formatValue(eased * target, target) + suffix;
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-  const counters = document.querySelectorAll("[data-count-up]");
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCount(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.35 });
-    counters.forEach((el) => observer.observe(el));
-  } else {
-    counters.forEach(animateCount);
-  }
 </script>

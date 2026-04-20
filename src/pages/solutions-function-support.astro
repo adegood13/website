@@ -1,0 +1,53 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FunctionPageBody from "../components/FunctionPageBody.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout
+  title="AskBobAI — Company"
+  description="AI for support teams—AskBobAI turns help docs, tickets, and internal knowledge into instant answers that resolve issues faster."
+>
+  <Hero
+    eyebrow="Support"
+    heading="AskBob: Your Support Expert."
+    subheading="AskBob coordinates specialized agents, tools, and reasoning to solve complex, multi-step business problems."
+  />
+
+  <FunctionPageBody
+    sampleQuestions={[
+      "How do I answer the following question?",
+      "How many high urgency tickets do we have?",
+      "What is our response time?",
+      "Do we have any duplicate tickets?",
+    ]}
+    coreHeading="Resolve tickets faster — with answers you can trust."
+    coreBody="AskBob integrates directly into helpdesk workflows to explain what applies, why it applies, and where it came from—using your policies, contracts, and system knowledge."
+    coreImage="/images/framer/xMLeAKnaKNM7oje2RSY6Q9fl1I.png"
+    coreImageAlt=""
+    helpsWith={[
+      "Answering complex customer questions",
+      "Interpreting policies and contracts",
+      "Reducing escalations and handle time",
+      "Onboarding new support agents faster",
+    ]}
+    whyChooseHeading="Why Support teams choose AskBob"
+    whyChoose={[
+      "Answers appear inside tickets",
+      "Every response includes citations",
+      "Consistent, compliant responses",
+      "Improves CSAT without adding headcount",
+    ]}
+    whyImage="/images/framer/78jWzQTMiGb0A3dzISO3nDPM1lM.png"
+    whyImageAlt="Diverse team of professional customer support representatives wearing headsets and working at computers in a modern office with brick walls."
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Get your Support Function Started Today!"
+    subheading="Experience the power of function-specific language models firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo tailored to your function."
+  />
+</Layout>

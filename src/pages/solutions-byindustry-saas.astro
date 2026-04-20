@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureSplit from "../components/FeatureSplit.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — Platform" description="AI for SaaS teams—AskBobAI turns product docs, support data, and internal knowledge into instant answers that save time.">
+  <Hero
+    eyebrow="SaaS"
+    heading="Smarter AI for SaaS Teams"
+    subheading="SaaS teams don't need more tools—they need faster answers, smarter workflows, and AI they can trust."
+  />
+
+  <FeatureSplit
+    heading="A no-brainer: instant answers that scale your business"
+    body="AskBob turns scattered knowledge into instant answers. Get users productive in days, not weeks. AskBob gives customers and internal teams instant answers from your real docs, workflows, and policies. Onboarding gets faster."
+    image="/images/framer/I36sHPekcP4gQ7fdO6VGxCy2Yg.png"
+    imageAlt=""
+    background="white"
+  />
+
+  <FeatureSplit
+    heading="Stop repeating answers. Start scaling knowledge."
+    body="AskBob handles repeat questions across support, sales, and success with trusted, source-backed responses. Your experts focus on high-value work while AI handles volume."
+    image="/images/framer/R704xrVpVInNPmnN631WDFuIxWo.png"
+    imageAlt=""
+    background="blue"
+    reversed
+  />
+
+  <FeatureSplit
+    heading="One source of truth. Fewer tickets. Lower costs."
+    body="AskBob unifies knowledge scattered across tools into a single conversational layer. Support scales efficiently without growing costs faster than revenue."
+    image="/images/framer/pQTrFcpQ286PGaW4drHLXB3laM8.png"
+    imageAlt=""
+    background="white"
+    ctaLabel="See it in action"
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Explore Your AI SaaS Solution"
+    subheading="Ready to transform your Industry with AI? Take the leap and unlock the power of AskBob AI today. Elevate your customer experience, streamline your processes, and drive growth. Get started now!"
+  />
+</Layout>

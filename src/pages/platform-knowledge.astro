@@ -1,0 +1,68 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureSplit from "../components/FeatureSplit.astro";
+import FeatureCards from "../components/FeatureCards.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+
+const controlFeatures = [
+  {
+    title: "Workflow Enablement",
+    body: "Deliver answers where work happens—chat, helpdesk, SMS, email, portals, and integrations.",
+    icon: "⚡",
+  },
+  {
+    title: "Control",
+    body: "Control what data is used, how it's accessed, and how AI responds—by tenant, role, or agent.",
+    icon: "🔐",
+  },
+  {
+    title: "Continuous Learning",
+    body: "AskBob improves as your knowledge does, updating automatically as docs and policies change.",
+    icon: "📈",
+  },
+];
+---
+
+<Layout title="AskBobAI — Platform" description="AskBobAI turns your company knowledge into instant, reliable answers that teams can trust across any department.">
+  <Hero
+    eyebrow="Platform"
+    heading="Instant Knowledge"
+    subheading="AskBob delivers instant, trusted answers as your internal knowledge hub — improving customer service while keeping employees confident, supported, and focused."
+  />
+
+  <FeatureSplit
+    heading="The platform for your AI knowledge needs"
+    body="AskBob powers how knowledge works across your organization—turning information into confident action."
+    image="/images/framer/CZxL17LQWijiSCK0FrOxdxNObjk.png"
+    imageAlt=""
+    background="white"
+  />
+
+  <FeatureSplit
+    heading="Put Your Knowledge to Work"
+    eyebrow="Answers Your Team Can Trust, Powered By Your Data"
+    body="Instant, trusted answers sourced from your private and public data—with citations you can trust. Turn unstructured documents into usable knowledge that fuels faster decisions."
+    image="/images/framer/ns4NbMoifjHbzfKi3xIPerbYzqM.png"
+    imageAlt="Screenshot of an interface for editing the AI agent's response settings for a specific question."
+    background="blue"
+    reversed
+  />
+
+  <FeatureCards
+    heading="AI That Works Everywhere,"
+    headingAccent="With Control Built In"
+    subheading="Deliver the right answers to the right people, in the places they already work."
+    cards={controlFeatures}
+    background="white"
+    cardBackground="blue"
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Ready To Revolutionize Your Knowledge With AskBob AI?"
+    subheading="Ready to transform your knowledge with AI? Take the leap and unlock the power of AskBob AI today. Elevate your customer experience, streamline your processes, and drive growth. Get started now!"
+  />
+</Layout>

@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FunctionPageBody from "../components/FunctionPageBody.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout title="AskBobAI — Company" description="AI for HR teams—AskBobAI turns policies, benefits, and onboarding knowledge into instant answers employees trust.">
+  <Hero
+    eyebrow="Human Resources"
+    heading="AskBob: Your Human Resources Expert."
+    subheading="AskBob coordinates specialized agents, tools, and reasoning to solve complex, multi-step business problems."
+  />
+
+  <FunctionPageBody
+    sampleQuestions={[
+      "When do my retirement benefits start?",
+      "What is our PTO policy?",
+      "How can I change my direct deposit information?",
+      "How do I enroll in health insurance?",
+    ]}
+    coreHeading="One source of truth for people's policies—available when it matters."
+    coreBody="AskBob helps HR teams answer employee questions consistently across handbooks, benefits docs, policies, and internal procedures. Employees get fast, accurate answers."
+    coreImage="/images/framer/tfvNObif5iY9Xtb0MxiSddz35c.jpg"
+    coreImageAlt="An HR representative and an employee or candidate engaged in discussion"
+    helpsWith={[
+      "Answering policy and benefits questions",
+      "Supporting onboarding and training",
+      "Reducing repetitive HR tickets",
+      "Ensuring consistent, compliant responses",
+    ]}
+    whyChooseHeading="Why HR Teams Choose AskBob"
+    whyChoose={[
+      "Answers are grounded in official documents",
+      "Updates automatically as policies change",
+      "Works in chat, email, and support tools",
+      "Reduces burnout while improving employee experience",
+    ]}
+    whyImage="/images/framer/CjAo9yvlWUDIq3JSzU5tJ3dnxlA.png"
+    whyImageAlt="A smiling female candidate shakes hands with a hiring manager"
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Get your Human Resources Function Started Today!"
+    subheading="Experience the power of function-specific language models firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo tailored to your function."
+  />
+</Layout>

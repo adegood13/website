@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeatureSplit from "../components/FeatureSplit.astro";
+import Stats from "../components/Stats.astro";
+import CTABanner from "../components/CTABanner.astro";
+---
+
+<Layout
+  title="AskBobAI — Platform"
+  description="AI for insurance teams—AskBobAI turns policies, claims data, and internal knowledge into instant answers that save time."
+>
+  <Hero
+    eyebrow="Insurance"
+    heading="AI That Works For Insurance Teams"
+    subheading="Reduce manual effort across underwriting, claims, and billing. AskBob delivers AI-driven clarity and execution."
+  />
+
+  <FeatureSplit
+    heading="Bring order to insurance operations"
+    body="AskBob connects underwriting rules, policy, requirements, and compliance knowledge so teams eliminate guesswork and keep work moving across systems."
+    image="/images/framer/7uF75JenSTEU9XeMhgOc9rHVmY.jpg"
+    imageAlt="Insurance policy document and fountain pen, representing legal coverage, contract signing, and financial protection."
+    background="white"
+  />
+
+  <FeatureSplit
+    heading="Faster answers change the insurance experience"
+    body="AskBob gives agents instant clarity to quote and bind faster while delivering smoother, more responsive service to policyholders."
+    image="/images/framer/YnKArkBliebXwgPGxqwbQBuZ0.png"
+    imageAlt=""
+    background="blue"
+    reversed
+  />
+
+  <Stats />
+
+  <CTABanner
+    heading="Explore Your AI Insurance Solution"
+    subheading="Ready to transform your industry with AI? Take the leap and unlock the power of AskBob AI today. Elevate your customer experience, streamline your processes, and drive growth. Get started now!"
+  />
+</Layout>

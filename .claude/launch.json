@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "askbobai",
-      "runtimeExecutable": "/Users/andrewdegood/Desktop/Claude/tools/node/bin/npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "/Users/andrewdegood/Desktop/Claude/tools/node/bin/node",
+      "runtimeArgs": ["node_modules/.bin/astro", "dev"],
       "port": 4321
     }
   ]

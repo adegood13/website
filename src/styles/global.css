@@ -86,16 +86,6 @@ body {
     #ffffff;
 }
 
-/* ---------------------------------------------------------------
-   Hero cycling word animation
-   --------------------------------------------------------------- */
-@keyframes wordSwap {
-  0%, 20%   { opacity: 0; transform: translateY(8px); }
-  5%, 18%   { opacity: 1; transform: translateY(0); }
-  22%       { opacity: 0; transform: translateY(-8px); }
-  100%      { opacity: 0; transform: translateY(-8px); }
-}
-
 /* Client-logo strip marquee animation */
 @keyframes scroll-x {
   from { transform: translateX(0); }
@@ -109,3 +99,26 @@ body {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* ---------------------------------------------------------------
+   Hero typewriter caret
+   Blinks next to the currently-typing word. Height matches the
+   surrounding text (em-based), sits 2px offset from the text, and
+   pauses blinking only when the user prefers reduced motion.
+   --------------------------------------------------------------- */
+.hero-typer-caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.9em;
+  margin-left: 0.08em;
+  background-color: currentColor;
+  vertical-align: -0.08em;
+  animation: heroCaretBlink 1s steps(2, start) infinite;
+}
+@keyframes heroCaretBlink {
+  to { visibility: hidden; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-typer-caret { animation: none; }
+}
+
