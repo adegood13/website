@@ -100,6 +100,15 @@ body {
   animation-play-state: paused;
 }
 
+/* Blog / resources page background — blue at the very top, quickly
+   fading to white. Exact stops pulled from askbobai.com/resources-blog. */
+.bg-blog-gradient {
+  background: linear-gradient(
+    rgb(99, 185, 255) 2.47%,
+    rgb(255, 255, 255) 15.54%
+  );
+}
+
 /* ---------------------------------------------------------------
    Blog category chips
    Colors match askbobai.com exactly — each category has a signature

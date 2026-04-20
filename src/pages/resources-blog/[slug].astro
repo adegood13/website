@@ -38,8 +38,10 @@ const related = posts.filter(p => p.slug !== post.slug).slice(0, 3);
   description={post.excerpt}
   ogImage={post.image}
 >
+  <div class="bg-blog-gradient">
+
   <!-- Hero header -->
-  <header class="bg-white pt-28 lg:pt-36 pb-8">
+  <header class="pt-28 lg:pt-36 pb-8">
     <div class="max-w-[820px] mx-auto px-6 lg:px-10 text-center">
       <div class="flex items-center justify-center gap-3 mb-5">
         <span class="category-chip" data-category={post.category}>{post.category}</span>
@@ -72,6 +74,8 @@ const related = posts.filter(p => p.slug !== post.slug).slice(0, 3);
       return <p class="text-ink-muted text-lg leading-relaxed mb-5">{block.text}</p>;
     })}
   </article>
+
+  </div><!-- /bg-blog-gradient -->
 
   <!-- Related reading -->
   {related.length > 0 && (
