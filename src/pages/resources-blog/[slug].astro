@@ -44,12 +44,15 @@ const related = posts.filter(p => p.slug !== post.slug).slice(0, 3);
   <header class="pt-28 lg:pt-36 pb-8">
     <div class="max-w-[820px] mx-auto px-6 lg:px-10 text-center">
       <div class="flex items-center justify-center gap-3 mb-5">
-        <span class="category-chip" data-category={post.category}>{post.category}</span>
+        <span class="category-chip" data-category={post.area}>{post.area}</span>
         <span class="text-ink-muted text-sm">· {post.date}</span>
       </div>
       <h1 class="text-4xl lg:text-6xl font-bold tracking-tight leading-[1.08]">{post.title}</h1>
+      {post.author && (
+        <p class="mt-4 text-sm text-ink-muted">By {post.author}</p>
+      )}
       {weekdayDate && (
-        <p class="mt-6 text-sm text-ink-muted">{weekdayDate}</p>
+        <p class="mt-2 text-xs text-ink-muted">{weekdayDate}</p>
       )}
     </div>
   </header>
@@ -93,7 +96,7 @@ const related = posts.filter(p => p.slug !== post.slug).slice(0, 3);
               </div>
               <div class="p-6">
                 <div class="flex items-center gap-2 mb-3">
-                  <span class="category-chip" data-category={p.category}>{p.category}</span>
+                  <span class="category-chip" data-category={p.area}>{p.area}</span>
                   <span class="text-ink-muted text-xs">· {p.date}</span>
                 </div>
                 <h3 class="text-lg font-bold leading-tight group-hover:text-brand transition-colors">{p.title}</h3>
