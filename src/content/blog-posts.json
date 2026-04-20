@@ -2,7 +2,7 @@
   {
     "slug": "10-local-government-health-initiatives",
     "title": "10 Local Government Health Initiatives",
-    "category": "AI Assistants",
+    "category": "Government",
     "date": "Apr 16, 2026",
     "image": "/images/framer/NAuJhJRtUk5kRrOwG2QnhX7uok.png",
     "excerpt": "Discover 10 proven local government health initiatives to improve community wellness, reduce costs, and create healthier cities through smarter public initiatives.",
@@ -679,12 +679,14 @@
         "tag": "p",
         "text": "Terms"
       }
-    ]
+    ],
+    "area": "AI Assistants",
+    "author": "Rebecca P."
   },
   {
     "slug": "what-is-a-cdp-customer-data-platform-guide-for-2026",
     "title": "What Is a CDP? Customer Data Platform Guide for 2026",
-    "category": "Data",
+    "category": "Retail",
     "date": "Apr 15, 2026",
     "image": "/images/framer/w6vn7ESQ0pgoqMaO4upzWdqSvSw.png",
     "excerpt": "Learn what a Customer Data Platform (CDP) is, how it works, why it matters in 2026, CDP vs CRM comparisons, AI use cases, and how to choose the right platform.",
@@ -1497,12 +1499,14 @@
         "tag": "p",
         "text": "Terms"
       }
-    ]
+    ],
+    "area": "Data",
+    "author": "Rebecca P."
   },
   {
     "slug": "ai-for-loan-officers-from-application-takers-to-deal-makers",
     "title": "AI for Loan Officers: From Application Takers to Deal Makers",
-    "category": "AI agents",
+    "category": "Mortgage",
     "date": "Apr 11, 2026",
     "image": "/images/framer/AsMW1VzrUfw5ibdSYkRCtbruoI.jpg",
     "excerpt": "AI helps loan officers answer borrower questions instantly, structure better deals, and close more loans by turning fragmented guidelines into real-time insights.",
@@ -2171,12 +2175,14 @@
         "tag": "p",
         "text": "Terms"
       }
-    ]
+    ],
+    "area": "AI agents",
+    "author": "Rose Ramirez"
   },
   {
     "slug": "common-underwriting-barriers-and-how-teams-overcome-them",
     "title": "Common Underwriting Barriers \u2014 and How Teams Overcome Them",
-    "category": "AI agents",
+    "category": "Mortgage",
     "date": "Apr 10, 2026",
     "image": "/images/framer/5nBYI797yD33xF17LtBh639XYA.png",
     "excerpt": "Common mortgage underwriting barriers\u2014and how lenders overcome them. Learn what causes delays, how teams reduce risk, and how smarter workflows and AI help.",
@@ -2637,12 +2643,14 @@
         "tag": "p",
         "text": "Terms"
       }
-    ]
+    ],
+    "area": "AI agents",
+    "author": "Rose Ramirez"
   },
   {
     "slug": "ai-in-local-government",
     "title": "AI in Local Government",
-    "category": "AI agents",
+    "category": "Government",
     "date": "Apr 9, 2026",
     "image": "/images/framer/yLnjQiBf68tnIbe00apO7zIDqPI.png",
     "excerpt": "Discover 10 real-world use cases helping cities do more with less.",
@@ -2991,12 +2999,14 @@
         "tag": "p",
         "text": "Terms"
       }
-    ]
+    ],
+    "area": "AI agents",
+    "author": "Rebecca P."
   },
   {
     "slug": "fastest-brands-to-watch-in-retail-in-2026",
     "title": "Fastest Brands to Watch in Retail in 2026",
-    "category": "Data",
+    "category": "Retail",
     "date": "Apr 8, 2026",
     "image": "/images/framer/18BKTqIanfYbJ58eMQ1qw2laOI.png",
     "excerpt": "Discover the fastest-growing retail brands of 2026 and the trends driving them\u2014protein, convenience, and better-for-you products shaping the future.",
@@ -3489,6 +3499,8 @@
         "tag": "p",
         "text": "Terms"
       }
-    ]
+    ],
+    "area": "Data",
+    "author": "Rose Ramirez"
   }
 ]
