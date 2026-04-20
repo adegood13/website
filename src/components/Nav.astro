@@ -1,19 +1,25 @@
 ---
 /**
- * Top navigation — matches askbobai.com exactly.
+ * Top navigation — matches askbobai.com behavior in three states:
  *
- * Renders as a single floating white pill, fixed 8px from the viewport top,
- * centered with a max-width. Dark ink text at every scroll position (no
- * transparent-over-hero transition).
+ *   1. AT TOP (y < ~80)
+ *      Transparent — white logo + white nav links floating directly over
+ *      the blue hero gradient. "Get a Demo" renders as a white-outlined
+ *      pill instead of a solid-green one.
  *
- * Scroll behavior: the pill hides when the user scrolls down and returns as
- * soon as they scroll up. Implemented via the `.nav-pill--hidden` class,
- * whose CSS lives in the scoped <style> block below.
+ *   2. SCROLLING UP (below top)
+ *      Slides into view as a white rounded pill centered at the top.
+ *      Dark ink text, solid-green "Get a Demo" button.
+ *
+ *   3. SCROLLING DOWN (below top)
+ *      Slides up off-screen (translate-y + opacity 0).
+ *
+ * State machine lives in the inline script. Visual appearance swaps via
+ * two modifier classes on #site-nav: `.nav-pill--transparent` and
+ * `.nav-pill--hidden`.
  */
 import GetDemoButton from "./GetDemoButton.astro";
 
-/* URL slugs match askbobai.com exactly: flat routes, no hyphens in
-   multi-word function slugs (humanresources, supplychain). */
 const solutions = [
   { heading: "By Function", links: [
     { href: "/solutions-function-technology",      label: "Technology" },
@@ -47,29 +53,24 @@ const resources = [
 ---
 
 <!--
-  Nav rebuilt to match askbobai.com exactly:
-  - Always a white pill, never transparent over the hero
-  - position: fixed, 8px from viewport top, centered with a max-width
-  - border-radius: 32px, height 64px, subtle 24px/12px side padding
-  - Dark ink text at all scroll positions (no scroll-state transition)
-  - Top-level items: Solutions ▾, Platform ▾, AI Agents, Resources ▾, About
-  - Right side: Get a Demo (green pill)
+  Nav starts in the `.nav-pill--transparent` state for pages that open at
+  the top of a blue hero. The inline script toggles classes on scroll.
 -->
 <header
   id="site-nav"
-  class="fixed left-0 right-0 z-50 px-2 lg:px-4 pointer-events-none nav-pill"
+  class="nav-pill nav-pill--transparent fixed left-0 right-0 z-50 px-2 lg:px-4 pointer-events-none"
 >
-  <div class="max-w-[1200px] mx-auto bg-white rounded-full h-16 pl-6 pr-3 flex items-center justify-between gap-4 pointer-events-auto">
+  <div class="nav-pill-bg max-w-[1200px] mx-auto rounded-full h-16 pl-6 pr-3 flex items-center justify-between gap-4 pointer-events-auto">
     <!-- Logo -->
     <a href="/" class="flex items-center gap-2 shrink-0" aria-label="AskBobAI home">
-      <span class="text-xl font-bold tracking-tight text-ink">AskBobAI</span>
+      <span class="nav-text text-xl font-bold tracking-tight">AskBobAI</span>
       <img src="/images/askbobai-logo.svg" alt="" class="h-5 w-auto" />
     </a>
 
     <!-- Desktop menu -->
-    <nav class="hidden lg:flex items-center gap-1 text-[15px] font-medium text-ink" aria-label="Primary">
+    <nav class="nav-text hidden lg:flex items-center gap-1 text-[15px] font-medium" aria-label="Primary">
       <div class="relative group">
-        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
+        <button class="nav-text-hover px-4 py-2 rounded-md flex items-center gap-1 cursor-pointer">
           Solutions
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -92,7 +93,7 @@ const resources = [
       </div>
 
       <div class="relative group">
-        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
+        <button class="nav-text-hover px-4 py-2 rounded-md flex items-center gap-1 cursor-pointer">
           Platform
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -107,10 +108,10 @@ const resources = [
         </div>
       </div>
 
-      <a href="/ai-agents" class="px-4 py-2 rounded-md hover:bg-black/5">AI Agents</a>
+      <a href="/ai-agents" class="nav-text-hover px-4 py-2 rounded-md">AI Agents</a>
 
       <div class="relative group">
-        <button class="px-4 py-2 rounded-md hover:bg-black/5 flex items-center gap-1 cursor-pointer">
+        <button class="nav-text-hover px-4 py-2 rounded-md flex items-center gap-1 cursor-pointer">
           Resources
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="opacity-70">
             <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -125,21 +126,21 @@ const resources = [
         </div>
       </div>
 
-      <a href="/about" class="px-4 py-2 rounded-md hover:bg-black/5">About</a>
+      <a href="/about" class="nav-text-hover px-4 py-2 rounded-md">About</a>
     </nav>
 
     <!-- Get a Demo pill (desktop) + mobile toggle -->
     <div class="flex items-center gap-2 shrink-0">
       <a
         href="/get-a-demo"
-        class="hidden lg:inline-flex items-center gap-2 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-light transition-colors"
+        class="nav-cta hidden lg:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-colors"
       >
         Get a Demo
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       </a>
       <button
         id="nav-toggle"
-        class="lg:hidden p-2 -mr-1 text-ink"
+        class="nav-text lg:hidden p-2 -mr-1"
         aria-label="Toggle menu"
         aria-expanded="false"
         aria-controls="mobile-nav"
@@ -194,29 +195,50 @@ const resources = [
 </header>
 
 <script is:inline>
-  /* Hide-on-scroll-down / show-on-scroll-up.
-     Always visible at the very top; slides up off-screen when scrolling
-     down past a short threshold; slides back in on any upward scroll.
-     Respects prefers-reduced-motion by keeping the nav always visible. */
+  /* Three-state nav controller:
+     - At top (scrollY < TOP_SAFE):        `.nav-pill--transparent`
+     - Scrolling up below top:             no modifier (pill visible)
+     - Scrolling down below top:           `.nav-pill--hidden`
+     Respects `prefers-reduced-motion` by skipping the listener and
+     leaving the server-rendered transparent state in place. */
   (function navScroll() {
     const nav = document.getElementById("site-nav");
     if (!nav) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    const DELTA = 6;           // ignore tiny jitter
-    const TOP_SAFE = 80;       // always show this close to the top
+    const DELTA = 6;          // ignore tiny jitter
+    const TOP_SAFE = 80;      // considered "at top" within this margin
     let lastY = window.scrollY;
     let ticking = false;
+
+    const apply = (y, diff) => {
+      // Case A: within the top-safe band → transparent variant
+      if (y < TOP_SAFE) {
+        nav.classList.add("nav-pill--transparent");
+        nav.classList.remove("nav-pill--hidden");
+        return;
+      }
+      nav.classList.remove("nav-pill--transparent");
+      // Case B: scrolling up → show the pill
+      if (diff < 0) {
+        nav.classList.remove("nav-pill--hidden");
+        return;
+      }
+      // Case C: scrolling down → hide
+      nav.classList.add("nav-pill--hidden");
+    };
 
     const update = () => {
       const y = window.scrollY;
       const diff = y - lastY;
-      if (Math.abs(diff) < DELTA) { ticking = false; return; }
-      if (y < TOP_SAFE || diff < 0) nav.classList.remove("nav-pill--hidden");
-      else nav.classList.add("nav-pill--hidden");
+      if (Math.abs(diff) < DELTA && y > TOP_SAFE) { ticking = false; return; }
+      apply(y, diff);
       lastY = y;
       ticking = false;
     };
+    /* Prime the state immediately so first paint matches the current
+       scroll position (SSR assumes we're at the top). */
+    apply(window.scrollY, 0);
 
     window.addEventListener("scroll", () => {
       if (!ticking) { requestAnimationFrame(update); ticking = true; }
@@ -232,8 +254,6 @@ const resources = [
       const open = drawer.classList.toggle("hidden") === false;
       btn.setAttribute("aria-expanded", String(open));
     });
-    /* Close the drawer when a link is tapped so the next page doesn't
-       render with the drawer still open. */
     drawer.querySelectorAll("a").forEach(a => {
       a.addEventListener("click", () => {
         drawer.classList.add("hidden");
@@ -244,19 +264,57 @@ const resources = [
 </script>
 
 <style>
-  /* Explicit base (without modifier) + explicit modifier, so the modifier
-     has strictly higher specificity than the base and can't lose to
-     cascade-order ambiguity in the bundled output. */
-  .nav-pill:not(.nav-pill--hidden) {
+  /* Position + slide animation shared by all nav states. */
+  .nav-pill {
     top: 0.5rem;
     opacity: 1;
-  }
-  .nav-pill {
     transition: top 300ms ease-out, opacity 300ms ease-out;
   }
   .nav-pill.nav-pill--hidden {
     top: -96px;
     opacity: 0;
     pointer-events: none;
+  }
+
+  /* Default (scrolled) appearance — white pill + dark ink text + solid CTA. */
+  .nav-pill .nav-pill-bg {
+    background-color: #ffffff;
+    transition: background-color 200ms ease, box-shadow 200ms ease;
+  }
+  .nav-pill .nav-text,
+  .nav-pill .nav-text-hover {
+    color: #000000;
+  }
+  .nav-pill .nav-text-hover:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  .nav-pill .nav-cta {
+    background-color: #00be50;     /* brand green */
+    color: #ffffff;
+  }
+  .nav-pill .nav-cta:hover {
+    background-color: #19d467;
+  }
+
+  /* Transparent (at-top-of-page) appearance — white text, no pill
+     background, white-outlined "Get a Demo". */
+  .nav-pill.nav-pill--transparent .nav-pill-bg {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  .nav-pill.nav-pill--transparent .nav-text,
+  .nav-pill.nav-pill--transparent .nav-text-hover {
+    color: #ffffff;
+  }
+  .nav-pill.nav-pill--transparent .nav-text-hover:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .nav-pill.nav-pill--transparent .nav-cta {
+    background-color: transparent;
+    color: #ffffff;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75);
+  }
+  .nav-pill.nav-pill--transparent .nav-cta:hover {
+    background-color: rgba(255, 255, 255, 0.08);
   }
 </style>
