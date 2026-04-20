@@ -1,95 +1,92 @@
 ---
+/**
+ * Blog listing — mirrors askbobai.com/resources-blog.
+ *
+ * One featured card at the top (large, tag/date pill, big title) followed
+ * by a 3-column grid of the remaining posts. Data source: the single
+ * `blog-posts.json` content file (also used by the [slug] detail route).
+ */
 import Layout from "../layouts/Layout.astro";
 import CTABanner from "../components/CTABanner.astro";
+import posts from "../content/blog-posts.json";
 
-/* Blog data model. Each post is a standalone object here so adding a new
-   post is just appending to this array. When a headless CMS is added later,
-   swap this array for a CMS query (Contentful/Sanity/Markdown in /content). */
-/* Blog post thumbnails use the exact Framer assets from askbobai.com/resources-blog. */
-const posts = [
-  {
-    slug: "local-government-health-initiatives",
-    title: "10 Local Government Health Initiatives",
-    excerpt: "Discover 10 proven local government health initiatives to improve community wellness, reduce costs, and create healthier cities through smarter public initiatives.",
-    category: "Government",
-    image: "/images/framer/NAuJhJRtUk5kRrOwG2QnhX7uok.png",
-    date: "Apr 2026",
-  },
-  {
-    slug: "what-is-a-cdp",
-    title: "What Is a CDP? Customer Data Platform Guide for 2026",
-    excerpt: "Learn what a Customer Data Platform (CDP) is, how it works, why it matters in 2026, CDP vs CRM comparisons, AI use cases, and how to choose the right platform.",
-    category: "Data",
-    image: "/images/framer/w6vn7ESQ0pgoqMaO4upzWdqSvSw.png",
-    date: "Mar 2026",
-  },
-  {
-    slug: "ai-for-loan-officers",
-    title: "AI for Loan Officers: From Application Takers to Deal Makers",
-    excerpt: "AI helps loan officers answer borrower questions instantly, structure better deals, and close more loans by turning fragmented guidelines into real-time insights.",
-    category: "Mortgage",
-    image: "/images/framer/AsMW1VzrUfw5ibdSYkRCtbruoI.jpg",
-    date: "Mar 2026",
-  },
-  {
-    slug: "underwriting-barriers",
-    title: "Common Underwriting Barriers — and How Teams Overcome Them",
-    excerpt: "Common mortgage underwriting barriers—and how lenders overcome them. Learn what causes delays, how teams reduce risk, and how smarter workflows and AI help.",
-    category: "Mortgage",
-    image: "/images/framer/5nBYI797yD33xF17LtBh639XYA.png",
-    date: "Feb 2026",
-  },
-  {
-    slug: "ai-in-local-government",
-    title: "AI in Local Government",
-    excerpt: "Discover 10 real-world use cases helping cities do more with less.",
-    category: "Government",
-    image: "/images/framer/yLnjQiBf68tnIbe00apO7zIDqPI.png",
-    date: "Feb 2026",
-  },
-  {
-    slug: "fastest-brands-retail-2026",
-    title: "Fastest Brands to Watch in Retail in 2026",
-    excerpt: "Discover the fastest-growing retail brands of 2026 and the trends driving them—protein, convenience, and better-for-you products shaping the future.",
-    category: "Retail",
-    image: "/images/framer/18BKTqIanfYbJ58eMQ1qw2laOI.png",
-    date: "Jan 2026",
-  },
-];
+const [featured, ...rest] = posts;
 ---
 
-<Layout title="AskBobAI — Blog" description="Read AskBobAI blog articles on AI, automation, and productivity—built for teams using knowledge to move faster.">
+<Layout
+  title="AskBobAI — Blog"
+  description="Ideas, playbooks, and trends on AI, knowledge management, and making teams move faster."
+>
   <!-- Header -->
-  <section class="bg-white pt-20 pb-12">
+  <section class="bg-white pt-28 lg:pt-36 pb-8">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center">
-      <p class="text-sm font-semibold text-brand uppercase tracking-wider mb-3">Resources</p>
-      <h1 class="text-4xl lg:text-6xl font-bold tracking-tight">Blog</h1>
+      <h1 class="text-5xl lg:text-7xl font-bold tracking-tight">Our Blog</h1>
       <p class="mt-4 text-ink-muted text-lg max-w-2xl mx-auto">
         Ideas, playbooks, and trends from the AskBobAI team.
       </p>
     </div>
   </section>
 
-  <!-- Card grid -->
-  <section class="bg-white pb-20">
+  <!-- Featured post -->
+  <section class="bg-white pb-12">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <a
+        href={`/resources-blog/${featured.slug}`}
+        class="group grid md:grid-cols-2 gap-8 lg:gap-12 items-center rounded-3xl overflow-hidden"
+      >
+        <div class="aspect-[16/10] overflow-hidden rounded-3xl bg-blue-bg order-first md:order-last">
+          <img
+            src={featured.image}
+            alt={featured.title}
+            class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+            loading="eager"
+          />
+        </div>
+        <div>
+          <div class="flex items-center gap-2 text-xs font-semibold mb-4">
+            <span class="bg-brand-bg text-brand-dark px-3 py-1 rounded-full">{featured.category}</span>
+            <span class="text-ink-muted">·</span>
+            <span class="text-ink-muted">{featured.date}</span>
+          </div>
+          <h2 class="text-3xl lg:text-5xl font-bold tracking-tight leading-[1.1] group-hover:text-brand transition-colors">
+            {featured.title}
+          </h2>
+          <p class="mt-5 text-ink-muted text-lg leading-relaxed">{featured.excerpt}</p>
+          <p class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand">
+            Read article
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Grid of remaining posts -->
+  <section class="bg-white pb-20 lg:pb-28">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {posts.map(post => (
-        /* Detail pages (/resources-blog/<slug>) aren't built yet — render
-           as a non-interactive article card until they exist. */
-        <article class="block rounded-2xl overflow-hidden border border-black/5 bg-white">
+      {rest.map(post => (
+        <a
+          href={`/resources-blog/${post.slug}`}
+          class="group block rounded-2xl overflow-hidden border border-black/5 hover:shadow-card transition-shadow bg-white"
+        >
           <div class="aspect-[16/10] overflow-hidden bg-blue-bg">
-            <img src={post.image} alt={post.title} class="w-full h-full object-cover" loading="lazy" />
+            <img
+              src={post.image}
+              alt={post.title}
+              class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+              loading="lazy"
+            />
           </div>
           <div class="p-6">
-            <div class="flex items-center gap-2 text-xs text-ink-muted mb-3">
-              <span class="bg-brand-bg text-brand-dark px-2 py-0.5 rounded-full font-semibold">{post.category}</span>
-              <span>·</span>
-              <span>{post.date}</span>
+            <div class="flex items-center gap-2 text-xs font-semibold mb-3">
+              <span class="bg-brand-bg text-brand-dark px-2 py-0.5 rounded-full">{post.category}</span>
+              <span class="text-ink-muted">·</span>
+              <span class="text-ink-muted">{post.date}</span>
             </div>
-            <h2 class="text-xl font-bold leading-tight">{post.title}</h2>
+            <h3 class="text-xl font-bold leading-tight group-hover:text-brand transition-colors">{post.title}</h3>
             <p class="mt-3 text-sm text-ink-muted leading-relaxed">{post.excerpt}</p>
           </div>
-        </article>
+        </a>
       ))}
     </div>
   </section>

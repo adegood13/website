@@ -1,0 +1,107 @@
+---
+/**
+ * Blog post detail page — one route per post.
+ *
+ * Data comes from `src/content/blog-posts.json`. Each post has an ordered
+ * list of `body_blocks` that we render as HTML, respecting the original
+ * tag (p / h1 / h2 / h3 / h4 / h5 / h6 / li).
+ */
+import Layout from "../../layouts/Layout.astro";
+import CTABanner from "../../components/CTABanner.astro";
+import posts from "../../content/blog-posts.json";
+
+export function getStaticPaths() {
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props:  { post },
+  }));
+}
+
+interface Block { tag: string; text: string; }
+interface Post  { slug: string; title: string; category: string; date: string; image: string; excerpt: string; body_blocks: Block[]; }
+const { post } = Astro.props as { post: Post };
+
+/* The first body block on every post is the full-weekday date
+   ("Thursday, April 16, 2026") — surfaced above the title in Framer's
+   layout — so we pull it out and drop it from the flow. */
+const weekdayDate = post.body_blocks[0]?.tag === "p" && /,\s*20\d\d$/.test(post.body_blocks[0].text)
+  ? post.body_blocks[0].text
+  : null;
+const blocks = weekdayDate ? post.body_blocks.slice(1) : post.body_blocks;
+
+/* Related posts = all others, capped at 3. */
+const related = posts.filter(p => p.slug !== post.slug).slice(0, 3);
+---
+
+<Layout
+  title={`${post.title} — AskBobAI`}
+  description={post.excerpt}
+  ogImage={post.image}
+>
+  <!-- Hero header -->
+  <header class="bg-white pt-28 lg:pt-36 pb-8">
+    <div class="max-w-[820px] mx-auto px-6 lg:px-10 text-center">
+      <div class="flex items-center justify-center gap-2 text-xs font-semibold mb-5">
+        <span class="bg-brand-bg text-brand-dark px-3 py-1 rounded-full">{post.category}</span>
+        <span class="text-ink-muted">·</span>
+        <span class="text-ink-muted">{post.date}</span>
+      </div>
+      <h1 class="text-4xl lg:text-6xl font-bold tracking-tight leading-[1.08]">{post.title}</h1>
+      {weekdayDate && (
+        <p class="mt-6 text-sm text-ink-muted">{weekdayDate}</p>
+      )}
+    </div>
+  </header>
+
+  <!-- Cover image -->
+  <div class="max-w-[1100px] mx-auto px-6 lg:px-10 mb-12 lg:mb-16">
+    <div class="aspect-[16/9] rounded-3xl overflow-hidden bg-blue-bg">
+      <img src={post.image} alt={post.title} class="w-full h-full object-cover" />
+    </div>
+  </div>
+
+  <!-- Article body -->
+  <article class="max-w-[760px] mx-auto px-6 lg:px-10 pb-20 lg:pb-28 blog-body">
+    {blocks.map(block => {
+      if (block.tag === "h1") return <h2 class="text-3xl lg:text-4xl font-bold tracking-tight mt-12 mb-4">{block.text}</h2>;
+      if (block.tag === "h2") return <h2 class="text-2xl lg:text-3xl font-bold tracking-tight mt-12 mb-4">{block.text}</h2>;
+      if (block.tag === "h3") return <h3 class="text-xl lg:text-2xl font-bold tracking-tight mt-10 mb-3">{block.text}</h3>;
+      if (block.tag === "h4") return <h4 class="text-lg font-bold mt-8 mb-2">{block.text}</h4>;
+      if (block.tag === "h5") return <h5 class="text-base font-semibold mt-6 mb-2">{block.text}</h5>;
+      if (block.tag === "h6") return <h6 class="text-sm uppercase tracking-wider text-ink-muted mt-6 mb-2">{block.text}</h6>;
+      if (block.tag === "li") return <li class="text-ink-muted leading-relaxed">{block.text}</li>;
+      return <p class="text-ink-muted text-lg leading-relaxed mb-5">{block.text}</p>;
+    })}
+  </article>
+
+  <!-- Related reading -->
+  {related.length > 0 && (
+    <section class="bg-blue-bg py-20 lg:py-24">
+      <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+        <div class="flex items-end justify-between mb-10">
+          <h2 class="text-3xl lg:text-4xl font-bold tracking-tight">Keep reading</h2>
+          <a href="/resources-blog" class="text-sm font-semibold text-brand hover:underline">View all posts →</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {related.map(p => (
+            <a href={`/resources-blog/${p.slug}`} class="group block rounded-2xl overflow-hidden bg-white border border-black/5 hover:shadow-card transition-shadow">
+              <div class="aspect-[16/10] overflow-hidden bg-blue-bg">
+                <img src={p.image} alt={p.title} class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
+              </div>
+              <div class="p-6">
+                <div class="flex items-center gap-2 text-xs font-semibold mb-3">
+                  <span class="bg-brand-bg text-brand-dark px-2 py-0.5 rounded-full">{p.category}</span>
+                  <span class="text-ink-muted">·</span>
+                  <span class="text-ink-muted">{p.date}</span>
+                </div>
+                <h3 class="text-lg font-bold leading-tight group-hover:text-brand transition-colors">{p.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTABanner heading="Get Started Today!" />
+</Layout>
