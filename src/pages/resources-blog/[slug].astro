@@ -41,10 +41,9 @@ const related = posts.filter(p => p.slug !== post.slug).slice(0, 3);
   <!-- Hero header -->
   <header class="bg-white pt-28 lg:pt-36 pb-8">
     <div class="max-w-[820px] mx-auto px-6 lg:px-10 text-center">
-      <div class="flex items-center justify-center gap-2 text-xs font-semibold mb-5">
-        <span class="bg-brand-bg text-brand-dark px-3 py-1 rounded-full">{post.category}</span>
-        <span class="text-ink-muted">·</span>
-        <span class="text-ink-muted">{post.date}</span>
+      <div class="flex items-center justify-center gap-3 mb-5">
+        <span class="category-chip" data-category={post.category}>{post.category}</span>
+        <span class="text-ink-muted text-sm">· {post.date}</span>
       </div>
       <h1 class="text-4xl lg:text-6xl font-bold tracking-tight leading-[1.08]">{post.title}</h1>
       {weekdayDate && (
@@ -89,10 +88,9 @@ const related = posts.filter(p => p.slug !== post.slug).slice(0, 3);
                 <img src={p.image} alt={p.title} class="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500" loading="lazy" />
               </div>
               <div class="p-6">
-                <div class="flex items-center gap-2 text-xs font-semibold mb-3">
-                  <span class="bg-brand-bg text-brand-dark px-2 py-0.5 rounded-full">{p.category}</span>
-                  <span class="text-ink-muted">·</span>
-                  <span class="text-ink-muted">{p.date}</span>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="category-chip" data-category={p.category}>{p.category}</span>
+                  <span class="text-ink-muted text-xs">· {p.date}</span>
                 </div>
                 <h3 class="text-lg font-bold leading-tight group-hover:text-brand transition-colors">{p.title}</h3>
               </div>

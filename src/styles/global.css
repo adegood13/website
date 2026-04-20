@@ -101,6 +101,34 @@ body {
 }
 
 /* ---------------------------------------------------------------
+   Blog category chips
+   Colors match askbobai.com exactly — each category has a signature
+   tint so chips read as a coherent design system across listing,
+   detail, and related-post rails.
+   --------------------------------------------------------------- */
+.category-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  background: rgba(0, 0, 0, 0.06);
+  color: #1a1a1a;
+  white-space: nowrap;
+}
+.category-chip[data-category="AI Assistants"] { background: rgba(255, 107, 107, 0.15); color: #c13838; }
+.category-chip[data-category="AI agents"]     { background: rgba(155, 93, 229, 0.15); color: #6a2ec8; }
+.category-chip[data-category="Data"]           { background: rgba(0, 105, 92, 0.15);  color: #006959; }
+.category-chip[data-category="Government"]     { background: rgba(18, 129, 222, 0.15); color: #1281de; }
+.category-chip[data-category="Banking"]        { background: rgba(18, 129, 222, 0.15); color: #1281de; }
+.category-chip[data-category="Mortgage"]       { background: rgba(245, 158, 11, 0.15); color: #b36a00; }
+.category-chip[data-category="Insurance"]      { background: rgba(236, 72, 153, 0.15); color: #b83280; }
+.category-chip[data-category="Retail"]         { background: rgba(234, 88, 12, 0.15);  color: #c2410c; }
+.category-chip[data-category="SaaS"]           { background: rgba(14, 165, 233, 0.15); color: #0369a1; }
+
+/* ---------------------------------------------------------------
    Hero typewriter caret
    Blinks next to the currently-typing word. Height matches the
    surrounding text (em-based), sits 2px offset from the text, and

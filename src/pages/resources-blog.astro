@@ -2,15 +2,28 @@
 /**
  * Blog listing — mirrors askbobai.com/resources-blog.
  *
- * One featured card at the top (large, tag/date pill, big title) followed
- * by a 3-column grid of the remaining posts. Data source: the single
- * `blog-posts.json` content file (also used by the [slug] detail route).
+ * Structure (same order as the live site):
+ *   1. "Our Blog" header
+ *   2. Featured post (the most recent) in a large split card
+ *   3. Category filter tab row (All / Government / SaaS / Retail /
+ *      Insurance / Mortgage / Banking / Data / AI agents)
+ *   4. Grid of remaining posts, client-side filtered by the active tab
+ *   5. CTA banner
+ *
+ * Data source: src/content/blog-posts.json (shared with the [slug] detail).
  */
 import Layout from "../layouts/Layout.astro";
 import CTABanner from "../components/CTABanner.astro";
 import posts from "../content/blog-posts.json";
 
 const [featured, ...rest] = posts;
+
+/* Framer tab order (from raw HTML scan). "AI Assistants" isn't a tab on the
+   live site — its posts appear under "All". */
+const tabs = [
+  "All", "Government", "SaaS", "Retail", "Insurance",
+  "Mortgage", "Banking", "Data", "AI agents",
+];
 ---
 
 <Layout
@@ -18,7 +31,7 @@ const [featured, ...rest] = posts;
   description="Ideas, playbooks, and trends on AI, knowledge management, and making teams move faster."
 >
   <!-- Header -->
-  <section class="bg-white pt-28 lg:pt-36 pb-8">
+  <section class="bg-white pt-28 lg:pt-36 pb-10">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center">
       <h1 class="text-5xl lg:text-7xl font-bold tracking-tight">Our Blog</h1>
       <p class="mt-4 text-ink-muted text-lg max-w-2xl mx-auto">
@@ -43,10 +56,9 @@ const [featured, ...rest] = posts;
           />
         </div>
         <div>
-          <div class="flex items-center gap-2 text-xs font-semibold mb-4">
-            <span class="bg-brand-bg text-brand-dark px-3 py-1 rounded-full">{featured.category}</span>
-            <span class="text-ink-muted">·</span>
-            <span class="text-ink-muted">{featured.date}</span>
+          <div class="flex items-center gap-3 mb-5">
+            <span class="category-chip" data-category={featured.category}>{featured.category}</span>
+            <span class="text-ink-muted text-sm">· {featured.date}</span>
           </div>
           <h2 class="text-3xl lg:text-5xl font-bold tracking-tight leading-[1.1] group-hover:text-brand transition-colors">
             {featured.title}
@@ -61,13 +73,44 @@ const [featured, ...rest] = posts;
     </div>
   </section>
 
+  <!-- Category filter tabs -->
+  <section class="bg-white pb-8">
+    <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
+      <div
+        class="flex flex-wrap gap-2"
+        role="tablist"
+        aria-label="Filter posts by category"
+        id="blog-filter"
+      >
+        {tabs.map((tab, i) => (
+          <button
+            type="button"
+            role="tab"
+            data-tab={tab}
+            aria-selected={i === 0 ? "true" : "false"}
+            class:list={[
+              "px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer",
+              i === 0 ? "bg-ink text-white" : "bg-black/5 text-ink hover:bg-black/10",
+            ]}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Grid of remaining posts -->
   <section class="bg-white pb-20 lg:pb-28">
-    <div class="max-w-[1200px] mx-auto px-6 lg:px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div
+      class="max-w-[1200px] mx-auto px-6 lg:px-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      id="blog-grid"
+    >
       {rest.map(post => (
         <a
           href={`/resources-blog/${post.slug}`}
-          class="group block rounded-2xl overflow-hidden border border-black/5 hover:shadow-card transition-shadow bg-white"
+          data-category={post.category}
+          class="blog-card group block rounded-2xl overflow-hidden border border-black/5 hover:shadow-card transition-shadow bg-white"
         >
           <div class="aspect-[16/10] overflow-hidden bg-blue-bg">
             <img
@@ -78,18 +121,54 @@ const [featured, ...rest] = posts;
             />
           </div>
           <div class="p-6">
-            <div class="flex items-center gap-2 text-xs font-semibold mb-3">
-              <span class="bg-brand-bg text-brand-dark px-2 py-0.5 rounded-full">{post.category}</span>
-              <span class="text-ink-muted">·</span>
-              <span class="text-ink-muted">{post.date}</span>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="category-chip" data-category={post.category}>{post.category}</span>
+              <span class="text-ink-muted text-xs">· {post.date}</span>
             </div>
             <h3 class="text-xl font-bold leading-tight group-hover:text-brand transition-colors">{post.title}</h3>
-            <p class="mt-3 text-sm text-ink-muted leading-relaxed">{post.excerpt}</p>
+            <p class="mt-3 text-sm text-ink-muted leading-relaxed line-clamp-3">{post.excerpt}</p>
           </div>
         </a>
       ))}
+      <p
+        id="blog-empty"
+        class="hidden col-span-full text-center text-ink-muted py-16 text-lg"
+      >
+        No posts in this category yet — check back soon.
+      </p>
     </div>
   </section>
 
   <CTABanner heading="Get Started Today!" />
 </Layout>
+
+<script is:inline>
+  /* Tab filter — swaps the active-tab pill and hides non-matching cards. */
+  (function blogFilter() {
+    const tabs = document.querySelectorAll("#blog-filter [data-tab]");
+    const cards = document.querySelectorAll(".blog-card");
+    const empty = document.getElementById("blog-empty");
+    if (!tabs.length || !cards.length) return;
+
+    tabs.forEach(tab => {
+      tab.addEventListener("click", () => {
+        const target = tab.getAttribute("data-tab");
+        tabs.forEach(t => {
+          const active = t.getAttribute("data-tab") === target;
+          t.setAttribute("aria-selected", String(active));
+          t.classList.toggle("bg-ink", active);
+          t.classList.toggle("text-white", active);
+          t.classList.toggle("bg-black/5", !active);
+          t.classList.toggle("text-ink", !active);
+        });
+        let visible = 0;
+        cards.forEach(c => {
+          const show = target === "All" || c.getAttribute("data-category") === target;
+          c.classList.toggle("hidden", !show);
+          if (show) visible += 1;
+        });
+        empty.classList.toggle("hidden", visible > 0);
+      });
+    });
+  })();
+</script>
