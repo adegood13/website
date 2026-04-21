@@ -59,42 +59,47 @@ const values = [
         Meet the Diverse Minds<br/>Fueling AskBob's Innovation!
       </h1>
 
-      <!-- Floating chat bubbles: 3 user Q's + 1 Ask Bob response.
-           Desktop: scattered at different columns. Mobile: stacked. -->
+      <!-- Floating chat bubbles matching askbobai.com/about:
+           row 1: user Q on left + user Q on right (two bubbles side-by-side)
+           row 2: AskBob response bubble centered (SVG from Framer with
+                  cartoon avatar + navy bubble + "How can I help you with
+                  your work today?" text baked in)
+           row 3: user Q on left
+           Desktop: three rows; Mobile: all stacked. -->
       <div class="mt-12 max-w-5xl mx-auto text-left">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-y-3">
-          <!-- User bubble 1 -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-y-6">
+          <!-- Row 1, left: user bubble 1 -->
           <div class="md:col-span-5 md:col-start-1">
-            <div class="bg-white/95 rounded-2xl p-4 shadow-lg flex items-start gap-3">
-              <img src={heroChat[0].avatar} alt="" class="w-8 h-8 rounded-full shrink-0 object-cover" />
+            <div class="bg-white rounded-2xl p-4 shadow-lg flex items-start gap-3">
+              <img src={heroChat[0].avatar} alt="" class="w-10 h-10 rounded-full shrink-0 object-cover" />
               <p class="text-sm leading-relaxed text-ink">{heroChat[0].text}</p>
             </div>
           </div>
 
-          <!-- Ask Bob response -->
-          <div class="md:col-span-5 md:col-start-8">
-            <div class="bg-[#1281DE] rounded-2xl p-4 shadow-lg flex items-center gap-3 text-white">
-              <img
-                src="/images/framer/nH9dzkavs8IwOFM2h6rHi9yEcmA.svg"
-                alt=""
-                class="w-8 h-8 shrink-0"
-              />
-              <p class="text-sm font-medium">How can I help?</p>
-            </div>
-          </div>
-
-          <!-- User bubble 2 (center) -->
-          <div class="md:col-span-5 md:col-start-4">
-            <div class="bg-white/95 rounded-2xl p-4 shadow-lg flex items-start gap-3">
-              <img src={heroChat[1].avatar} alt="" class="w-8 h-8 rounded-full shrink-0 object-cover" />
+          <!-- Row 1, right: user bubble 2 -->
+          <div class="md:col-span-6 md:col-start-7">
+            <div class="bg-white rounded-2xl p-4 shadow-lg flex items-start gap-3">
+              <img src={heroChat[1].avatar} alt="" class="w-10 h-10 rounded-full shrink-0 object-cover" />
               <p class="text-sm leading-relaxed text-ink">{heroChat[1].text}</p>
             </div>
           </div>
 
-          <!-- User bubble 3 (right) -->
-          <div class="md:col-span-5 md:col-start-7">
-            <div class="bg-white/95 rounded-2xl p-4 shadow-lg flex items-start gap-3">
-              <img src={heroChat[2].avatar} alt="" class="w-8 h-8 rounded-full shrink-0 object-cover" />
+          <!-- Row 2, centered: AskBob response — single SVG asset from
+               Framer. Includes the cartoon "Bob" avatar and the "How can
+               I help you with your work today?" text baked in. -->
+          <div class="md:col-span-8 md:col-start-3 flex justify-center">
+            <img
+              src="/images/framer/vJRLpyVbfwNsaQzQOHQ9ayXHWq0.svg"
+              alt="How can I help you with your work today?"
+              class="w-full max-w-[470px] h-auto drop-shadow-xl"
+              loading="eager"
+            />
+          </div>
+
+          <!-- Row 3, left: user bubble 3 -->
+          <div class="md:col-span-6 md:col-start-2">
+            <div class="bg-white rounded-2xl p-4 shadow-lg flex items-start gap-3">
+              <img src={heroChat[2].avatar} alt="" class="w-10 h-10 rounded-full shrink-0 object-cover" />
               <p class="text-sm leading-relaxed text-ink">{heroChat[2].text}</p>
             </div>
           </div>
