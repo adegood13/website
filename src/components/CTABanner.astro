@@ -13,6 +13,10 @@ interface Props {
   subheading?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  /** Override the default wave background with a custom decoration image. */
+  decoration?: string;
+  /** Decoration class overrides — used when `decoration` is a full-bleed shape. */
+  decorationClass?: string;
 }
 
 const {
@@ -20,15 +24,17 @@ const {
   subheading,
   ctaLabel = "Get a Demo",
   ctaHref = "/get-a-demo",
+  decoration = "/images/framer/tlIGNlBt0V7x6OXOLl1sY9sjpA.png",
+  decorationClass = "absolute inset-x-0 bottom-0 w-full pointer-events-none select-none",
 } = Astro.props;
 ---
 
 <section class="relative overflow-hidden rounded-3xl mx-6 lg:mx-10 mb-20 lg:mb-28 bg-[linear-gradient(to_bottom,#1281de,#4aa8f5)] py-24 lg:py-32">
   <img
-    src="/images/framer/tlIGNlBt0V7x6OXOLl1sY9sjpA.png"
+    src={decoration}
     alt=""
     aria-hidden="true"
-    class="absolute inset-x-0 bottom-0 w-full pointer-events-none select-none"
+    class={decorationClass}
   />
   <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center relative z-10">
     <h2 class="text-4xl lg:text-6xl font-bold text-white tracking-tight">

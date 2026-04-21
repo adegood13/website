@@ -50,10 +50,10 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Send us a message -->
+  <!-- Contact copy — live's contact page renders the form block with no section
+       header; we keep the email line but drop the extra "Send us a message" H2. -->
   <section class="bg-white py-20 lg:py-24">
     <div class="max-w-[820px] mx-auto px-6 lg:px-10 text-center">
-      <h2 class="text-sm font-semibold uppercase tracking-wider text-ink-muted mb-4">Send us a message</h2>
       <p class="text-xl lg:text-2xl text-ink leading-relaxed">
         Prefer to write? Email us anytime — we read every message and respond within one business day.
       </p>
@@ -84,8 +84,12 @@ const faqs = [
     </div>
   </section>
 
+  <!-- Live's /contact CTA swaps the standard wave for a full-bleed "Shape Holo"
+       decoration (m2KyrcmPRRDSOfvt4RKRjyLrk.webp). Pass it as a decoration override. -->
   <CTABanner
     heading="Get started today!"
     subheading="Experience the power of industry-specific language models firsthand! Kickstart your journey towards enhanced efficiency and precision by scheduling a demo tailored to your sector."
+    decoration="/images/framer/m2KyrcmPRRDSOfvt4RKRjyLrk.webp"
+    decorationClass="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-screen pointer-events-none select-none"
   />
 </Layout>

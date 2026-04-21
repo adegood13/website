@@ -16,10 +16,23 @@ import CTABanner from "../components/CTABanner.astro";
   <FeatureSplit
     heading="A no-brainer: instant answers that scale your business"
     body="AskBob turns scattered knowledge into instant answers. Get users productive in days, not weeks. AskBob gives customers and internal teams instant answers from your real docs, workflows, and policies. Onboarding gets faster."
-    image="/images/framer/I36sHPekcP4gQ7fdO6VGxCy2Yg.png"
-    imageAlt=""
     background="white"
-  />
+  >
+    <div slot="right" class="flex flex-col items-center gap-6 w-full">
+      <img
+        src="/images/framer/EajKAdMTugjBB2TTZllzwuhACcg.png"
+        alt=""
+        class="max-w-[420px] w-full h-auto"
+        loading="lazy"
+      />
+      <img
+        src="/images/framer/I36sHPekcP4gQ7fdO6VGxCy2Yg.png"
+        alt=""
+        class="w-full h-auto rounded-2xl shadow-card"
+        loading="lazy"
+      />
+    </div>
+  </FeatureSplit>
 
   <FeatureSplit
     heading="Stop repeating answers. Start scaling knowledge."
