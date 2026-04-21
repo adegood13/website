@@ -200,15 +200,18 @@ const industries = [
 
   <!-- =============================================================
        INDUSTRY TABS
+       Blue-gradient section matching askbobai.com — darker blue at top
+       fading to lighter blue at the bottom, running into the bottom CTA.
        ============================================================= -->
-  <section class="bg-white pb-20 lg:pb-28">
+  <section class="bg-hero-gradient pt-20 pb-24 lg:pt-24 lg:pb-32">
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10">
-      <div class="text-center mb-8">
-        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight">Industry</h2>
+      <div class="text-center mb-10">
+        <h2 class="text-4xl lg:text-5xl font-bold tracking-tight text-white">Industry</h2>
       </div>
 
-      <!-- Tab buttons -->
-      <div class="flex flex-wrap justify-center gap-2 mb-8" role="tablist" aria-label="Industries">
+      <!-- Tab buttons — active tab is navy pill, inactive tabs are
+           white-outlined pills on the blue gradient bg. -->
+      <div class="flex flex-wrap justify-center gap-2 mb-10" role="tablist" aria-label="Industries">
         {industries.map((industry, i) => (
           <button
             type="button"
@@ -218,8 +221,10 @@ const industries = [
             aria-selected={i === 0 ? "true" : "false"}
             data-industry-tab={industry.id}
             class:list={[
-              "px-5 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer",
-              i === 0 ? "bg-navy text-white" : "bg-black/5 text-ink hover:bg-black/10",
+              "px-6 py-2.5 rounded-full text-sm font-medium transition-colors cursor-pointer",
+              i === 0
+                ? "bg-navy text-white"
+                : "bg-white/10 text-white border border-white/60 hover:bg-white/20",
             ]}
           >
             {industry.label}
@@ -227,8 +232,8 @@ const industries = [
         ))}
       </div>
 
-      <!-- Tab panels -->
-      <div class="relative rounded-3xl bg-blue-bg overflow-hidden">
+      <!-- Tab panels — white rounded card floating on the blue gradient. -->
+      <div class="relative rounded-3xl bg-white/95 overflow-hidden">
         {industries.map((industry, i) => (
           <div
             id={`panel-${industry.id}`}
@@ -244,7 +249,7 @@ const industries = [
                 <GetDemoButton label="Get a Demo" />
               </div>
             </div>
-            <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-white">
+            <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-blue-bg">
               <img src={industry.image} alt="" class="w-full h-full object-cover" />
             </div>
           </div>
@@ -265,11 +270,11 @@ const industries = [
       class="absolute inset-x-0 bottom-0 w-full pointer-events-none select-none"
     />
     <div class="max-w-[1200px] mx-auto px-6 lg:px-10 text-center relative z-10">
-      <p class="text-sm font-semibold uppercase tracking-wider text-white/80 mb-4">Explore AI for Your Role</p>
-      <h2 class="text-4xl lg:text-6xl font-bold text-white tracking-tight">
+      <h2 class="text-5xl lg:text-[72px] font-bold text-white tracking-tight leading-[1.05]">
         AI For Every Function
       </h2>
-      <div class="mt-8">
+      <p class="mt-5 text-white/90 text-lg lg:text-xl">Explore AI for Your Role</p>
+      <div class="mt-10">
         <GetDemoButton size="lg" label="Get a Demo" />
       </div>
     </div>
@@ -364,6 +369,8 @@ const industries = [
 
   /* =============================================================
      Industry tab switcher — progressive enhancement.
+     Active: navy pill, white text. Inactive: white-outlined pill on
+     the blue gradient with white text.
      ============================================================= */
   const tabs   = document.querySelectorAll("[data-industry-tab]");
   const panels = document.querySelectorAll("[data-industry-panel]");
@@ -374,9 +381,11 @@ const industries = [
         const active = t.getAttribute("data-industry-tab") === target;
         t.setAttribute("aria-selected", String(active));
         t.classList.toggle("bg-navy", active);
-        t.classList.toggle("text-white", active);
-        t.classList.toggle("bg-black/5", !active);
-        t.classList.toggle("text-ink", !active);
+        t.classList.toggle("bg-white/10", !active);
+        t.classList.toggle("border", !active);
+        t.classList.toggle("border-white/60", !active);
+        t.classList.toggle("hover:bg-white/20", !active);
+        // Text stays white in both states — only the background shifts
       });
       panels.forEach((panel) => {
         const match = panel.getAttribute("data-industry-panel") === target;
